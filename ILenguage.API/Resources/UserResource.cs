@@ -9,5 +9,7 @@ namespace ILenguage.API.Resources
         public string Email { get; set; }
         public string Password { get; set; }
         public string Description { get; set; }
+        //TODO:RoleResoure add
+        //public RoleResource Role {get; set;}
     }
 }
