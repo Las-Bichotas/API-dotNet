@@ -8,7 +8,8 @@ namespace ILenguage.API.Domain.Models
         public int Id { get; set; }
         public float Price { get; set; }
         //Data Anotations
-        [Range(1,12,ErrorMessage = "The duration must be between 1-12")]public int MonthDuration { get; set; }
+        [Range(1,12,ErrorMessage = "The duration must be between 1-12")]
+        public int MonthDuration { get; set; }
         public string Name { get; set; }
         
         //TODO: 

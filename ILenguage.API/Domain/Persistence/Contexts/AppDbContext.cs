@@ -23,6 +23,8 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Suscription>().HasKey(s => s.Id);
             modelBuilder.Entity<Suscription>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
             modelBuilder.Entity<Suscription>().Property(s => s.Name).IsRequired().HasMaxLength(20);
+            modelBuilder.Entity<Suscription>().Property(s => s.MonthDuration).IsRequired();
+            modelBuilder.Entity<Suscription>().Property(s => s.Price).IsRequired();
             
             //!PaymentMethod
             modelBuilder.Entity<PaymentMethod>().ToTable("PaymentMethod");
