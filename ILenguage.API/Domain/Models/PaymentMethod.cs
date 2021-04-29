@@ -13,6 +13,7 @@ namespace ILenguage.API.Domain.Models
         public uint month { get; set; }
         public uint CvcCode { get; set; }
         public EPaymentNetwork PaymentNetwork { get; set; }
+        public int UserId { get; set; }
         //TODO: 
         //TODO: public User User { get; set; }
     }
