@@ -5,7 +5,7 @@ using ILenguage.API.Domain.Models;
 
 namespace ILenguage.API.Domain.Persistence.Repositories
 {
-    public interface IUserRepository
+    public interface IUserSuscriptionRepository
     {
         Task<IEnumerable<UserSuscription>> ListAsync();
         Task<IEnumerable<UserSuscription>> ListByUserId(int userId);
