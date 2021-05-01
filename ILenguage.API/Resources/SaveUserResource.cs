@@ -15,6 +15,7 @@ namespace ILenguage.API.Resources
         [Required]
         public string Password { get; set; }
         [Required]
+        [MaxLength(245)]
         public string Description { get; set; }
     }
 }
