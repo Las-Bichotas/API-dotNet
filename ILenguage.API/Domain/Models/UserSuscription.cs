@@ -1,4 +1,6 @@
-﻿namespace ILenguage.API.Domain.Models
+﻿using System;
+
+namespace ILenguage.API.Domain.Models
 {
     public class UserSuscription
     {
@@ -10,6 +12,11 @@
        
        public ulong CardNumber { get; set; }
        public PaymentMethod PaymentMethod { get; set; }
+       
+       //
+       public int UserSuscriptionId { get; set; }
+       public DateTime InitialDate { get; set; }
+       public DateTime FinalDate { get; set; }
         
     }
 }

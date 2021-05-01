@@ -13,6 +13,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         
         public DbSet<Suscription>Suscriptions { get; set; }
         public DbSet<PaymentMethod>PaymentMethods { get; set; }
+        public DbSet<UserSuscription> UserSuscriptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,6 +37,27 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.month).IsRequired();
             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.PaymentNetwork).IsRequired();
             
+            //!UserSuscription
+            modelBuilder.Entity<UserSuscription>().ToTable("UserSuscription");
+            modelBuilder.Entity<UserSuscription>().HasKey(us => us.SuscriptionId);
+            modelBuilder.Entity<UserSuscription>().Property(us => us.UserId).IsRequired();
+            modelBuilder.Entity<UserSuscription>().Property(us => us.PaymentMethod).IsRequired();
+            modelBuilder.Entity<UserSuscription>().Property(us => us.InitialDate).IsRequired();
+            //TODO: user
+            //Relatiosns
+           /* modelBuilder.Entity<UserSuscription>()
+                .HasOne(us => us.Suscription)
+                .WithMany(us => us.UserSuscription)
+                .HasForeignKey(us => us.SuscriptionId);
+          modelBuilder.Entity<UserSuscription>()
+               .HasOne(us => us.User)
+               .WithMany(u => u.UserSuscription)
+               .HasForeignKey(us => us.UserId);*/
+           
+           
+
+
+
 
 
 
