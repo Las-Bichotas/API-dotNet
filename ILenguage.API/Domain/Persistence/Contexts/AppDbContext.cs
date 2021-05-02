@@ -13,6 +13,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         
         public DbSet<Suscription>Suscriptions { get; set; }
         public DbSet<PaymentMethod>PaymentMethods { get; set; }
+        public DbSet<Schedule>Schedules { get; set; }
         public DbSet<UserSuscription> UserSuscriptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,7 +54,26 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                .HasOne(us => us.User)
                .WithMany(u => u.UserSuscription)
                .HasForeignKey(us => us.UserId);*/
-           
+
+            // Entidad Schedule
+
+            modelBuilder.Entity<Schedule>().ToTable("Schedules");
+            modelBuilder.Entity<Schedule>().HasKey(p => p.Id);
+            modelBuilder.Entity<Schedule>().Property(p => p.Id);
+            modelBuilder.Entity<Schedule>().Property(p => p.staredtAt)
+                .IsRequired();
+            modelBuilder.Entity<Schedule>().Property(p => p.finishedAt)
+                  .IsRequired();
+            modelBuilder.Entity<Schedule>().Property(p => p.state)
+                .IsRequired();
+
+
+            modelBuilder.Entity<Schedule>()
+             .HasOne(pt => pt.User)
+             .WithMany(p => p.Schedules)
+             .HasForeignKey(pt => pt.UserId);
+
+         
            
 
 
