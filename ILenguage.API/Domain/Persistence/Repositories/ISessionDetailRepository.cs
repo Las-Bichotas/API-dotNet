@@ -15,7 +15,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task AddAsync(SessionDetails sessionDetail);
 
         Task<SessionDetails> FindById(int userId);
-        Task<SessionDetails> FindByyId(int sessionId);
+        Task<SessionDetails> FindBySessionId(int sessionId);
 
         void Update(SessionDetails sessionDetail);
 
