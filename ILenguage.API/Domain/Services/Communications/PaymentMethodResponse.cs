@@ -1,4 +1,5 @@
 ﻿using ILenguage.API.Domain.Models;
+using ILenguage.API.Domain.Services.Communications;
 
 namespace ILenguage.API.Domain.Services
 {
