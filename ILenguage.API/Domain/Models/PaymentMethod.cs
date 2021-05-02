@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualBasic;
 
@@ -16,5 +17,6 @@ namespace ILenguage.API.Domain.Models
         public int UserId { get; set; }
         //TODO: 
         //TODO: public User User { get; set; }
+        public List<UserSuscription> UserSuscriptions { get; set; }
     }
 }

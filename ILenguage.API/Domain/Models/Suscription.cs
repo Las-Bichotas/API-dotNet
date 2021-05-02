@@ -13,6 +13,6 @@ namespace ILenguage.API.Domain.Models
         public string Name { get; set; }
         
         //TODO: 
-        //! public List<UserSuscription> UserSuscriptions { get; set; }
+         public List<UserSuscription> UserSuscriptions { get; set; }
     }
 }
