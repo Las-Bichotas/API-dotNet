@@ -17,28 +17,32 @@ namespace ILenguage.API.Persistence.Repositories
         public async Task AddAsync(PaymentMethod paymentMethod)
         {
             //? : Idk how to implement this 
-            _context.AddAsync(paymentMethod);
-            _context.SaveChanges();
+            await _context.PaymentMethods.AddAsync(paymentMethod);
         }
 
         public async Task RemoveAsync(PaymentMethod paymentMethod)
         {
-            _context.Remove(paymentMethod);
-            _context.SaveChanges();
+            _context.PaymentMethods.Remove(paymentMethod);
+            //TODO: do i have to do this?  _context.SaveChanges()
         }
 
         public async Task UpdateAsync(PaymentMethod paymentMethod)
         {
             _context.Update(paymentMethod);
-            _context.SaveChanges();
+            //_context.SaveChanges();
         }
 
         public async Task<IEnumerable<PaymentMethod>> ListByUserId(int userId)
         {
             //TODO: This should be ok with UserModel
-            //return await _context.PaymentMethods.Where(pm => pm.UserId == userId).Include(pm => pm.User).ToListAsync();
-            throw new System.NotImplementedException();
+            return await _context.PaymentMethods.Where(pm => pm.UserId == userId).Include(pm => pm.User).ToListAsync();
             
+            
+        }
+
+        public async Task<PaymentMethod> FindById(int id)
+        {
+            return await _context.PaymentMethods.FindAsync(id);
         }
     }
 }

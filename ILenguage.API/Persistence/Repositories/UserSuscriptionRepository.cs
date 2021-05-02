@@ -20,7 +20,7 @@ namespace ILenguage.API.Persistence.Repositories
             return await _context.UserSuscriptions.Include(us => us.Suscription)
                 .Include(us => us.User)
                 .ToListAsync();
-            throw new System.NotImplementedException();
+            
         }
 
         public async Task<IEnumerable<UserSuscription>> ListByUserId(int userId)
@@ -29,7 +29,7 @@ namespace ILenguage.API.Persistence.Repositories
                 .Include(us => us.Suscription)
                 .Include(us => us.User)
                 .ToListAsync();
-            throw new System.NotImplementedException();
+        
 
         }
 
@@ -39,7 +39,7 @@ namespace ILenguage.API.Persistence.Repositories
                 .Include(us => us.Suscription)
                 .Include(us => us.User)
                 .ToListAsync();
-           throw new System.NotImplementedException();
+           
 
         }
 
@@ -49,7 +49,7 @@ namespace ILenguage.API.Persistence.Repositories
                 .Include(us => us.Suscription)
                 .Include(us => us.User)
                 .ToListAsync();
-            throw new System.NotImplementedException();
+         
         }
 
         public async Task AddAsync(UserSuscription userSuscription)
