@@ -6,8 +6,16 @@ namespace ILenguage.API.Testing.UserModelTesting
     public class UserRepositoryTesting
     {
         [TestMethod]
-        public void test()
+        public void FindUserById_ReturnTaskUser()
         {
+            //Arrange
+            int userId = 200;
+            UserRepository userRepository;
+            //Act
+            Task<User> result = userRepository.FindById(userId);
+            Task<User> expected;
+            // Assert
+            Assert.AreEqual(expected, result, "Is not valid userId");
 
         }
     }
