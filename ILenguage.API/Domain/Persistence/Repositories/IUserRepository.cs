@@ -10,8 +10,8 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task<IEnumerable<User>> ListByUserIdAsync(int userId);
         Task AddAsync(User user);
         Task<User> FindById(int userId);
-        Task Update(User user);
-        Task Remove(User user);
+        void Update(User user);
+        void Remove(User user);
 
     }
 }

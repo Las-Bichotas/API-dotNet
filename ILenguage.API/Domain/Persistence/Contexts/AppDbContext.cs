@@ -5,7 +5,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
 {
     public class AppDbContext : DbContext
     {
-        
+
 
         public AppDbContext(DbContextOptions options) : base(options)
         {
@@ -14,14 +14,16 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<Session> Sessions { get; set; }
         public DbSet<SessionDetails> SessionsDetails { get; set; }
 
-        public DbSet<Suscription>Suscriptions { get; set; }
-        public DbSet<PaymentMethod>PaymentMethods { get; set; }
+        public DbSet<Suscription> Suscriptions { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<UserSuscription> UserSuscriptions { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<RelatedUser> RelatedUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             //!Suscription
             modelBuilder.Entity<Suscription>().ToTable("Suscription");
             modelBuilder.Entity<Suscription>().HasKey(s => s.Id);
@@ -29,7 +31,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Suscription>().Property(s => s.Name).IsRequired().HasMaxLength(20);
             modelBuilder.Entity<Suscription>().Property(s => s.MonthDuration).IsRequired();
             modelBuilder.Entity<Suscription>().Property(s => s.Price).IsRequired();
-            
+
             //!PaymentMethod
             modelBuilder.Entity<PaymentMethod>().ToTable("PaymentMethod");
             modelBuilder.Entity<PaymentMethod>().HasKey(pm => pm.Id);
@@ -40,7 +42,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.Year).IsRequired();
             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.month).IsRequired();
             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.PaymentNetwork).IsRequired();
-            
+
             //!UserSuscription
             modelBuilder.Entity<UserSuscription>().ToTable("UserSuscription");
             modelBuilder.Entity<UserSuscription>().HasKey(us => us.SuscriptionId);
@@ -64,7 +66,34 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .WithMany(us => us.UserSuscriptions)
                 .HasForeignKey(us => us.PeymentMethodId);
 
+            // User
+            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<User>().HasKey(p => p.Id);
+            modelBuilder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<User>().Property(p => p.Name).IsRequired().HasMaxLength(30);
+            modelBuilder.Entity<User>().Property(p => p.LastName).IsRequired().HasMaxLength(30);
+            modelBuilder.Entity<User>().Property(p => p.FullName).IsRequired().HasMaxLength(30);
+            modelBuilder.Entity<User>().Property(p => p.Email).IsRequired();
+            modelBuilder.Entity<User>().Property(p => p.Password).IsRequired();
+            modelBuilder.Entity<User>().Property(p => p.Description).IsRequired().HasMaxLength(245);
+            // RelatedUser
+            modelBuilder.Entity<RelatedUser>().ToTable("RelatedUser");
+            modelBuilder.Entity<RelatedUser>().HasKey(p => new { p.UserIdOne, p.UserIdTwo });
 
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.PaymentMethods)
+                .WithOne(u => u.User)
+                .HasForeignKey(u => u.UserId);
+
+            modelBuilder.Entity<RelatedUser>()
+                .HasOne(ru => ru.UserOne)
+                .WithMany(ru => ru.RelatedUsers)
+                .HasForeignKey(ru => ru.UserIdOne);
+
+            modelBuilder.Entity<RelatedUser>()
+                .HasOne(ru => ru.UserTwo)
+                .WithMany(ru => ru.RelatedUsers)
+                .HasForeignKey(ru => ru.UserIdTwo);
 
 
 
