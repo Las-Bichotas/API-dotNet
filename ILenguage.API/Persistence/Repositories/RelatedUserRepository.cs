@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Contexts;
@@ -12,40 +13,53 @@ namespace ILenguage.API.Persistence.Repositories
         public RelatedUserRepository(AppDbContext context) : base(context)
         {
         }
-
-        public Task AddAsync(RelatedUser relatedUser)
+        public async Task<IEnumerable<RelatedUser>> ListAsyn()
         {
-            throw new System.NotImplementedException();
+            return await _context.RelatedUsers
+            .Include(u => u.UserOne)
+            .Include(u => u.UserTwo)
+            .ToListAsync();
+        }
+        public async Task AddAsync(RelatedUser relatedUser)
+        {
+            await _context.RelatedUsers.AddAsync(relatedUser);
         }
 
-        public Task AssignRelatedUser(int userOneId, int userTwoId)
+        public async Task AssignRelatedUser(int userOneId, int userTwoId)
         {
-            throw new System.NotImplementedException();
+            RelatedUser relatedUser = await FindByUserOneIdAndUserTwoId(userOneId, userTwoId);
+            if (relatedUser == null)
+            {
+                relatedUser = new RelatedUser { UserIdOne = userOneId, UserIdTwo = userTwoId };
+                await AddAsync(relatedUser);
+            }
         }
 
-        public Task<RelatedUser> FindByUserOneIdAndUserTwoId(int userOneId, int userTwoId)
+        public async Task<RelatedUser> FindByUserOneIdAndUserTwoId(int userOneId, int userTwoId)
         {
-            throw new System.NotImplementedException();
+            return await _context.RelatedUsers.FindAsync(userOneId, userTwoId);
         }
 
-        public Task<IEnumerable<RelatedUser>> ListAsyn()
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public Task<IEnumerable<RelatedUser>> ListByUserIdAsyn(int userId)
+        public async Task<IEnumerable<RelatedUser>> ListByUserIdAsyn(int userId)
         {
-            throw new System.NotImplementedException();
+            return await _context.RelatedUsers
+            .Where(u => u.UserIdTwo == userId)
+            .Include(u => u.UserOne)
+            .Include(u => u.UserTwo)
+            .ToListAsync();
         }
 
         public void Remove(RelatedUser relatedUser)
         {
-            throw new System.NotImplementedException();
+            _context.RelatedUsers.Remove(relatedUser);
         }
 
-        public Task UnaAssignRelatedUser(int userOneId, int userTwoId)
+        public async Task UnaAssignRelatedUser(int userOneId, int userTwoId)
         {
-            throw new System.NotImplementedException();
+            RelatedUser relatedUser = await FindByUserOneIdAndUserTwoId(userOneId, userTwoId);
+            if (relatedUser != null)
+                Remove(relatedUser);
         }
     }
 }

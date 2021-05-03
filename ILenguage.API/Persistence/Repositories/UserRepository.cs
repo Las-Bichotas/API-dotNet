@@ -27,13 +27,6 @@ namespace ILenguage.API.Persistence.Repositories
         {
             return await _context.Users.ToListAsync();
         }
-
-        //TODO: Implementar luego
-        public Task<IEnumerable<User>> ListByUserIdAsync(int userId)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void Remove(User user)
         {
             _context.Users.Remove(user);
