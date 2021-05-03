@@ -18,6 +18,6 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         void Update(Session session);
 
         void Remove(Session session);
-        Task<IEnumerable<Session>> ListAsync();
+        
     }
 }

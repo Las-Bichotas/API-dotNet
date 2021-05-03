@@ -23,7 +23,7 @@ namespace ILenguage.API.Services
 
         public async Task<IEnumerable<Session>> ListAsync()
         {
-            return await _sessionRepository.LisAsync();
+            return await _sessionRepository.ListAsync();
         }
 
         public async Task<IEnumerable<Session>> ListByUserIdAsync(int userId)

@@ -49,7 +49,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<UserSuscription>().Property(us => us.InitialDate).IsRequired();
             //TODO: user
             //Relatiosns
-<<<<<<< HEAD
+
             modelBuilder.Entity<UserSuscription>()
                 .HasOne(us => us.Suscription)
                 .WithMany(us => us.UserSuscriptions)
@@ -66,16 +66,6 @@ namespace ILenguage.API.Domain.Persistence.Contexts
 
 
 
-=======
-            /* modelBuilder.Entity<UserSuscription>()
-                 .HasOne(us => us.Suscription)
-                 .WithMany(us => us.UserSuscription)
-                 .HasForeignKey(us => us.SuscriptionId);
-           modelBuilder.Entity<UserSuscription>()
-                .HasOne(us => us.User)
-                .WithMany(u => u.UserSuscription)
-                .HasForeignKey(us => us.UserId);*/
->>>>>>> 53958cfba82f8e0e4a05ca5d21eae85e9c75ef3d
 
 
             //!Session
