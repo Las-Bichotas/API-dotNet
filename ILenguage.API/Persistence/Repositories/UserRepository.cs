@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Contexts;
 using ILenguage.API.Domain.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace ILenguage.API.Persistence.Repositories
 {
@@ -12,34 +14,35 @@ namespace ILenguage.API.Persistence.Repositories
         {
         }
 
-        public Task AddAsync(User user)
+        public async Task AddAsync(User user)
         {
-            throw new System.NotImplementedException();
+            await _context.Users.AddAsync(user);
 
         }
-        public Task<User> FindById(int userId)
+        public async Task<User> FindById(int userId)
         {
-            throw new System.NotImplementedException();
+            return await _context.Users.FindAsync(userId);
         }
 
-        public Task<IEnumerable<User>> ListAsync()
+        public async Task<IEnumerable<User>> ListAsync()
         {
-            throw new System.NotImplementedException();
+            return await _context.Users.ToListAsync();
+        }
+        public void Remove(User user)
+        {
+            _context.Users.Remove(user);
         }
 
-        public Task<IEnumerable<User>> ListByUserIdAsync(int userId)
+        public void Update(User user)
         {
-            throw new System.NotImplementedException();
+            _context.Users.Update(user);
         }
 
-        public Task Remove(User user)
+        public async Task<IEnumerable<User>> ListByUserSuscriptionId(int userSuscriptionId)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Task Update(User user)
-        {
-            throw new System.NotImplementedException();
+            return await _context.Users
+                .Where(u => u.userSuscriptionId == userSuscriptionId)
+                .ToListAsync();
         }
     }
 }
