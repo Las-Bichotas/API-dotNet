@@ -47,8 +47,8 @@ namespace ILanguage.API.Test
 
             message.Should().Be("Suscription Not Found");
         }
-
         
+
 
         private Mock<ISuscriptionRepository> GetDefaultISuscriptionRepositoryInterface()
         {
