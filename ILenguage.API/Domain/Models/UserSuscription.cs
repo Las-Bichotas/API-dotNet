@@ -8,9 +8,9 @@ namespace ILenguage.API.Domain.Models
         public Suscription Suscription { get; set; }
         
         public int UserId { get; set; }
-       //! public User User { get; set; }
+        public User User { get; set; }
        
-       public ulong CardNumber { get; set; }
+       public int PeymentMethodId { get; set; }
        public PaymentMethod PaymentMethod { get; set; }
        
        //

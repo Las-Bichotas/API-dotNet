@@ -12,6 +12,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task UpdateAsync(PaymentMethod paymentMethod);
         //?Do i have to do this? 
         Task<IEnumerable<PaymentMethod>> ListByUserId(int userId);
-        
+        Task<PaymentMethod> FindById(int id);
+
     }
 }

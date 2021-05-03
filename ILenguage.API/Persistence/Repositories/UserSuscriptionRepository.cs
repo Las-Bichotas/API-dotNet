@@ -16,39 +16,40 @@ namespace ILenguage.API.Persistence.Repositories
 
         public async Task<IEnumerable<UserSuscription>> ListAsync()
         {
-            /*return await _context.UserSuscriptions.Include(us => us.Suscription)
+            //? Is it important to list the PaymentMethod too? 
+            return await _context.UserSuscriptions.Include(us => us.Suscription)
                 .Include(us => us.User)
-                .ToListAsync();*/
-            throw new System.NotImplementedException();
+                .ToListAsync();
+            
         }
 
         public async Task<IEnumerable<UserSuscription>> ListByUserId(int userId)
         {
-            /*return await _context.UserSuscriptions.Where(us => us.UserId == userId)
+            return await _context.UserSuscriptions.Where(us => us.UserId == userId)
                 .Include(us => us.Suscription)
                 .Include(us => us.User)
-                .ToListAsync();*/
-            throw new System.NotImplementedException();
+                .ToListAsync();
+        
 
         }
 
         public async Task<IEnumerable<UserSuscription>> ListBySuscriptionId(int suscriptionId)
         {
-           /* return await _context.UserSuscriptions.Where(us => us.SuscriptionId == suscriptionId)
+            return await _context.UserSuscriptions.Where(us => us.SuscriptionId == suscriptionId)
                 .Include(us => us.Suscription)
                 .Include(us => us.User)
-                .ToListAsync();*/
-           throw new System.NotImplementedException();
+                .ToListAsync();
+           
 
         }
 
         public async Task<IEnumerable<UserSuscription>> ListBySuscriptionIdAndUserId(int suscriptionId, int userId)
         {
-           /* return await _context.UserSuscriptions.Where(us => us.SuscriptionId == suscriptionId && us.UserId == userId)
+            return await _context.UserSuscriptions.Where(us => us.SuscriptionId == suscriptionId && us.UserId == userId)
                 .Include(us => us.Suscription)
                 .Include(us => us.User)
-                .ToListAsync();*/
-            throw new System.NotImplementedException();
+                .ToListAsync();
+         
         }
 
         public async Task AddAsync(UserSuscription userSuscription)

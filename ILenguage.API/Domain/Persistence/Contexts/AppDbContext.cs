@@ -29,7 +29,8 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             
             //!PaymentMethod
             modelBuilder.Entity<PaymentMethod>().ToTable("PaymentMethod");
-            modelBuilder.Entity<PaymentMethod>().HasKey(pm => pm.CardNumber);
+            modelBuilder.Entity<PaymentMethod>().HasKey(pm => pm.Id);
+            modelBuilder.Entity<PaymentMethod>().Property(pm => pm.Id).IsRequired().ValueGeneratedOnAdd();
             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.CardNumber).IsRequired();
             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.CvcCode).IsRequired();
             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.OwnerName).IsRequired().HasMaxLength(50);
@@ -45,16 +46,22 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<UserSuscription>().Property(us => us.InitialDate).IsRequired();
             //TODO: user
             //Relatiosns
-           /* modelBuilder.Entity<UserSuscription>()
+            modelBuilder.Entity<UserSuscription>()
                 .HasOne(us => us.Suscription)
-                .WithMany(us => us.UserSuscription)
+                .WithMany(us => us.UserSuscriptions)
                 .HasForeignKey(us => us.SuscriptionId);
-          modelBuilder.Entity<UserSuscription>()
+            modelBuilder.Entity<UserSuscription>()
                .HasOne(us => us.User)
-               .WithMany(u => u.UserSuscription)
-               .HasForeignKey(us => us.UserId);*/
-           
-           
+               .WithMany(u => u.UserSuscriptions)
+               .HasForeignKey(us => us.UserId);
+            //TODO: i'm wondering if this relation is ok 
+            modelBuilder.Entity<UserSuscription>()
+                .HasOne(us => us.PaymentMethod)
+                .WithMany(us => us.UserSuscriptions)
+                .HasForeignKey(us => us.PeymentMethodId);
+
+
+
 
 
 
