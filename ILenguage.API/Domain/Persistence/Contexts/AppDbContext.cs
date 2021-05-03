@@ -13,7 +13,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
 
         public DbSet<Session> Sessions { get; set; }
         public DbSet<SessionDetails> SessionsDetails { get; set; }
-
+        public DbSet<Role> Roles { get; set; }
         public DbSet<Suscription> Suscriptions { get; set; }
 
         public DbSet<UserSuscription> UserSuscriptions { get; set; }
