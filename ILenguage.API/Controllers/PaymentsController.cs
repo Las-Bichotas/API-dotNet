@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Repositories;
 using ILenguage.API.Domain.Services;
+using ILenguage.API.Resources;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ILenguage.API.Controllers
@@ -14,16 +16,16 @@ namespace ILenguage.API.Controllers
 
     {
         private readonly IMakePaymentService _makePaymentService;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public PaymentsController(IMakePaymentService makePaymentService, IUnitOfWork unitOfWork)
+        public PaymentsController(IMakePaymentService makePaymentService, IMapper mapper)
         {
             _makePaymentService = makePaymentService;
-            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        [Route("pay")]
-        public async Task<dynamic> pay(Payment pm)
+        [HttpPost("/pay")]
+        public async Task<dynamic> pay(SavePaymentResource pm)
         {
             return  await _makePaymentService.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value);
             
