@@ -12,6 +12,5 @@ namespace ILenguage.API.Domain.Services
         Task<UserResponse> SaveAsync(User user);
         Task<UserResponse> UpdateAsync(int userId, User user);
         Task<UserResponse> DeleteAsync(int userId);
-        Task<IEnumerable<User>> ListByUserIdAsync(int userId);
     }
 }
