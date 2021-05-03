@@ -20,7 +20,7 @@ namespace ILenguage.API.Domain.Models
         //public Role role { get; set; }
 
         //TODO: PayMethos falta implementar
-        public List<PaymentMethod> PaymentMethods { get; set; } = new List<PaymentMethod>();
+       // public List<PaymentMethod> PaymentMethods { get; set; } = new List<PaymentMethod>();
 
         //TODO: Add session class
         //public List<Session> relatedSessions { get; set; } = new List<Session>();

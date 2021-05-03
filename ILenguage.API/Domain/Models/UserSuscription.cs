@@ -11,7 +11,7 @@ namespace ILenguage.API.Domain.Models
         public User User { get; set; }
        
        public int PeymentMethodId { get; set; }
-       public PaymentMethod PaymentMethod { get; set; }
+       //public PaymentMethod PaymentMethod { get; set; }
        
        //
        public int UserSuscriptionId { get; set; }
