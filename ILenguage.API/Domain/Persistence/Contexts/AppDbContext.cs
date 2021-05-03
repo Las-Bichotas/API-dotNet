@@ -14,13 +14,8 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<Session> Sessions { get; set; }
         public DbSet<SessionDetails> SessionsDetails { get; set; }
 
-<<<<<<< HEAD
         public DbSet<Suscription> Suscriptions { get; set; }
-        public DbSet<PaymentMethod> PaymentMethods { get; set; }
-=======
-        public DbSet<Suscription>Suscriptions { get; set; }
 
->>>>>>> 9775c6afae6b4fecd3940737bb16f52afe2d2401
         public DbSet<UserSuscription> UserSuscriptions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RelatedUser> RelatedUsers { get; set; }
@@ -38,26 +33,21 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Suscription>().Property(s => s.Price).IsRequired();
 
             //!PaymentMethod
-           /* modelBuilder.Entity<PaymentMethod>().ToTable("PaymentMethod");
-            modelBuilder.Entity<PaymentMethod>().HasKey(pm => pm.Id);
-            modelBuilder.Entity<PaymentMethod>().Property(pm => pm.Id).IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<PaymentMethod>().Property(pm => pm.CardNumber).IsRequired();
-            modelBuilder.Entity<PaymentMethod>().Property(pm => pm.CvcCode).IsRequired();
-            modelBuilder.Entity<PaymentMethod>().Property(pm => pm.OwnerName).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<PaymentMethod>().Property(pm => pm.Year).IsRequired();
-            modelBuilder.Entity<PaymentMethod>().Property(pm => pm.month).IsRequired();
-<<<<<<< HEAD
-            modelBuilder.Entity<PaymentMethod>().Property(pm => pm.PaymentNetwork).IsRequired();
+            /* modelBuilder.Entity<PaymentMethod>().ToTable("PaymentMethod");
+             modelBuilder.Entity<PaymentMethod>().HasKey(pm => pm.Id);
+             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.Id).IsRequired().ValueGeneratedOnAdd();
+             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.CardNumber).IsRequired();
+             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.CvcCode).IsRequired();
+             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.OwnerName).IsRequired().HasMaxLength(50);
+             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.Year).IsRequired();
+             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.month).IsRequired();
+             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.PaymentNetwork).IsRequired();*/
 
-=======
-            modelBuilder.Entity<PaymentMethod>().Property(pm => pm.PaymentNetwork).IsRequired();*/
-            
->>>>>>> 9775c6afae6b4fecd3940737bb16f52afe2d2401
             //!UserSuscription
             modelBuilder.Entity<UserSuscription>().ToTable("UserSuscription");
             modelBuilder.Entity<UserSuscription>().HasKey(us => us.SuscriptionId);
             modelBuilder.Entity<UserSuscription>().Property(us => us.UserId).IsRequired();
-           // modelBuilder.Entity<UserSuscription>().Property(us => us.PaymentMethod).IsRequired();
+            // modelBuilder.Entity<UserSuscription>().Property(us => us.PaymentMethod).IsRequired();
             modelBuilder.Entity<UserSuscription>().Property(us => us.InitialDate).IsRequired();
             //TODO: user
             //Relatiosns
