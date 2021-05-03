@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using ILenguage.API.Domain.Models;
 
 namespace ILenguage.API.Resources
 {
@@ -17,5 +18,7 @@ namespace ILenguage.API.Resources
         [Required]
         [MaxLength(245)]
         public string Description { get; set; }
+        //TODO: User Suscription for save?
+
     }
 }

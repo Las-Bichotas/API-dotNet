@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Contexts;
@@ -35,6 +36,13 @@ namespace ILenguage.API.Persistence.Repositories
         public void Update(User user)
         {
             _context.Users.Update(user);
+        }
+
+        public async Task<IEnumerable<User>> ListByUserSuscriptionId(int userSuscriptionId)
+        {
+            return await _context.Users
+                .Where(u => u.userSuscriptionId == userSuscriptionId)
+                .ToListAsync();
         }
     }
 }

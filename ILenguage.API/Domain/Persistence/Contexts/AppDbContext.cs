@@ -56,6 +56,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .HasOne(us => us.Suscription)
                 .WithMany(us => us.UserSuscriptions)
                 .HasForeignKey(us => us.SuscriptionId);
+            //TODO: a un usuario le pertenece solo una suscripcion
             modelBuilder.Entity<UserSuscription>()
                .HasOne(us => us.User)
                .WithMany(u => u.UserSuscriptions)
@@ -79,11 +80,6 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             // RelatedUser
             modelBuilder.Entity<RelatedUser>().ToTable("RelatedUser");
             modelBuilder.Entity<RelatedUser>().HasKey(p => new { p.UserIdOne, p.UserIdTwo });
-
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.PaymentMethods)
-                .WithOne(u => u.User)
-                .HasForeignKey(u => u.UserId);
 
             modelBuilder.Entity<RelatedUser>()
                 .HasOne(ru => ru.UserOne)
