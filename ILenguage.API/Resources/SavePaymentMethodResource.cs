@@ -2,7 +2,7 @@
 
 namespace ILenguage.API.Resources
 {
-    public class SavePaymentMethod
+    public class SavePaymentMethodResource
     {
         [Required(ErrorMessage = "Card Number is required")]
         [DataType(DataType.CreditCard)]

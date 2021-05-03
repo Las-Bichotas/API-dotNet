@@ -83,7 +83,7 @@ namespace ILenguage.API.Controllers
         }
 
         [HttpPut("{id")]
-        public async Task<IActionResult> PutAsunc(int id, [FromBody] SaveSuscriptionResource resource)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveSuscriptionResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessage());
@@ -97,7 +97,7 @@ namespace ILenguage.API.Controllers
         }
 
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _suscriptionService.DeleteAsync(id);
