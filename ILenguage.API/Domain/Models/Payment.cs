@@ -6,7 +6,7 @@
         public int Month { get; set; }
         public int Year { get; set; }
         public string Cvc { get; set; }
-        public float Value { get; set; }
+        public long? Value { get; set; }
         
     }
 }
