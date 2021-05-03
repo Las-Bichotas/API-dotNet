@@ -65,13 +65,14 @@ namespace ILenguage.API.Persistence.Repositories
         public async Task AssingUserSuscription(int userId, int suscriptionId)
         {
            //TODO:
-           throw new System.NotImplementedException();
+           await Task.Run(() => { });
+           
 
         }
 
         public async Task UnassingUserSuscription(int userId, int SuscriptionId)
         {
-            throw new System.NotImplementedException();
+            await Task.Run(() => { });
         }
     }
 }
