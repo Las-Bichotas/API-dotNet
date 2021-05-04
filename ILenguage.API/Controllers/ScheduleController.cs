@@ -37,7 +37,7 @@ namespace ILenguage.API.Controllers
             var Schedule = _mapper.Map<SaveScheduleResource, Schedule>(resource);
             var result = await _ScheduleService.SaveAsync(Schedule);
 
-            if (!result.Success)
+            if (!result.Succes)
                 return BadRequest(result.Message);
 
             var ScheduleResource = _mapper.Map<Schedule, ScheduleResource>(result.Resource);
@@ -54,7 +54,7 @@ namespace ILenguage.API.Controllers
             var Schedule = _mapper.Map<SaveScheduleResource, Schedule>(resource);
             var result = await _ScheduleService.UpdateAsync(userId, Schedule);
 
-            if (!result.Success)
+            if (!result.Succes)
                 return BadRequest(result.Message);
             var ScheduleResource = _mapper.Map<Schedule, ScheduleResource>(result.Resource);
             return Ok(ScheduleResource);
