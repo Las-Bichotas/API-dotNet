@@ -1,6 +1,6 @@
-namespace ILanguage.API.Domain.Models
+namespace ILenguage.API.Domain.Models
 {
-    public class AvailableSchedule
+    public class Schedule
     {
         public int Id { get; set; }
         public string startedAt { get; set; }

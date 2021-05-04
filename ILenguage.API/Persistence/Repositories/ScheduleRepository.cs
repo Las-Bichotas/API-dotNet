@@ -6,8 +6,9 @@ using ILenguage.API.Domain.Persistence.Contexts;
 using ILenguage.API.Domain.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace ILanguage.API.Persistence.Repositories
+namespace ILenguage.API.Persistence.Repositories
 {
+
     public class ScheduleRepository : BaseRepository, IScheduleRepository
     {
 

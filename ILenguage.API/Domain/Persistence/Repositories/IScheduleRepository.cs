@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
 
-namespace ILanguage.API.Domain.Repositories
+namespace ILenguage.API.Domain.Persistence.Repositories
 {
     public interface IScheduleRepository
     {

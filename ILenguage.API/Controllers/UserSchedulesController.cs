@@ -1,16 +1,14 @@
-﻿using AutoMapper;
-using ILanguage.API.Domain.Models;
-using ILanguage.API.Domain.Services;
-using ILanguage.API.Resources;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using ILenguage.API.Domain.Models;
+using ILenguage.API.Domain.Services;
+using ILenguage.API.Extensions;
+using ILenguage.API.Resources;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ILanguage.API.Controllers
+namespace ILenguage.API.Controllers
 {
 
     [ApiController]
