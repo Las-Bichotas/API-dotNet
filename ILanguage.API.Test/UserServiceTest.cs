@@ -29,6 +29,23 @@ namespace ILanguage.API.Test
             UsersCount.Should().Equals(0);
         }
 
+        [Test]
+        public async Task GetAllAsync_WhenUserId_ReturnEmptyCollection()
+        {
+
+            //Arrange
+            var mockUserRepository = GetDefaultIUserRepositoryInstance();
+            var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var userId = 1;
+            mockUserRepository.Setup(r => r.FindById(userId)).Returns(Task.FromResult<User>(null));
+            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object);
+            //Act
+            UserResponse result = await service.GetByIdAsync(userId);
+            var message = result.Message;
+            //Assert
+            message.Should().Be("User not found");
+        }
+
         private Mock<IUserRepository> GetDefaultIUserRepositoryInstance()
         {
             return new Mock<IUserRepository>();
