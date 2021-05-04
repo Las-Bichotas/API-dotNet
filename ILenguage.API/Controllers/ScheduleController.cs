@@ -27,12 +27,7 @@ namespace ILenguage.API.Controllers
         }
 
 
-        [SwaggerOperation(
-               Summary = "Add Schedule",
-               Description = "Add new Schedule",
-               OperationId = "AddSchedule",
-               Tags = new[] { "Schedules" })]
-        [SwaggerResponse(200, "Add Schedules", typeof(IEnumerable<ScheduleResource>))]
+       
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<ScheduleResource>), 200)]
         public async Task<IActionResult> PostAsync([FromBody] SaveScheduleResource resource)
@@ -51,12 +46,7 @@ namespace ILenguage.API.Controllers
 
 
 
-        [SwaggerOperation(
-             Summary = "Update Schedule by User",
-             Description = "Update a Schedule by User",
-             OperationId = "UpdateSchedulebyUser",
-             Tags = new[] { "Schedules" })]
-        [SwaggerResponse(200, "Update Schedules by User", typeof(IEnumerable<ScheduleResource>))]
+       
         [HttpPut("{userId}")]
         [ProducesResponseType(typeof(IEnumerable<ScheduleResource>), 200)]
         public async Task<IActionResult> PutAsync(int userId, [FromBody] SaveScheduleResource resource)
