@@ -94,7 +94,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Schedule>().ToTable("Schedules");
             modelBuilder.Entity<Schedule>().HasKey(p => p.Id);
             modelBuilder.Entity<Schedule>().Property(p => p.Id);
-            modelBuilder.Entity<Schedule>().Property(p => p.staredtAt)
+            modelBuilder.Entity<Schedule>().Property(p => p.startedAt)
                 .IsRequired();
             modelBuilder.Entity<Schedule>().Property(p => p.finishedAt)
                   .IsRequired();
