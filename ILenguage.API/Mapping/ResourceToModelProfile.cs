@@ -9,6 +9,7 @@ namespace ILenguage.API.Mapping
         public ResourceToModelProfile()
         {
             CreateMap<SaveSuscriptionResource, Suscription>();
+            CreateMap<SaveScheduleResource, Schedule>();
         }
     }
 }

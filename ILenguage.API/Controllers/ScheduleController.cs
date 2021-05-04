@@ -33,7 +33,7 @@ namespace ILenguage.API.Controllers
         public async Task<IActionResult> PostAsync([FromBody] SaveScheduleResource resource)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState.GetMessages());
+                return BadRequest(ModelState.GetErrorMessage());
             var Schedule = _mapper.Map<SaveScheduleResource, Schedule>(resource);
             var result = await _ScheduleService.SaveAsync(Schedule);
 
