@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using ILenguage.API.Domain.Models;
+﻿using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Repositories;
 using ILenguage.API.Domain.Services;
+using ILenguage.API.Domain.Services.Communications;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ILanguage.API.Services
+namespace ILenguage.API.Services
 {
     public class ScheduleService : IScheduleService
     {

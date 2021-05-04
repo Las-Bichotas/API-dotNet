@@ -18,7 +18,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
 
         
         public DbSet<PaymentMethod>PaymentMethods { get; set; }
-        public DbSet<Schedule>Schedules { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
         public DbSet<UserSuscription> UserSuscriptions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RelatedUser> RelatedUsers { get; set; }

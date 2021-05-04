@@ -1,17 +1,14 @@
-﻿using AutoMapper;
-using ILanguage.API.Domain.Models;
-using ILanguage.API.Domain.Services;
-using ILanguage.API.Extensions;
-using ILanguage.API.Resources;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using ILenguage.API.Domain.Models;
+using ILenguage.API.Domain.Services;
+using ILenguage.API.Extensions;
+using ILenguage.API.Resources;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ILanguage.API.Controllers
+namespace ILenguage.API.Controllers
 {
     [ApiController]
     [Produces("application/json")]
@@ -23,7 +20,7 @@ namespace ILanguage.API.Controllers
         private readonly IScheduleService _ScheduleService;
         private readonly IMapper _mapper;
 
-        public AvailableSchedulesController(IScheduleService ScheduleService, IMapper mapper)
+        public SchedulesController(IScheduleService ScheduleService, IMapper mapper)
         {
             _ScheduleService = ScheduleService;
             _mapper = mapper;

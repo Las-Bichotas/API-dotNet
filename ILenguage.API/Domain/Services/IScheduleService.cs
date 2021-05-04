@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ILenguage.API.Domain.Models;
+﻿using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Services.Communications;
-namespace ILanguage.API.Domain.Services
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace ILenguage.API.Domain.Services
 {
     public interface IScheduleService
     {

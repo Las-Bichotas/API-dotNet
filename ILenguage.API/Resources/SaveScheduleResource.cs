@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace ILanguage.API.Resources
+
+namespace ILenguage.API.Resources
 {
     public class SaveScheduleResource
     {
