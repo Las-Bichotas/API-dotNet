@@ -1,63 +1,41 @@
-﻿using FluentAssertions;
-using ILenguage.API.Domain.Models;
-using ILenguage.API.Domain.Persistence.Repositories;
-using ILenguage.API.Domain.Services.Communications;
-using ILenguage.API.Services;
+﻿using ILanguage.API.Domain.Repositories;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ILanguage.API.Domain.Models;
+using ILanguage.API.Services;
+using ILanguage.API.Domain.Services.Communication;
 
 namespace ILanguage.API.Test
 {
-    public class SessionServiceTest
+    public class ScheduleServiceTest
     {
         [SetUp]
         public void Setup()
         {
         }
         [Test]
-        public async Task ListAsyncWhenNoSessionsReturnsEmptyCollection()
-        {
-            var mockSessionRepository = GetDefaultISessionRepositoryInstance();
-            mockSessionRepository.Setup(r => r.ListAsync())
-                .ReturnsAsync(new List<Session>());
-            var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
-            var service = new SessionService(
-                mockSessionRepository.Object,
-                mockUnitOfWork.Object);
-
-            // Act
-            List<Session> result = (List<Session>)await service.ListAsync();
-            int sessionsCount = result.Count;
-
-            // Assert
-            sessionsCount.Should().Equals(0);
-        }
-
-        [Test]
-        public async Task GetByIdAsyncWhenInvalidIdReturnsSessionNotFoundResponse()
+        public async Task GetByIdAsyncWhenInvalidIdReturnsScheduleNotFoundResponse()
         {
             // Arrange
-            var mockSessionRepository = GetDefaultISessionRepositoryInstance();
-            var sessionId = 1;
-            mockSessionRepository.Setup(r => r.FindById(sessionId))
-                .Returns(Task.FromResult<Session>(null));
+            var mockScheduleRepository = GetDefaultIScheduleRepositoryInstance();
+            var ScheduleId = 1;
+            mockScheduleRepository.Setup(r => r.FindById(ScheduleId))
+                .Returns(Task.FromResult<Schedule>(null));
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
-            var service = new SessionService(mockSessionRepository.Object, mockUnitOfWork.Object);
+            var service = new ScheduleService(mockScheduleRepository.Object, mockUnitOfWork.Object);
             // Act
-            SessionResponse result = await service.GetByIdAsync(sessionId);
+            ScheduleResponse result = await service.GetByIdAsync(ScheduleId);
             var message = result.Message;
             // Assert
-            message.Should().Be("Session not found");
+            message.Should().Be("Schedule not found");
         }
 
-        private Mock<ISessionRepository> GetDefaultISessionRepositoryInstance()
+        private Mock<IScheduleRepository> GetDefaultIScheduleRepositoryInstance()
         {
-            return new Mock<ISessionRepository>();
+            return new Mock<IScheduleRepository>();
         }
 
         private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()
