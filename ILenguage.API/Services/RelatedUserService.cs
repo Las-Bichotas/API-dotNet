@@ -14,6 +14,12 @@ namespace ILenguage.API.Services
         private readonly IRelatedUserRepository _relatedUserRepository;
         private readonly IUnitOfWork _unitOfWord;
 
+        public RelatedUserService(IRelatedUserRepository relatedUserRepository, IUnitOfWork unitOfWord)
+        {
+            _relatedUserRepository = relatedUserRepository;
+            _unitOfWord = unitOfWord;
+        }
+
         public async Task<IEnumerable<RelatedUser>> ListAsync()
         {
             return await _relatedUserRepository.ListAsyn();

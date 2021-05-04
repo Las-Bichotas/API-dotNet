@@ -38,10 +38,10 @@ namespace ILenguage.API.Persistence.Repositories
             _context.Users.Update(user);
         }
 
-        public async Task<IEnumerable<User>> ListByUserSuscriptionId(int userSuscriptionId)
+        public async Task<IEnumerable<User>> ListBySuscriptionId(int SuscriptionId)
         {
             return await _context.Users
-                .Where(u => u.userSuscriptionId == userSuscriptionId)
+                .Where(u => u.SuscriptionId == SuscriptionId)
                 .ToListAsync();
         }
     }

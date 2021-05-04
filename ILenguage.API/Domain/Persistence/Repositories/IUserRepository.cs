@@ -7,7 +7,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
     public interface IUserRepository
     {
         Task<IEnumerable<User>> ListAsync();
-        Task<IEnumerable<User>> ListByUserSuscriptionId(int userSuscriptionId);
+        Task<IEnumerable<User>> ListBySuscriptionId(int SuscriptionId);
         Task AddAsync(User user);
         Task<User> FindById(int userId);
         void Update(User user);

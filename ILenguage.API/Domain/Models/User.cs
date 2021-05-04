@@ -31,5 +31,7 @@ namespace ILenguage.API.Domain.Models
         public int SuscriptionId { get; set; }
         public Suscription Suscription { get; set; }
 
+        public List<Schedule> Schedules { get; set; }
+
     }
 }
