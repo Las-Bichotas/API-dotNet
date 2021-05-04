@@ -70,7 +70,6 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             modelBuilder.Entity<User>().Property(p => p.Name).IsRequired().HasMaxLength(30);
             modelBuilder.Entity<User>().Property(p => p.LastName).IsRequired().HasMaxLength(30);
-            modelBuilder.Entity<User>().Property(p => p.FullName).IsRequired().HasMaxLength(30);
             modelBuilder.Entity<User>().Property(p => p.Email).IsRequired();
             modelBuilder.Entity<User>().Property(p => p.Password).IsRequired();
             modelBuilder.Entity<User>().Property(p => p.Description).IsRequired().HasMaxLength(245);
