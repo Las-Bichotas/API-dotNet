@@ -29,6 +29,7 @@ namespace ILanguage.API.Test
             UsersCount.Should().Equals(0);
         }
 
+        [Test]
         public async Task GetAllAsync_WhenUserId_ReturnEmptyCollection()
         {
 
