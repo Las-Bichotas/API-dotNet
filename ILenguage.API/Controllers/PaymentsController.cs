@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ILenguage.API.Controllers
 {
-    
-    [Microsoft.AspNetCore.Components.Route("/api/[controller")]
+
     [ApiController]
+    [Microsoft.AspNetCore.Components.Route("/api/[controller]")]
     public class PaymentsController : ControllerBase
 
 
@@ -27,8 +27,8 @@ namespace ILenguage.API.Controllers
         [HttpPost("/pay")]
         public async Task<dynamic> pay(SavePaymentResource pm)
         {
-            return  await _makePaymentService.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value);
-            
+            return await _makePaymentService.PayAsync(pm.CardNumber, pm.Month, pm.Year, pm.Cvc, pm.Value);
+
         }
 
     }

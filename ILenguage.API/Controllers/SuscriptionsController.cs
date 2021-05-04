@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ILenguage.API.Controllers
 {
-    [Microsoft.AspNetCore.Components.Route("/api/[controller")]
-    [Produces("application/json")]
     [ApiController]
+    [Produces("application/json")]
+    [Route("/api/[controller]")]
     public class SuscriptionsController : ControllerBase
     {
         private readonly ISuscriptionService _suscriptionService;
@@ -25,7 +25,7 @@ namespace ILenguage.API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<SuscriptionResource>),200)]
+        [ProducesResponseType(typeof(IEnumerable<SuscriptionResource>), 200)]
         public async Task<IEnumerable<SuscriptionResource>> GetAllAsync()
         {
             var suscriptions = await _suscriptionService.ListAsync();
@@ -34,8 +34,8 @@ namespace ILenguage.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(SuscriptionResource),200)]
-        [ProducesResponseType(typeof(BadRequestResult),404)]
+        [ProducesResponseType(typeof(SuscriptionResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
             var result = await _suscriptionService.GetById(id);
@@ -57,10 +57,10 @@ namespace ILenguage.API.Controllers
             var suscriptionResource = _mapper.Map<Suscription, SuscriptionResource>(result.Resource);
             return Ok(suscriptionResource);
         }
-        
+
         [HttpGet("{name}")]
-        [ProducesResponseType(typeof(SuscriptionResource),200)]
-        [ProducesResponseType(typeof(BadRequestResult),404)]
+        [ProducesResponseType(typeof(SuscriptionResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetByNameAsync(string name)
         {
             var result = await _suscriptionService.GetByName(name);
@@ -69,10 +69,10 @@ namespace ILenguage.API.Controllers
             var suscriptionResource = _mapper.Map<Suscription, SuscriptionResource>(result.Resource);
             return Ok(suscriptionResource);
         }
-        
+
         [HttpGet("{duration}")]
-        [ProducesResponseType(typeof(SuscriptionResource),200)]
-        [ProducesResponseType(typeof(BadRequestResult),404)]
+        [ProducesResponseType(typeof(SuscriptionResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetByDurationAsync(int duration)
         {
             var result = await _suscriptionService.GetByDuration(duration);
@@ -82,7 +82,7 @@ namespace ILenguage.API.Controllers
             return Ok(suscriptionResource);
         }
 
-        [HttpPut("{id")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveSuscriptionResource resource)
         {
             if (!ModelState.IsValid)
@@ -106,7 +106,7 @@ namespace ILenguage.API.Controllers
             var suscriptionResource = _mapper.Map<Suscription, SuscriptionResource>(result.Resource);
             return Ok(suscriptionResource);
         }
-        
-        
+
+
     }
 }

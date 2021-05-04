@@ -1,7 +1,16 @@
+using ILanguage.API.Domain.Repositories;
+using ILanguage.API.Domain.Services;
+using ILanguage.API.Services;
+using ILenguage.API.Domain.Persistence.Contexts;
+using ILenguage.API.Domain.Persistence.Repositories;
+using ILenguage.API.Domain.Services;
+using ILenguage.API.Persistence.Repositories;
+using ILenguage.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +37,34 @@ namespace ILenguage.API
         {
 
             services.AddControllers();
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
+
+            });
+            // Dependency Injection Configuration
+            services.AddScoped<IRelatedUserRepository, RelatedUserRepository>();
+            services.AddScoped<IScheduleRepository, ScheduleRepository>();
+            services.AddScoped<ISessionDetailRepository, SessionDetailRepository>();
+            services.AddScoped<ISessionRepository, SessionRepository>();
+            services.AddScoped<ISuscriptionRepository, SuscriptionRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserSuscriptionRepository, UserSuscriptionRepository>();
+
+            services.AddScoped<IMakePaymentService, MakePaymentService>();
+            services.AddScoped<IRelatedUserService, RelatedUserService>();
+            services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddScoped<ISessionDetailService, SessionDetailService>();
+            services.AddScoped<ISessionService, SessionService>();
+            services.AddScoped<ISuscriptionService, SuscriptionService>();
+            services.AddScoped<IUserService, UserService>();
+
+            //Endpoinst case conventions configurations
+            services.AddRouting(options => options.LowercaseUrls = true);
+            //startup automapper
+            services.AddAutoMapper(typeof(Startup));
+            //documentacion setup
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ILenguage.API", Version = "v1" });
@@ -43,8 +80,6 @@ namespace ILenguage.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ILenguage.API v1"));
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
