@@ -16,6 +16,9 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<Role> Roles { get; set; }
         public DbSet<Suscription> Suscriptions { get; set; }
 
+        
+        public DbSet<PaymentMethod>PaymentMethods { get; set; }
+        public DbSet<Schedule>Schedules { get; set; }
         public DbSet<UserSuscription> UserSuscriptions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RelatedUser> RelatedUsers { get; set; }
@@ -59,6 +62,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             //TODO: a un usuario le pertenece solo una suscripcion
             modelBuilder.Entity<UserSuscription>()
                .HasOne(us => us.User)
+<<<<<<< HEAD
                .WithMany(u => u.UserSuscriptions)
                .HasForeignKey(us => us.UserId);
             //TODO: i'm wondering if this relation is ok 
@@ -88,6 +92,31 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .WithMany(ru => ru.RelatedUsers)
                 .HasForeignKey(ru => ru.UserIdTwo);
 
+=======
+               .WithMany(u => u.UserSuscription)
+               .HasForeignKey(us => us.UserId);*/
+
+            // Entidad Schedule
+
+            modelBuilder.Entity<Schedule>().ToTable("Schedules");
+            modelBuilder.Entity<Schedule>().HasKey(p => p.Id);
+            modelBuilder.Entity<Schedule>().Property(p => p.Id);
+            modelBuilder.Entity<Schedule>().Property(p => p.staredtAt)
+                .IsRequired();
+            modelBuilder.Entity<Schedule>().Property(p => p.finishedAt)
+                  .IsRequired();
+            modelBuilder.Entity<Schedule>().Property(p => p.state)
+                .IsRequired();
+
+
+            modelBuilder.Entity<Schedule>()
+             .HasOne(pt => pt.User)
+             .WithMany(p => p.Schedules)
+             .HasForeignKey(pt => pt.UserId);
+
+         
+           
+>>>>>>> feature/Schedule_
 
 
             //!Session
