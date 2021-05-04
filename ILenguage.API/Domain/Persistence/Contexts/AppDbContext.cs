@@ -1,4 +1,5 @@
-﻿using ILenguage.API.Domain.Models;
+﻿using ILanguage.API.Domain.Models;
+using ILenguage.API.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ILenguage.API.Domain.Persistence.Contexts
@@ -16,7 +17,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<Role> Roles { get; set; }
         public DbSet<Suscription> Suscriptions { get; set; }
 
-        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+       
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<UserSuscription> UserSuscriptions { get; set; }
         public DbSet<User> Users { get; set; }
@@ -34,16 +35,12 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Suscription>().Property(s => s.MonthDuration).IsRequired();
             modelBuilder.Entity<Suscription>().Property(s => s.Price).IsRequired();
 
-            //!PaymentMethod
-            /* modelBuilder.Entity<PaymentMethod>().ToTable("PaymentMethod");
-             modelBuilder.Entity<PaymentMethod>().HasKey(pm => pm.Id);
-             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.Id).IsRequired().ValueGeneratedOnAdd();
-             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.CardNumber).IsRequired();
-             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.CvcCode).IsRequired();
-             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.OwnerName).IsRequired().HasMaxLength(50);
-             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.Year).IsRequired();
-             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.month).IsRequired();
-             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.PaymentNetwork).IsRequired();*/
+            modelBuilder.Entity<Suscription>()
+                .HasMany(s => s.Users)
+                .WithOne(u => u.Suscription)
+                .HasForeignKey(u => u.SuscriptionId);
+
+
 
             //!UserSuscription
             modelBuilder.Entity<UserSuscription>().ToTable("UserSuscription");
@@ -54,7 +51,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             //TODO: user
             //Relatiosns
 
-            modelBuilder.Entity<UserSuscription>()
+           /* modelBuilder.Entity<UserSuscription>()
                 .HasOne(us => us.Suscription)
                 .WithMany(us => us.UserSuscriptions)
                 .HasForeignKey(us => us.SuscriptionId);
@@ -63,7 +60,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                .HasOne(us => us.User)
                .WithMany(u => u.UserSuscriptions)
                .HasForeignKey(us => us.UserId);
-            //TODO: i'm wondering if this relation is ok 
+            //TODO: i'm wondering if this relation is ok */
 
 
             // User

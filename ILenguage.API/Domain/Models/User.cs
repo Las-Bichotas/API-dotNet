@@ -28,8 +28,8 @@ namespace ILenguage.API.Domain.Models
         public List<EInterestBank> RelatedInterest { get; set; } = new List<EInterestBank>();
         public List<ELenguageBank> RelatedLenguageInterest { get; set; } = new List<ELenguageBank>();
 
-        public int userSuscriptionId { get; set; }
-        public UserSuscription userSuscription { get; set; }
+        public int SuscriptionId { get; set; }
+        public Suscription Suscription { get; set; }
 
     }
 }

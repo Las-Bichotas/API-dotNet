@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ILenguage.API.Domain.Services.Communications;
 
 namespace ILanguage.API.Domain.Services.Communication
 {
