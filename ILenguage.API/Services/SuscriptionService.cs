@@ -50,6 +50,13 @@ namespace ILenguage.API.Services
 
         public async Task<SuscriptionResponse> SaveAsync(Suscription suscription)
         {
+            var existingSubscriptionByDuration = await _suscriptionRepository.FindByDuration(suscription.MonthDuration);
+            var existingSubscriptionByName = await _suscriptionRepository.FindByName(suscription.Name);
+            if (existingSubscriptionByDuration != null)
+                return new SuscriptionResponse("There already exist a Subscription with that duration");
+            if(existingSubscriptionByName != null)
+                return new SuscriptionResponse("There already exist a Subscription with that name");
+            
             try
             {
                 await _suscriptionRepository.AddAsync(suscription);
@@ -67,6 +74,14 @@ namespace ILenguage.API.Services
             var existingSuscription = await _suscriptionRepository.FindById(id);
             if (existingSuscription == null)
                 return new SuscriptionResponse("Suscription Not Found");
+            
+            var existingSubscriptionByDuration = await _suscriptionRepository.FindByDuration(suscription.MonthDuration);
+            var existingSubscriptionByName = await _suscriptionRepository.FindByName(suscription.Name);
+            if (existingSubscriptionByDuration != null)
+                return new SuscriptionResponse("There already exist a Subscription with that duration");
+            if(existingSubscriptionByName != null)
+                return new SuscriptionResponse("There already exist a Subscription with that name");            
+            
             existingSuscription.Name = suscription.Name;
             existingSuscription.Price = suscription.Price;
             existingSuscription.MonthDuration = suscription.MonthDuration;
