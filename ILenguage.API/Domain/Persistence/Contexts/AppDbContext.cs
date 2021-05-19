@@ -6,27 +6,23 @@ namespace ILenguage.API.Domain.Persistence.Contexts
 {
     public class AppDbContext : DbContext
     {
-
-
-        public AppDbContext(DbContextOptions options) : base(options)
-        {
-        }
-
+        
         public DbSet<Session> Sessions { get; set; }
         public DbSet<SessionDetails> SessionsDetails { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Suscription> Suscriptions { get; set; }
-
-       
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<UserSuscription> UserSuscriptions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RelatedUser> RelatedUsers { get; set; }
-
+        
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            /*
             //!Suscription
             modelBuilder.Entity<Suscription>().ToTable("Suscription");
             modelBuilder.Entity<Suscription>().HasKey(s => s.Id);
@@ -51,18 +47,19 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             //TODO: user
             //Relatiosns
 
-           /* modelBuilder.Entity<UserSuscription>()
-                .HasOne(us => us.Suscription)
-                .WithMany(us => us.UserSuscriptions)
-                .HasForeignKey(us => us.SuscriptionId);
-            //TODO: a un usuario le pertenece solo una suscripcion
             modelBuilder.Entity<UserSuscription>()
-               .HasOne(us => us.User)
-               .WithMany(u => u.UserSuscriptions)
-               .HasForeignKey(us => us.UserId);
-            //TODO: i'm wondering if this relation is ok */
+                 .HasOne(us => us.Suscription)
+                 .WithMany(us => us.UserSuscriptions)
+                 .HasForeignKey(us => us.SuscriptionId);
+             //TODO: a un usuario le pertenece solo una suscripcion
+             modelBuilder.Entity<UserSuscription>()
+                .HasOne(us => us.User)
+                .WithMany(u => u.UserSuscriptions)
+                .HasForeignKey(us => us.UserId);
+             //TODO: i'm wondering if this relation is ok 
+           */
 
-
+            
             // User
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<User>().HasKey(p => p.Id);
@@ -72,6 +69,8 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<User>().Property(p => p.Email).IsRequired();
             modelBuilder.Entity<User>().Property(p => p.Password).IsRequired();
             modelBuilder.Entity<User>().Property(p => p.Description).IsRequired().HasMaxLength(245);
+            modelBuilder.Entity<User>().Property(p => p.RelatedInterest).IsRequired();
+            modelBuilder.Entity<User>().Property(p => p.RelatedLenguageInterest).IsRequired();
             // RelatedUser
             modelBuilder.Entity<RelatedUser>().ToTable("RelatedUser");
             modelBuilder.Entity<RelatedUser>().HasKey(p => new { p.UserIdOne, p.UserIdTwo });
@@ -81,16 +80,12 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .WithMany(ru => ru.RelatedUsers)
                 .HasForeignKey(ru => ru.UserIdOne);
 
-            modelBuilder.Entity<RelatedUser>()
-                .HasOne(ru => ru.UserTwo)
-                .WithMany(ru => ru.RelatedUsers)
-                .HasForeignKey(ru => ru.UserIdTwo);
-
+            /*
             // Entidad Schedule
 
             modelBuilder.Entity<Schedule>().ToTable("Schedules");
             modelBuilder.Entity<Schedule>().HasKey(p => p.Id);
-            modelBuilder.Entity<Schedule>().Property(p => p.Id);
+            modelBuilder.Entity<Schedule>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             modelBuilder.Entity<Schedule>().Property(p => p.startedAt)
                 .IsRequired();
             modelBuilder.Entity<Schedule>().Property(p => p.finishedAt)
@@ -103,11 +98,11 @@ namespace ILenguage.API.Domain.Persistence.Contexts
              .HasOne(pt => pt.User)
              .WithMany(p => p.Schedules)
              .HasForeignKey(pt => pt.UserId);
+            */
 
 
 
-
-
+            /*
             //!Session
             modelBuilder.Entity<Session>().ToTable("Session");
             modelBuilder.Entity<Session>().HasKey(p => p.Id);
@@ -115,12 +110,13 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Session>().Property(p => p.StartAt).IsRequired();
             modelBuilder.Entity<Session>().Property(p => p.EndAt).IsRequired();
             modelBuilder.Entity<Session>().Property(p => p.Link).IsRequired().HasMaxLength(100);
-            /*
+           
             modelBuilder.Entity<Session>()
             .HasOne(pt => pt.User)
             .WithMany(p => p.Sessions)
-            .HasForeignKey(pt => pt.UserId);*/
-
+            .HasForeignKey(pt => pt.UserId);
+            */
+            /*
             //!Session Details
             modelBuilder.Entity<SessionDetails>().ToTable("SessionDetail");
             modelBuilder.Entity<SessionDetails>().HasKey(p => p.Id);
@@ -131,7 +127,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             .HasOne(pt => pt.Session)
             .WithMany(p => p.SessionsDetails)
             .HasForeignKey(pt => pt.SessionId);
-
+            */
 
 
 
