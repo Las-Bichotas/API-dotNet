@@ -25,8 +25,8 @@ namespace ILenguage.API.Domain.Models
         //public List<Session> relatedSessions { get; set; } = new List<Session>();
 
         public List<RelatedUser> RelatedUsers { get; set; }
-        public List<EInterestBank> RelatedInterest { get; set; } = new List<EInterestBank>();
-        public List<ELenguageBank> RelatedLenguageInterest { get; set; } = new List<ELenguageBank>();
+        public List<UserTopics> UserTopic { get; set; }
+        public List<UserLanguages> UserLanguage { get; set; }
 
         public int SuscriptionId { get; set; }
         public Suscription Suscription { get; set; }

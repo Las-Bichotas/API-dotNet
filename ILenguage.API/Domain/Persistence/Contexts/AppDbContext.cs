@@ -6,7 +6,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
 {
     public class AppDbContext : DbContext
     {
-        
+
         public DbSet<Session> Sessions { get; set; }
         public DbSet<SessionDetails> SessionsDetails { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -15,7 +15,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<UserSuscription> UserSuscriptions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RelatedUser> RelatedUsers { get; set; }
-        
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -58,8 +58,41 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .HasForeignKey(us => us.UserId);
              //TODO: i'm wondering if this relation is ok 
            */
+            //TopicsOfInterest
+            modelBuilder.Entity<TopicsOfInterest>().ToTable("TopicsOfInterest");
+            modelBuilder.Entity<TopicsOfInterest>().HasKey(t => t.Id);
+            modelBuilder.Entity<TopicsOfInterest>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<TopicsOfInterest>().Property(t => t.TopicName).IsRequired();
+            //UserTopics
+            modelBuilder.Entity<UserTopics>().ToTable("UserTopics");
+            modelBuilder.Entity<UserTopics>().HasKey(ut => new { ut.UserId, ut.TopicId });
+            modelBuilder.Entity<UserTopics>()
+                .HasOne(ut => ut.Topic)
+                .WithMany(ut => ut.UserTopic)
+                .HasForeignKey(ut => ut.TopicId);
 
-            
+            modelBuilder.Entity<UserTopics>()
+                .HasOne(ut => ut.User)
+                .WithMany(ut => ut.UserTopic)
+                .HasForeignKey(ut => ut.UserId);
+
+            //LanguageOfInterest
+            modelBuilder.Entity<LanguageOfInterest>().ToTable("LanguageOfInterest");
+            modelBuilder.Entity<LanguageOfInterest>().HasKey(l => l.Id);
+            modelBuilder.Entity<LanguageOfInterest>().Property(l => l.Id).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<LanguageOfInterest>().Property(l => l.LanguageName).IsRequired();
+
+            modelBuilder.Entity<UserLanguages>().ToTable("UserLanguages");
+            modelBuilder.Entity<UserLanguages>().HasKey(ul => new { ul.LanguageId, ul.UserId });
+            modelBuilder.Entity<UserLanguages>()
+                .HasOne(ut => ut.LanguageOfInterest)
+                .WithMany(ut => ut.UserLanguage)
+                .HasForeignKey(ut => ut.LanguageId);
+
+            modelBuilder.Entity<UserLanguages>()
+                .HasOne(ut => ut.User)
+                .WithMany(ut => ut.UserLanguage)
+                .HasForeignKey(ut => ut.UserId);
             // User
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<User>().HasKey(p => p.Id);
@@ -69,8 +102,6 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<User>().Property(p => p.Email).IsRequired();
             modelBuilder.Entity<User>().Property(p => p.Password).IsRequired();
             modelBuilder.Entity<User>().Property(p => p.Description).IsRequired().HasMaxLength(245);
-            modelBuilder.Entity<User>().Property(p => p.RelatedInterest).IsRequired();
-            modelBuilder.Entity<User>().Property(p => p.RelatedLenguageInterest).IsRequired();
             // RelatedUser
             modelBuilder.Entity<RelatedUser>().ToTable("RelatedUser");
             modelBuilder.Entity<RelatedUser>().HasKey(p => new { p.UserIdOne, p.UserIdTwo });
