@@ -76,8 +76,7 @@ namespace ILenguage.API.Services
             existingUser.Email = user.Email;
             existingUser.Password = user.Password;
             existingUser.RelatedUsers = user.RelatedUsers;
-            existingUser.RelatedInterest = user.RelatedInterest;
-            existingUser.RelatedLenguageInterest = user.RelatedLenguageInterest;
+
             try
             {
                 _userRepository.Update(existingUser);
