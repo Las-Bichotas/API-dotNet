@@ -68,6 +68,7 @@ namespace ILenguage.API
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ILenguage.API", Version = "v1" });
+                c.EnableAnnotations();
             });
         }
 
@@ -81,8 +82,7 @@ namespace ILenguage.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ILenguage.API v1"));
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ILenguage.API v1"));
+
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();

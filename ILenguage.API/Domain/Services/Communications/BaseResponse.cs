@@ -7,20 +7,20 @@ namespace ILenguage.API.Domain.Services.Communications
         public T Resource { get; set; }
         public string Message { get; protected set; }
         public bool Succes { get; set; }
-        
-        
+
+
         protected BaseResponse(T resource)
         {
             Resource = resource;
             Succes = true;
-            Message = String.Empty;
+            Message = string.Empty;
         }
 
         protected BaseResponse(string message)
         {
-            Message = message;
             Succes = false;
+            Message = message;
         }
-        
+
     }
 }
