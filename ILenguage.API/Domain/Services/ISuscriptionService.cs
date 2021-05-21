@@ -9,8 +9,8 @@ namespace ILenguage.API.Domain.Services
     {
         Task<IEnumerable<Suscription>> ListAsync();
         Task<SuscriptionResponse> GetById(int id);
-        Task<SuscriptionResponse> GetByName(string name);
-        Task<SuscriptionResponse> GetByDuration(int duration);
+       // Task<SuscriptionResponse> GetByName(string name);
+       // Task<SuscriptionResponse> GetByDuration(int duration);
         Task<SuscriptionResponse> SaveAsync(Suscription suscription);
         Task<SuscriptionResponse> UpdateAsync(int id, Suscription suscription);
         Task<SuscriptionResponse> DeleteAsync(int id);

@@ -15,7 +15,7 @@ namespace ILenguage.API.Resources
         public int MonthDuration { get; set; }
         
         [Required(ErrorMessage = "Price is required")]
-        [RegularExpression(@"^\d+\.\d{0,2}$", ErrorMessage = "The price must have only 2 decimals")] //This is to be sure price has 2 digits max
+        //[RegularExpression(@"^\d+\.\d{0,2}$", ErrorMessage = "The price must have only 2 decimals")] //This is to be sure price has 2 digits max
         public float Price { get; set; }
     }
 }

@@ -31,16 +31,16 @@ namespace ILenguage.API.Persistence.Repositories
             return await _context.Suscriptions.FindAsync(id);
         }
 
-        public async Task<Suscription> FindByName(string name)
+     /*   public async Task<Suscription> FindByName(string name)
         {
             //?Does this really works?
             return await _context.Suscriptions.FindAsync(name);
-        }
+        }*/
 
-        public async Task<Suscription> FindByDuration(int duration)
+       /* public async Task<Suscription> FindByDuration(int duration)
         {
             return await _context.Suscriptions.FindAsync(duration);
-        }
+        }*/
 
         public void Update(Suscription suscription)
         {
