@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ILenguage.API.Domain.Persistence.Repositories
 {
@@ -14,5 +15,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task<Suscription> FindByDuration(int duration);
         void Update(Suscription suscription);
         void Remove(Suscription suscription);
+        
+        
     }
 }

@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Contexts;
 using ILenguage.API.Domain.Persistence.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ILenguage.API.Persistence.Repositories
 {
@@ -34,12 +36,15 @@ namespace ILenguage.API.Persistence.Repositories
         public async Task<Suscription> FindByName(string name)
         {
             //?Does this really works?
-            return await _context.Suscriptions.FindAsync(name);
+            return await _context.Suscriptions.Where(s => s.Name == name)
+                .FirstOrDefaultAsync();
+
         }
 
         public async Task<Suscription> FindByDuration(int duration)
         {
-            return await _context.Suscriptions.FindAsync(duration);
+            return await _context.Suscriptions.Where(s => s.MonthDuration == duration)
+                .FirstOrDefaultAsync();
         }
 
         public void Update(Suscription suscription)
@@ -53,5 +58,6 @@ namespace ILenguage.API.Persistence.Repositories
             _context.Suscriptions.Remove(suscription);
             _context.SaveChanges();
         }
+        
     }
 }

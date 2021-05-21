@@ -22,21 +22,21 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            /*
+            
             //!Suscription
-            modelBuilder.Entity<Suscription>().ToTable("Suscription");
+            modelBuilder.Entity<Suscription>().ToTable("Suscriptions");
             modelBuilder.Entity<Suscription>().HasKey(s => s.Id);
             modelBuilder.Entity<Suscription>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
             modelBuilder.Entity<Suscription>().Property(s => s.Name).IsRequired().HasMaxLength(20);
             modelBuilder.Entity<Suscription>().Property(s => s.MonthDuration).IsRequired();
             modelBuilder.Entity<Suscription>().Property(s => s.Price).IsRequired();
 
-            modelBuilder.Entity<Suscription>()
+           /* modelBuilder.Entity<Suscription>()
                 .HasMany(s => s.Users)
                 .WithOne(u => u.Suscription)
                 .HasForeignKey(u => u.SuscriptionId);
 
-
+/*
 
             //!UserSuscription
             modelBuilder.Entity<UserSuscription>().ToTable("UserSuscription");
