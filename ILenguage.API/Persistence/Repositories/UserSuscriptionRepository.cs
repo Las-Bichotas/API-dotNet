@@ -14,7 +14,7 @@ namespace ILenguage.API.Persistence.Repositories
         {
         }
 
-        public async Task<IEnumerable<UserSuscription>> ListAsync()
+        public async Task<IEnumerable<UserSubscription>> ListAsync()
         {
             //? Is it important to list the PaymentMethod too? 
             return await _context.UserSuscriptions.Include(us => us.Subscription)
@@ -23,7 +23,7 @@ namespace ILenguage.API.Persistence.Repositories
             
         }
 
-        public async Task<IEnumerable<UserSuscription>> ListByUserId(int userId)
+        public async Task<IEnumerable<UserSubscription>> ListByUserId(int userId)
         {
             return await _context.UserSuscriptions.Where(us => us.UserId == userId)
                 .Include(us => us.Subscription)
@@ -33,7 +33,7 @@ namespace ILenguage.API.Persistence.Repositories
 
         }
 
-        public async Task<IEnumerable<UserSuscription>> ListBySuscriptionId(int suscriptionId)
+        public async Task<IEnumerable<UserSubscription>> ListBySuscriptionId(int suscriptionId)
         {
             return await _context.UserSuscriptions.Where(us => us.SuscriptionId == suscriptionId)
                 .Include(us => us.Subscription)
@@ -43,7 +43,7 @@ namespace ILenguage.API.Persistence.Repositories
 
         }
 
-        public async Task<IEnumerable<UserSuscription>> ListBySuscriptionIdAndUserId(int suscriptionId, int userId)
+        public async Task<IEnumerable<UserSubscription>> ListBySuscriptionIdAndUserId(int suscriptionId, int userId)
         {
             return await _context.UserSuscriptions.Where(us => us.SuscriptionId == suscriptionId && us.UserId == userId)
                 .Include(us => us.Subscription)
@@ -52,14 +52,14 @@ namespace ILenguage.API.Persistence.Repositories
          
         }
 
-        public async Task AddAsync(UserSuscription userSuscription)
+        public async Task AddAsync(UserSubscription userSubscription)
         {
-            await _context.UserSuscriptions.AddAsync(userSuscription);
+            await _context.UserSuscriptions.AddAsync(userSubscription);
         }
 
-        public void Remove(UserSuscription userSuscription)
+        public void Remove(UserSubscription userSubscription)
         {
-            _context.UserSuscriptions.Remove(userSuscription);
+            _context.UserSuscriptions.Remove(userSubscription);
         }
 
         public async Task AssingUserSuscription(int userId, int suscriptionId)

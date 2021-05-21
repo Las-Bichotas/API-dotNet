@@ -10,6 +10,7 @@ namespace ILenguage.API.Domain.Models
         public int MonthDuration { get; set; }
         public string Name { get; set; }
         
+        public List<UserSubscription> UserSubscriptions { get; set; }
        
     }
 }
