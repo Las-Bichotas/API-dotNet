@@ -19,7 +19,7 @@ namespace ILenguage.API.Domain.Services.Communications
         protected BaseResponse(string message)
         {
             Message = message;
-            Succes = true;
+            Succes = false;
         }
         
     }
