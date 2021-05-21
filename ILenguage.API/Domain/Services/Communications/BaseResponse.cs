@@ -13,13 +13,13 @@ namespace ILenguage.API.Domain.Services.Communications
         {
             Resource = resource;
             Succes = true;
-            Message = String.Empty;
+            Message = string.Empty;
         }
 
         protected BaseResponse(string message)
         {
+            Succes = false;
             Message = message;
-            Succes = true;
         }
         
     }
