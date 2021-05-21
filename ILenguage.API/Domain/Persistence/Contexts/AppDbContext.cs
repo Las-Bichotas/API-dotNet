@@ -10,7 +10,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<Session> Sessions { get; set; }
         public DbSet<SessionDetails> SessionsDetails { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Subscription> Suscriptions { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<UserSuscription> UserSuscriptions { get; set; }
         public DbSet<User> Users { get; set; }
@@ -24,7 +24,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             base.OnModelCreating(modelBuilder);
             
             //!Suscription
-            modelBuilder.Entity<Subscription>().ToTable("Suscriptions");
+            modelBuilder.Entity<Subscription>().ToTable("Subscriptions");
             modelBuilder.Entity<Subscription>().HasKey(s => s.Id);
             modelBuilder.Entity<Subscription>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
             modelBuilder.Entity<Subscription>().Property(s => s.Name).IsRequired().HasMaxLength(20);

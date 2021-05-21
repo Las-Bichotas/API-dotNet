@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ILenguage.API.Domain.Persistence.Repositories
 {
-    public interface ISuscriptionRepository
+    public interface ISubscriptionRepository
     {
         Task<IEnumerable<Subscription>> ListAsync();
         Task AddAsync(Subscription subscription);

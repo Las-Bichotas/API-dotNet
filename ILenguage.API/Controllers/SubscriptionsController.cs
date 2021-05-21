@@ -13,14 +13,14 @@ namespace ILenguage.API.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("/api/[controller]")]
-    public class SuscriptionsController : ControllerBase
+    public class SubscriptionsController : ControllerBase
     {
-        private readonly ISuscriptionService _suscriptionService;
+        private readonly ISubscriptionService _subscriptionService;
         private readonly IMapper _mapper;
 
-        public SuscriptionsController(ISuscriptionService suscriptionService, IMapper mapper)
+        public SubscriptionsController(ISubscriptionService subscriptionService, IMapper mapper)
         {
-            _suscriptionService = suscriptionService;
+            _subscriptionService = subscriptionService;
             _mapper = mapper;
         }
 
@@ -28,7 +28,7 @@ namespace ILenguage.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<SuscriptionResource>), 200)]
         public async Task<IEnumerable<SuscriptionResource>> GetAllAsync()
         {
-            var suscriptions = await _suscriptionService.ListAsync();
+            var suscriptions = await _subscriptionService.ListAsync();
             var resources = _mapper.Map<IEnumerable<Subscription>, IEnumerable<SuscriptionResource>>(suscriptions);
             return resources;
         }
@@ -38,7 +38,7 @@ namespace ILenguage.API.Controllers
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
-            var result = await _suscriptionService.GetById(id);
+            var result = await _subscriptionService.GetById(id);
             if (!result.Succes)
                 return BadRequest(result.Message);
             var suscriptionResource = _mapper.Map<Subscription, SuscriptionResource>(result.Resource);
@@ -51,7 +51,7 @@ namespace ILenguage.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessage());
             var suscription = _mapper.Map<SaveSuscriptionResource, Subscription>(resource);
-            var result = await _suscriptionService.SaveAsync(suscription);
+            var result = await _subscriptionService.SaveAsync(suscription);
             if (!result.Succes)
                 return BadRequest(result.Message);
             var suscriptionResource = _mapper.Map<Subscription, SuscriptionResource>(result.Resource);
@@ -63,7 +63,7 @@ namespace ILenguage.API.Controllers
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetByNameAsync(string name)
         {
-            var result = await _suscriptionService.GetByName(name);
+            var result = await _subscriptionService.GetByName(name);
             if (!result.Succes)
                 return BadRequest(result.Message);
             var suscriptionResource = _mapper.Map<Subscription, SuscriptionResource>(result.Resource);
@@ -75,7 +75,7 @@ namespace ILenguage.API.Controllers
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetByDurationAsync(int duration)
         {
-            var result = await _suscriptionService.GetByDuration(duration);
+            var result = await _subscriptionService.GetByDuration(duration);
             if (!result.Succes)
                 return BadRequest(result.Message);
             var suscriptionResource = _mapper.Map<Subscription, SuscriptionResource>(result.Resource);
@@ -88,7 +88,7 @@ namespace ILenguage.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessage());
             var suscription = _mapper.Map<SaveSuscriptionResource, Subscription>(resource);
-            var result = await _suscriptionService.UpdateAsync(id, suscription);
+            var result = await _subscriptionService.UpdateAsync(id, suscription);
 
             if (!result.Succes)
                 return BadRequest(result.Message);
@@ -100,7 +100,7 @@ namespace ILenguage.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var result = await _suscriptionService.DeleteAsync(id);
+            var result = await _subscriptionService.DeleteAsync(id);
             if (!result.Succes)
                 return BadRequest(result.Message);
             var suscriptionResource = _mapper.Map<Subscription, SuscriptionResource>(result.Resource);

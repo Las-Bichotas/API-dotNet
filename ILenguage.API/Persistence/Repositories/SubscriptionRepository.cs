@@ -10,40 +10,40 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ILenguage.API.Persistence.Repositories
 {
-    public class SuscriptionRepository : BaseRepository, ISuscriptionRepository
+    public class SubscriptionRepository : BaseRepository, ISubscriptionRepository
     {
-        public SuscriptionRepository(AppDbContext context) : base(context)
+        public SubscriptionRepository(AppDbContext context) : base(context)
         {
         }
 
         public async Task<IEnumerable<Subscription>> ListAsync()
         {
-            return await _context.Suscriptions.ToListAsync();
+            return await _context.Subscriptions.ToListAsync();
             
         }
 
         public async Task AddAsync(Subscription subscription)
         {
-            await _context.Suscriptions.AddAsync(subscription);
+            await _context.Subscriptions.AddAsync(subscription);
             _context.SaveChanges();
         }
 
         public async Task<Subscription> FindById(int id)
         {
-            return await _context.Suscriptions.FindAsync(id);
+            return await _context.Subscriptions.FindAsync(id);
         }
 
         public async Task<Subscription> FindByName(string name)
         {
             //?Does this really works?
-            return await _context.Suscriptions.Where(s => s.Name == name)
+            return await _context.Subscriptions.Where(s => s.Name == name)
                 .FirstOrDefaultAsync();
 
         }
 
         public async Task<Subscription> FindByDuration(int duration)
         {
-            return await _context.Suscriptions.Where(s => s.MonthDuration == duration)
+            return await _context.Subscriptions.Where(s => s.MonthDuration == duration)
                 .FirstOrDefaultAsync();
         }
 
@@ -55,7 +55,7 @@ namespace ILenguage.API.Persistence.Repositories
 
         public void Remove(Subscription subscription)
         {
-            _context.Suscriptions.Remove(subscription);
+            _context.Subscriptions.Remove(subscription);
             _context.SaveChanges();
         }
         

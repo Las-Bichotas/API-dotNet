@@ -24,7 +24,7 @@ namespace ILanguage.API.Test
             var mockSuscriuptionRepository = GetDefaultISuscriptionRepositoryInterface();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstace();
             mockSuscriuptionRepository.Setup(r => r.ListAsync()).ReturnsAsync(new List<Subscription>());
-            var service = new SuscriptionService(mockSuscriuptionRepository.Object, mockUnitOfWork.Object);
+            var service = new SubscriptionService(mockSuscriuptionRepository.Object, mockUnitOfWork.Object);
 
             List<Subscription> result = (List<Subscription>) await service.ListAsync();
             var suscriptionsCount = result.Count;
@@ -40,9 +40,9 @@ namespace ILanguage.API.Test
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstace();
             var suscriptionId = 14;
             mockSuscriptionRepository.Setup(r => r.FindById(suscriptionId)).Returns(Task.FromResult<Subscription>(null));
-            var service = new SuscriptionService(mockSuscriptionRepository.Object, mockUnitOfWork.Object);
+            var service = new SubscriptionService(mockSuscriptionRepository.Object, mockUnitOfWork.Object);
 
-            SuscriptionResponse result = await service.GetById(suscriptionId);
+            SubscriptionResponse result = await service.GetById(suscriptionId);
             var message = result.Message;
 
             message.Should().Be("Suscription Not Found");
@@ -50,9 +50,9 @@ namespace ILanguage.API.Test
         
 
 
-        private Mock<ISuscriptionRepository> GetDefaultISuscriptionRepositoryInterface()
+        private Mock<ISubscriptionRepository> GetDefaultISuscriptionRepositoryInterface()
         {
-            return new Mock<ISuscriptionRepository>();
+            return new Mock<ISubscriptionRepository>();
         }
 
         private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstace()

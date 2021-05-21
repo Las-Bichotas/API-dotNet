@@ -47,7 +47,7 @@ namespace ILenguage.API
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
             services.AddScoped<ISessionDetailRepository, SessionDetailRepository>();
             services.AddScoped<ISessionRepository, SessionRepository>();
-            services.AddScoped<ISuscriptionRepository, SuscriptionRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserSuscriptionRepository, UserSuscriptionRepository>();
@@ -57,7 +57,7 @@ namespace ILenguage.API
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<ISessionDetailService, SessionDetailService>();
             services.AddScoped<ISessionService, SessionService>();
-            services.AddScoped<ISuscriptionService, SuscriptionService>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
             services.AddScoped<IUserService, UserService>();
 
             //Endpoinst case conventions configurations
