@@ -29,7 +29,7 @@ namespace ILenguage.API.Controllers
         public async Task<IEnumerable<SuscriptionResource>> GetAllAsync()
         {
             var suscriptions = await _suscriptionService.ListAsync();
-            var resources = _mapper.Map<IEnumerable<Suscription>, IEnumerable<SuscriptionResource>>(suscriptions);
+            var resources = _mapper.Map<IEnumerable<Subscription>, IEnumerable<SuscriptionResource>>(suscriptions);
             return resources;
         }
 
@@ -41,7 +41,7 @@ namespace ILenguage.API.Controllers
             var result = await _suscriptionService.GetById(id);
             if (!result.Succes)
                 return BadRequest(result.Message);
-            var suscriptionResource = _mapper.Map<Suscription, SuscriptionResource>(result.Resource);
+            var suscriptionResource = _mapper.Map<Subscription, SuscriptionResource>(result.Resource);
             return Ok(suscriptionResource);
         }
 
@@ -50,11 +50,11 @@ namespace ILenguage.API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessage());
-            var suscription = _mapper.Map<SaveSuscriptionResource, Suscription>(resource);
+            var suscription = _mapper.Map<SaveSuscriptionResource, Subscription>(resource);
             var result = await _suscriptionService.SaveAsync(suscription);
             if (!result.Succes)
                 return BadRequest(result.Message);
-            var suscriptionResource = _mapper.Map<Suscription, SuscriptionResource>(result.Resource);
+            var suscriptionResource = _mapper.Map<Subscription, SuscriptionResource>(result.Resource);
             return Ok(suscriptionResource);
         }
 
@@ -66,7 +66,7 @@ namespace ILenguage.API.Controllers
             var result = await _suscriptionService.GetByName(name);
             if (!result.Succes)
                 return BadRequest(result.Message);
-            var suscriptionResource = _mapper.Map<Suscription, SuscriptionResource>(result.Resource);
+            var suscriptionResource = _mapper.Map<Subscription, SuscriptionResource>(result.Resource);
             return Ok(suscriptionResource);
         }
 
@@ -78,7 +78,7 @@ namespace ILenguage.API.Controllers
             var result = await _suscriptionService.GetByDuration(duration);
             if (!result.Succes)
                 return BadRequest(result.Message);
-            var suscriptionResource = _mapper.Map<Suscription, SuscriptionResource>(result.Resource);
+            var suscriptionResource = _mapper.Map<Subscription, SuscriptionResource>(result.Resource);
             return Ok(suscriptionResource);
         }
 
@@ -87,12 +87,12 @@ namespace ILenguage.API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessage());
-            var suscription = _mapper.Map<SaveSuscriptionResource, Suscription>(resource);
+            var suscription = _mapper.Map<SaveSuscriptionResource, Subscription>(resource);
             var result = await _suscriptionService.UpdateAsync(id, suscription);
 
             if (!result.Succes)
                 return BadRequest(result.Message);
-            var suscriptionResource = _mapper.Map<Suscription, SuscriptionResource>(result.Resource);
+            var suscriptionResource = _mapper.Map<Subscription, SuscriptionResource>(result.Resource);
             return Ok(suscriptionResource);
         }
 
@@ -103,7 +103,7 @@ namespace ILenguage.API.Controllers
             var result = await _suscriptionService.DeleteAsync(id);
             if (!result.Succes)
                 return BadRequest(result.Message);
-            var suscriptionResource = _mapper.Map<Suscription, SuscriptionResource>(result.Resource);
+            var suscriptionResource = _mapper.Map<Subscription, SuscriptionResource>(result.Resource);
             return Ok(suscriptionResource);
         }
 

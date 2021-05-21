@@ -8,13 +8,13 @@ namespace ILenguage.API.Domain.Persistence.Repositories
 {
     public interface ISuscriptionRepository
     {
-        Task<IEnumerable<Suscription>> ListAsync();
-        Task AddAsync(Suscription suscription);
-        Task<Suscription> FindById(int id);
-        Task<Suscription> FindByName(string name);
-        Task<Suscription> FindByDuration(int duration);
-        void Update(Suscription suscription);
-        void Remove(Suscription suscription);
+        Task<IEnumerable<Subscription>> ListAsync();
+        Task AddAsync(Subscription subscription);
+        Task<Subscription> FindById(int id);
+        Task<Subscription> FindByName(string name);
+        Task<Subscription> FindByDuration(int duration);
+        void Update(Subscription subscription);
+        void Remove(Subscription subscription);
         
         
     }

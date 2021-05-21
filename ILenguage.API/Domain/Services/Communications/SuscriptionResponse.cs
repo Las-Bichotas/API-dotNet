@@ -3,9 +3,9 @@ using ILenguage.API.Domain.Services.Communications;
 
 namespace ILenguage.API.Domain.Services
 {
-    public class SuscriptionResponse : BaseResponse<Suscription>
+    public class SuscriptionResponse : BaseResponse<Subscription>
     {
-        public SuscriptionResponse(Suscription resource) : base(resource)
+        public SuscriptionResponse(Subscription resource) : base(resource)
         {
         }
 

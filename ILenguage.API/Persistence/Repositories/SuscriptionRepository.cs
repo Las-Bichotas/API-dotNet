@@ -16,24 +16,24 @@ namespace ILenguage.API.Persistence.Repositories
         {
         }
 
-        public async Task<IEnumerable<Suscription>> ListAsync()
+        public async Task<IEnumerable<Subscription>> ListAsync()
         {
             return await _context.Suscriptions.ToListAsync();
             
         }
 
-        public async Task AddAsync(Suscription suscription)
+        public async Task AddAsync(Subscription subscription)
         {
-            await _context.Suscriptions.AddAsync(suscription);
+            await _context.Suscriptions.AddAsync(subscription);
             _context.SaveChanges();
         }
 
-        public async Task<Suscription> FindById(int id)
+        public async Task<Subscription> FindById(int id)
         {
             return await _context.Suscriptions.FindAsync(id);
         }
 
-        public async Task<Suscription> FindByName(string name)
+        public async Task<Subscription> FindByName(string name)
         {
             //?Does this really works?
             return await _context.Suscriptions.Where(s => s.Name == name)
@@ -41,21 +41,21 @@ namespace ILenguage.API.Persistence.Repositories
 
         }
 
-        public async Task<Suscription> FindByDuration(int duration)
+        public async Task<Subscription> FindByDuration(int duration)
         {
             return await _context.Suscriptions.Where(s => s.MonthDuration == duration)
                 .FirstOrDefaultAsync();
         }
 
-        public void Update(Suscription suscription)
+        public void Update(Subscription subscription)
         {
-            _context.Update(suscription);
+            _context.Update(subscription);
             _context.SaveChanges();
         }
 
-        public void Remove(Suscription suscription)
+        public void Remove(Subscription subscription)
         {
-            _context.Suscriptions.Remove(suscription);
+            _context.Suscriptions.Remove(subscription);
             _context.SaveChanges();
         }
         

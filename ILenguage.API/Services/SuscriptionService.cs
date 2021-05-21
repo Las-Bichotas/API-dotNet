@@ -18,7 +18,7 @@ namespace ILenguage.API.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Suscription>> ListAsync()
+        public async Task<IEnumerable<Subscription>> ListAsync()
         {
             return await _suscriptionRepository.ListAsync();
         }
@@ -48,10 +48,10 @@ namespace ILenguage.API.Services
             return new SuscriptionResponse(existingSuscription);
         }
 
-        public async Task<SuscriptionResponse> SaveAsync(Suscription suscription)
+        public async Task<SuscriptionResponse> SaveAsync(Subscription subscription)
         {
-            var existingSubscriptionByDuration = await _suscriptionRepository.FindByDuration(suscription.MonthDuration);
-            var existingSubscriptionByName = await _suscriptionRepository.FindByName(suscription.Name);
+            var existingSubscriptionByDuration = await _suscriptionRepository.FindByDuration(subscription.MonthDuration);
+            var existingSubscriptionByName = await _suscriptionRepository.FindByName(subscription.Name);
             if (existingSubscriptionByDuration != null)
                 return new SuscriptionResponse("There already exist a Subscription with that duration");
             if(existingSubscriptionByName != null)
@@ -59,9 +59,9 @@ namespace ILenguage.API.Services
             
             try
             {
-                await _suscriptionRepository.AddAsync(suscription);
+                await _suscriptionRepository.AddAsync(subscription);
                 await _unitOfWork.CompleteAsync();
-                return new SuscriptionResponse(suscription);
+                return new SuscriptionResponse(subscription);
             }
             catch (Exception e)
             {
@@ -69,22 +69,22 @@ namespace ILenguage.API.Services
             }
         }
 
-        public async Task<SuscriptionResponse> UpdateAsync(int id, Suscription suscription)
+        public async Task<SuscriptionResponse> UpdateAsync(int id, Subscription subscription)
         {
             var existingSuscription = await _suscriptionRepository.FindById(id);
             if (existingSuscription == null)
                 return new SuscriptionResponse("Suscription Not Found");
             
-            var existingSubscriptionByDuration = await _suscriptionRepository.FindByDuration(suscription.MonthDuration);
-            var existingSubscriptionByName = await _suscriptionRepository.FindByName(suscription.Name);
+            var existingSubscriptionByDuration = await _suscriptionRepository.FindByDuration(subscription.MonthDuration);
+            var existingSubscriptionByName = await _suscriptionRepository.FindByName(subscription.Name);
             if (existingSubscriptionByDuration != null)
                 return new SuscriptionResponse("There already exist a Subscription with that duration");
             if(existingSubscriptionByName != null)
                 return new SuscriptionResponse("There already exist a Subscription with that name");            
             
-            existingSuscription.Name = suscription.Name;
-            existingSuscription.Price = suscription.Price;
-            existingSuscription.MonthDuration = suscription.MonthDuration;
+            existingSuscription.Name = subscription.Name;
+            existingSuscription.Price = subscription.Price;
+            existingSuscription.MonthDuration = subscription.MonthDuration;
             try
             {
                 _suscriptionRepository.Update(existingSuscription);
