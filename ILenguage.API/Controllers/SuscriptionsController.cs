@@ -58,7 +58,7 @@ namespace ILenguage.API.Controllers
             return Ok(suscriptionResource);
         }
 
-       /* [HttpGet("{name}")]
+        [HttpGet("{name}")]
         [ProducesResponseType(typeof(SuscriptionResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetByNameAsync(string name)
@@ -68,9 +68,9 @@ namespace ILenguage.API.Controllers
                 return BadRequest(result.Message);
             var suscriptionResource = _mapper.Map<Suscription, SuscriptionResource>(result.Resource);
             return Ok(suscriptionResource);
-        }*/
+        }
 
-       /* [HttpGet("{duration}")]
+        [HttpGet("{duration}")]
         [ProducesResponseType(typeof(SuscriptionResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         public async Task<IActionResult> GetByDurationAsync(int duration)
@@ -80,7 +80,7 @@ namespace ILenguage.API.Controllers
                 return BadRequest(result.Message);
             var suscriptionResource = _mapper.Map<Suscription, SuscriptionResource>(result.Resource);
             return Ok(suscriptionResource);
-        }*/
+        }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveSuscriptionResource resource)

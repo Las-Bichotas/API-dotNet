@@ -31,22 +31,22 @@ namespace ILenguage.API.Services
             return new SuscriptionResponse(existingSuscription);
         }
 
-       /* public async Task<SuscriptionResponse> GetByName(string name)
+        public async Task<SuscriptionResponse> GetByName(string name)
         {
             var existingSuscription = await _suscriptionRepository.FindByName(name);
             if (existingSuscription == null)
                 return new SuscriptionResponse("Suscription Not Found");
             return new SuscriptionResponse(existingSuscription);
             
-        }*/
+        }
 
-       /* public async Task<SuscriptionResponse> GetByDuration(int duration)
+        public async Task<SuscriptionResponse> GetByDuration(int duration)
         {
             var existingSuscription = await _suscriptionRepository.FindByDuration(duration);
             if (existingSuscription == null)
                 return new SuscriptionResponse("Suscription Not Found");
             return new SuscriptionResponse(existingSuscription);
-        }*/
+        }
 
         public async Task<SuscriptionResponse> SaveAsync(Suscription suscription)
         {
