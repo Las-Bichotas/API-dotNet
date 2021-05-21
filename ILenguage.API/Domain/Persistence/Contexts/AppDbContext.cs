@@ -33,7 +33,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             
             //*UserSubscription
             modelBuilder.Entity<UserSubscription>().ToTable("UserSubscriptions");
-            modelBuilder.Entity<UserSubscription>().HasKey(us => new {us.UserId, us.SuscriptionId});
+            modelBuilder.Entity<UserSubscription>().HasKey(us => new {us.UserId, us.SubscriptionId});
             //relationship between user and subscription
             modelBuilder.Entity<UserSubscription>()
                 .HasOne(us => us.User)
@@ -42,7 +42,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<UserSubscription>()
                 .HasOne(us => us.Subscription)
                 .WithMany(us => us.UserSubscriptions)
-                .HasForeignKey(us => us.SuscriptionId);
+                .HasForeignKey(us => us.SubscriptionId);
             
 
           

@@ -8,15 +8,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ILenguage.API.Persistence.Repositories
 {
-    public class UserSuscriptionRepository : BaseRepository, IUserSuscriptionRepository
+    public class UserSubscriptionRepository : BaseRepository, IUserSubscriptionRepository
     {
-        public UserSuscriptionRepository(AppDbContext context) : base(context)
+        public UserSubscriptionRepository(AppDbContext context) : base(context)
         {
         }
 
         public async Task<IEnumerable<UserSubscription>> ListAsync()
         {
-            //? Is it important to list the PaymentMethod too? 
+        
             return await _context.UserSuscriptions.Include(us => us.Subscription)
                 .Include(us => us.User)
                 .ToListAsync();
@@ -33,9 +33,9 @@ namespace ILenguage.API.Persistence.Repositories
 
         }
 
-        public async Task<IEnumerable<UserSubscription>> ListBySuscriptionId(int suscriptionId)
+        public async Task<IEnumerable<UserSubscription>> ListBySubscriptionId(int suscriptionId)
         {
-            return await _context.UserSuscriptions.Where(us => us.SuscriptionId == suscriptionId)
+            return await _context.UserSuscriptions.Where(us => us.SubscriptionId == suscriptionId)
                 .Include(us => us.Subscription)
                 .Include(us => us.User)
                 .ToListAsync();
@@ -43,13 +43,9 @@ namespace ILenguage.API.Persistence.Repositories
 
         }
 
-        public async Task<IEnumerable<UserSubscription>> ListBySuscriptionIdAndUserId(int suscriptionId, int userId)
+        public async Task<UserSubscription> FindBySubscriptionIdAndUserId(int suscriptionId, int userId)
         {
-            return await _context.UserSuscriptions.Where(us => us.SuscriptionId == suscriptionId && us.UserId == userId)
-                .Include(us => us.Subscription)
-                .Include(us => us.User)
-                .ToListAsync();
-         
+            return await _context.UserSuscriptions.FindAsync(userId, suscriptionId);
         }
 
         public async Task AddAsync(UserSubscription userSubscription)
@@ -62,17 +58,21 @@ namespace ILenguage.API.Persistence.Repositories
             _context.UserSuscriptions.Remove(userSubscription);
         }
 
-        public async Task AssingUserSuscription(int userId, int suscriptionId)
+        public async Task AssingUserSubscription(int userId, int subscriptionId)
         {
-           //TODO:
-           await Task.Run(() => { });
-           
-
+            UserSubscription userSubscription = await FindBySubscriptionIdAndUserId(subscriptionId, userId);
+            if (userSubscription == null)
+            {
+                userSubscription = new UserSubscription {UserId = userId, SubscriptionId = subscriptionId};
+                await AddAsync(userSubscription);
+            }
         }
 
-        public async Task UnassingUserSuscription(int userId, int SuscriptionId)
+        public async Task UnassingUserSubscription(int userId, int suscriptionId)
         {
-            await Task.Run(() => { });
+            UserSubscription userSubscription = await FindBySubscriptionIdAndUserId(suscriptionId, userId);
+            if (userSubscription != null)
+                Remove(userSubscription);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace ILenguage.API.Domain.Models
 {
     public class UserSubscription
     {
-        public int SuscriptionId { get; set; }
+        public int SubscriptionId { get; set; }
         public Subscription Subscription { get; set; }
 
         public int UserId { get; set; }
