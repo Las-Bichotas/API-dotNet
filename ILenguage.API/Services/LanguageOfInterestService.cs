@@ -12,6 +12,13 @@ namespace ILenguage.API.Services
     {
         private readonly ILanguageOfInterestRespository _languageOfInterestRepository;
         private readonly IUnitOfWork _unitOfWork;
+
+        public LanguageOfInterestService(ILanguageOfInterestRespository languageOfInterestRepository, IUnitOfWork unitOfWork)
+        {
+            _languageOfInterestRepository = languageOfInterestRepository;
+            _unitOfWork = unitOfWork;
+        }
+
         public async Task<LanguageOfInterestResponse> DeleteAsync(int languageId)
         {
             var existingLanguage = await _languageOfInterestRepository.FindByLanguageId(languageId);

@@ -39,7 +39,7 @@ namespace ILenguage.API
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySQL(Configuration.GetConnectionString("LocalConnection"));
+                options.UseMySQL(Configuration.GetConnectionString("LocalConnectionDIAZ"));
 
             });
             // Dependency Injection Configuration
@@ -51,6 +51,8 @@ namespace ILenguage.API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserSuscriptionRepository, UserSuscriptionRepository>();
+            services.AddScoped<ILanguageOfInterestRespository, LanguageOfInterestRepository>();
+            services.AddScoped<ITopicOfInterestRepository, TopicOfInterestRepository>();
 
             services.AddScoped<IMakePaymentService, MakePaymentService>();
             services.AddScoped<IRelatedUserService, RelatedUserService>();
@@ -59,6 +61,8 @@ namespace ILenguage.API
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<ISuscriptionService, SuscriptionService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILanguageOfInterestService, LanguageOfInterestService>();
+            services.AddScoped<ITopicOfInterestService, TopicOfInterestService>();
 
             //Endpoinst case conventions configurations
             services.AddRouting(options => options.LowercaseUrls = true);

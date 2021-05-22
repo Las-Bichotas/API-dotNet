@@ -12,6 +12,13 @@ namespace ILenguage.API.Services
     {
         private readonly ITopicOfInterestRepository _topicOfInterestRespository;
         private readonly IUnitOfWork _unitOfWork;
+
+        public TopicOfInterestService(ITopicOfInterestRepository topicOfInterestRespository, IUnitOfWork unitOfWork)
+        {
+            _topicOfInterestRespository = topicOfInterestRespository;
+            _unitOfWork = unitOfWork;
+        }
+
         public async Task<TopicsOfInterestResponse> Delete(int topicId)
         {
             var exitstingTopic = await _topicOfInterestRespository.FindByIdAsync(topicId);
