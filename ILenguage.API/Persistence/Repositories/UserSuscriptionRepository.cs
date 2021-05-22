@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
@@ -43,9 +44,12 @@ namespace ILenguage.API.Persistence.Repositories
 
         }
 
-        public async Task<UserSubscription> FindBySubscriptionIdAndUserId(int suscriptionId, int userId)
+        public async Task<UserSubscription> FindBySubscriptionIdAndUserId(int userId, int subscriptionId)
         {
-            return await _context.UserSuscriptions.FindAsync(userId, suscriptionId);
+            return await _context.UserSuscriptions
+                .Include(sub=> sub.User)
+                .Include(sub => sub.Subscription)
+                .FirstOrDefaultAsync(us => us.UserId == userId && us.SubscriptionId == subscriptionId);
         }
 
         public async Task AddAsync(UserSubscription userSubscription)
@@ -60,10 +64,16 @@ namespace ILenguage.API.Persistence.Repositories
 
         public async Task AssingUserSubscription(int userId, int subscriptionId)
         {
-            UserSubscription userSubscription = await FindBySubscriptionIdAndUserId(subscriptionId, userId);
+            UserSubscription userSubscription = await FindBySubscriptionIdAndUserId(userId, subscriptionId);
             if (userSubscription == null)
             {
+                Subscription foundSubscription = await _context.Subscriptions.FindAsync(subscriptionId);
+                
                 userSubscription = new UserSubscription {UserId = userId, SubscriptionId = subscriptionId};
+                userSubscription.InitialDate = DateTime.Now;
+                userSubscription.FinalDate =
+                    userSubscription.InitialDate.AddMonths(foundSubscription.MonthDuration);
+
                 await AddAsync(userSubscription);
             }
         }
@@ -73,6 +83,15 @@ namespace ILenguage.API.Persistence.Repositories
             UserSubscription userSubscription = await FindBySubscriptionIdAndUserId(suscriptionId, userId);
             if (userSubscription != null)
                 Remove(userSubscription);
+        }
+
+        public async Task<UserSubscription> GetLastUserSubscriptionByUserIdAsync(int userId)
+        {
+            var userSubscription = await _context.UserSuscriptions
+                .Where(u => u.UserId == userId)
+                .OrderByDescending(u => u.FinalDate)
+                .FirstOrDefaultAsync();
+            return userSubscription;
         }
     }
 }

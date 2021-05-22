@@ -59,6 +59,7 @@ namespace ILenguage.API
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<ISubscriptionService, SubscriptionService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserSubscriptionService, UserSubscriptionService>();
 
             //Endpoinst case conventions configurations
             services.AddRouting(options => options.LowercaseUrls = true);

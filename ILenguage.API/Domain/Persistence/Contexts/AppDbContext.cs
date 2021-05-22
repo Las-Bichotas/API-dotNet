@@ -82,7 +82,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .WithMany(ut => ut.UserLanguage)
                 .HasForeignKey(ut => ut.UserId);
             // User
-            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<User>().HasKey(p => p.Id);
             modelBuilder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             modelBuilder.Entity<User>().Property(p => p.Name).IsRequired().HasMaxLength(30);
@@ -149,6 +149,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             */
 
 
+         
 
         }
     }
