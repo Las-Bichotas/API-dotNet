@@ -12,6 +12,7 @@ namespace ILenguage.API.Mapping
             CreateMap<SaveScheduleResource, Schedule>();
             CreateMap<SaveUserResource, User>();
             CreateMap<SaveLanguageOfInterestResource, LanguageOfInterest>();
+            CreateMap<SaveTopicOfInterestResource, TopicsOfInterest>();
         }
     }
 }
