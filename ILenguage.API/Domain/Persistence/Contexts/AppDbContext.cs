@@ -15,14 +15,15 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<UserSubscription> UserSuscriptions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RelatedUser> RelatedUsers { get; set; }
-
+        public DbSet<LanguageOfInterest> LanguageOfInterests { get; set; }
+        public DbSet<TopicsOfInterest> TopicsOfInterests { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             //*Suscription
             modelBuilder.Entity<Subscription>().ToTable("Subscriptions");
             modelBuilder.Entity<Subscription>().HasKey(s => s.Id);
@@ -30,10 +31,10 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Subscription>().Property(s => s.Name).IsRequired().HasMaxLength(20);
             modelBuilder.Entity<Subscription>().Property(s => s.MonthDuration).IsRequired();
             modelBuilder.Entity<Subscription>().Property(s => s.Price).IsRequired();
-            
+
             //*UserSubscription
             modelBuilder.Entity<UserSubscription>().ToTable("UserSubscriptions");
-            modelBuilder.Entity<UserSubscription>().HasKey(us => new {us.UserId, us.SubscriptionId});
+            modelBuilder.Entity<UserSubscription>().HasKey(us => new { us.UserId, us.SubscriptionId });
             //relationship between user and subscription
             modelBuilder.Entity<UserSubscription>()
                 .HasOne(us => us.User)
@@ -43,14 +44,14 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .HasOne(us => us.Subscription)
                 .WithMany(us => us.UserSubscriptions)
                 .HasForeignKey(us => us.SubscriptionId);
-            
 
-          
+
+
             //TopicsOfInterest
             modelBuilder.Entity<TopicsOfInterest>().ToTable("TopicsOfInterest");
             modelBuilder.Entity<TopicsOfInterest>().HasKey(t => t.Id);
             modelBuilder.Entity<TopicsOfInterest>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<TopicsOfInterest>().Property(t => t.TopicName).IsRequired();
+            modelBuilder.Entity<TopicsOfInterest>().Property(t => t.Name).IsRequired();
             //UserTopics
             modelBuilder.Entity<UserTopics>().ToTable("UserTopics");
             modelBuilder.Entity<UserTopics>().HasKey(ut => new { ut.UserId, ut.TopicId });
@@ -68,7 +69,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<LanguageOfInterest>().ToTable("LanguageOfInterest");
             modelBuilder.Entity<LanguageOfInterest>().HasKey(l => l.Id);
             modelBuilder.Entity<LanguageOfInterest>().Property(l => l.Id).IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<LanguageOfInterest>().Property(l => l.LanguageName).IsRequired();
+            modelBuilder.Entity<LanguageOfInterest>().Property(l => l.Name).IsRequired();
 
             modelBuilder.Entity<UserLanguages>().ToTable("UserLanguages");
             modelBuilder.Entity<UserLanguages>().HasKey(ul => new { ul.LanguageId, ul.UserId });
@@ -149,7 +150,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             */
 
 
-         
+
 
         }
     }
