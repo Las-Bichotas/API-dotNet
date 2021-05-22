@@ -15,14 +15,15 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<UserSuscription> UserSuscriptions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RelatedUser> RelatedUsers { get; set; }
-
+        public DbSet<LanguageOfInterest> LanguageOfInterests { get; set; }
+        public DbSet<TopicsOfInterest> TopicsOfInterests { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             //!Suscription
             modelBuilder.Entity<Suscription>().ToTable("Suscriptions");
             modelBuilder.Entity<Suscription>().HasKey(s => s.Id);
@@ -31,38 +32,38 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Suscription>().Property(s => s.MonthDuration).IsRequired();
             modelBuilder.Entity<Suscription>().Property(s => s.Price).IsRequired();
 
-           /* modelBuilder.Entity<Suscription>()
-                .HasMany(s => s.Users)
-                .WithOne(u => u.Suscription)
-                .HasForeignKey(u => u.SuscriptionId);
+            /* modelBuilder.Entity<Suscription>()
+                 .HasMany(s => s.Users)
+                 .WithOne(u => u.Suscription)
+                 .HasForeignKey(u => u.SuscriptionId);
 
-/*
+ /*
 
-            //!UserSuscription
-            modelBuilder.Entity<UserSuscription>().ToTable("UserSuscription");
-            modelBuilder.Entity<UserSuscription>().HasKey(us => us.SuscriptionId);
-            modelBuilder.Entity<UserSuscription>().Property(us => us.UserId).IsRequired();
-            // modelBuilder.Entity<UserSuscription>().Property(us => us.PaymentMethod).IsRequired();
-            modelBuilder.Entity<UserSuscription>().Property(us => us.InitialDate).IsRequired();
-            //TODO: user
-            //Relatiosns
+             //!UserSuscription
+             modelBuilder.Entity<UserSuscription>().ToTable("UserSuscription");
+             modelBuilder.Entity<UserSuscription>().HasKey(us => us.SuscriptionId);
+             modelBuilder.Entity<UserSuscription>().Property(us => us.UserId).IsRequired();
+             // modelBuilder.Entity<UserSuscription>().Property(us => us.PaymentMethod).IsRequired();
+             modelBuilder.Entity<UserSuscription>().Property(us => us.InitialDate).IsRequired();
+             //TODO: user
+             //Relatiosns
 
-            modelBuilder.Entity<UserSuscription>()
-                 .HasOne(us => us.Suscription)
-                 .WithMany(us => us.UserSuscriptions)
-                 .HasForeignKey(us => us.SuscriptionId);
-             //TODO: a un usuario le pertenece solo una suscripcion
              modelBuilder.Entity<UserSuscription>()
-                .HasOne(us => us.User)
-                .WithMany(u => u.UserSuscriptions)
-                .HasForeignKey(us => us.UserId);
-             //TODO: i'm wondering if this relation is ok 
-           */
+                  .HasOne(us => us.Suscription)
+                  .WithMany(us => us.UserSuscriptions)
+                  .HasForeignKey(us => us.SuscriptionId);
+              //TODO: a un usuario le pertenece solo una suscripcion
+              modelBuilder.Entity<UserSuscription>()
+                 .HasOne(us => us.User)
+                 .WithMany(u => u.UserSuscriptions)
+                 .HasForeignKey(us => us.UserId);
+              //TODO: i'm wondering if this relation is ok 
+            */
             //TopicsOfInterest
             modelBuilder.Entity<TopicsOfInterest>().ToTable("TopicsOfInterest");
             modelBuilder.Entity<TopicsOfInterest>().HasKey(t => t.Id);
             modelBuilder.Entity<TopicsOfInterest>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<TopicsOfInterest>().Property(t => t.TopicName).IsRequired();
+            modelBuilder.Entity<TopicsOfInterest>().Property(t => t.Name).IsRequired();
             //UserTopics
             modelBuilder.Entity<UserTopics>().ToTable("UserTopics");
             modelBuilder.Entity<UserTopics>().HasKey(ut => new { ut.UserId, ut.TopicId });
@@ -80,7 +81,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<LanguageOfInterest>().ToTable("LanguageOfInterest");
             modelBuilder.Entity<LanguageOfInterest>().HasKey(l => l.Id);
             modelBuilder.Entity<LanguageOfInterest>().Property(l => l.Id).IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<LanguageOfInterest>().Property(l => l.LanguageName).IsRequired();
+            modelBuilder.Entity<LanguageOfInterest>().Property(l => l.Name).IsRequired();
 
             modelBuilder.Entity<UserLanguages>().ToTable("UserLanguages");
             modelBuilder.Entity<UserLanguages>().HasKey(ul => new { ul.LanguageId, ul.UserId });
