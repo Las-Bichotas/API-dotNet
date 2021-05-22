@@ -40,6 +40,16 @@ namespace ILenguage.API.Services
             {
                 
                 var existingUserSubscription = await _userSubscriptionRepository.GetLastUserSubscriptionByUserIdAsync(userId);
+                if (existingUserSubscription == null)
+                {
+                    await _userSubscriptionRepository.AssingUserSubscription(userId, subscriptionId);
+                    await _unitOfWork.CompleteAsync();
+                    UserSubscription userSubscriptionWhenUserHasNoSubscription =
+                        await _userSubscriptionRepository.FindBySubscriptionIdAndUserId(userId, subscriptionId);
+                    
+                    return new UserSubscriptionResponse(userSubscriptionWhenUserHasNoSubscription);
+                    
+                }
                 DateTime foundFinalDate = existingUserSubscription.FinalDate;
                 if (DateTime.Compare(foundFinalDate, DateTime.Now)>0)
                 {

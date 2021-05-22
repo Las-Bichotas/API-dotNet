@@ -8,7 +8,7 @@ namespace ILenguage.API.Mapping
     {
         public ModelToResourceProfile()
         {
-            CreateMap<Subscription, SuscriptionResource>();
+            CreateMap<Subscription, SubscriptionResource>();
             CreateMap<Schedule, ScheduleResource>();
             CreateMap<User, UserResource>();
         }

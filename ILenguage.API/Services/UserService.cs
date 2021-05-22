@@ -13,12 +13,16 @@ namespace ILenguage.API.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserSubscriptionRepository _userSubscriptionRepository;
 
-        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork)
+        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
+            _userSubscriptionRepository = userSubscriptionRepository;
         }
+
+
 
         public async Task<IEnumerable<User>> ListAsync()
         {
@@ -39,6 +43,13 @@ namespace ILenguage.API.Services
             {
                 return new UserResponse($"and error ocurrend while deleteing user: {ex.Message}");
             }
+        }
+
+        public async Task<IEnumerable<User>> ListBySubscriptionId(int subscriptionId)
+        {
+            var userSubscription = await _userSubscriptionRepository.ListBySubscriptionId(subscriptionId);
+            var users = userSubscription.Select(us => us.User).ToList();
+            return users;
         }
 
         public async Task<UserResponse> GetByIdAsync(int userId)
@@ -88,5 +99,7 @@ namespace ILenguage.API.Services
                 return new UserResponse($"An error ocurrned while updating user: {ex.Message}");
             }
         }
+        
+        
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ILenguage.API.Resources
 {
-    public class SuscriptionResource
+    public class SubscriptionResource
     {
         public int Id { get; set; }
         public string Name { get; set; }
