@@ -47,18 +47,19 @@ namespace ILenguage.API
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
             services.AddScoped<ISessionDetailRepository, SessionDetailRepository>();
             services.AddScoped<ISessionRepository, SessionRepository>();
-            services.AddScoped<ISuscriptionRepository, SuscriptionRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserSuscriptionRepository, UserSuscriptionRepository>();
+            services.AddScoped<IUserSubscriptionRepository, UserSubscriptionRepository>();
 
             services.AddScoped<IMakePaymentService, MakePaymentService>();
             services.AddScoped<IRelatedUserService, RelatedUserService>();
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<ISessionDetailService, SessionDetailService>();
             services.AddScoped<ISessionService, SessionService>();
-            services.AddScoped<ISuscriptionService, SuscriptionService>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserSubscriptionService, UserSubscriptionService>();
 
             //Endpoinst case conventions configurations
             services.AddRouting(options => options.LowercaseUrls = true);

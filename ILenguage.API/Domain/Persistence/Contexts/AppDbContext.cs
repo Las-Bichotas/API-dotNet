@@ -10,9 +10,9 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<Session> Sessions { get; set; }
         public DbSet<SessionDetails> SessionsDetails { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Suscription> Suscriptions { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
-        public DbSet<UserSuscription> UserSuscriptions { get; set; }
+        public DbSet<UserSubscription> UserSuscriptions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RelatedUser> RelatedUsers { get; set; }
 
@@ -23,41 +23,29 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         {
             base.OnModelCreating(modelBuilder);
             
-            //!Suscription
-            modelBuilder.Entity<Suscription>().ToTable("Suscriptions");
-            modelBuilder.Entity<Suscription>().HasKey(s => s.Id);
-            modelBuilder.Entity<Suscription>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<Suscription>().Property(s => s.Name).IsRequired().HasMaxLength(20);
-            modelBuilder.Entity<Suscription>().Property(s => s.MonthDuration).IsRequired();
-            modelBuilder.Entity<Suscription>().Property(s => s.Price).IsRequired();
-
-           /* modelBuilder.Entity<Suscription>()
-                .HasMany(s => s.Users)
-                .WithOne(u => u.Suscription)
-                .HasForeignKey(u => u.SuscriptionId);
-
-/*
-
-            //!UserSuscription
-            modelBuilder.Entity<UserSuscription>().ToTable("UserSuscription");
-            modelBuilder.Entity<UserSuscription>().HasKey(us => us.SuscriptionId);
-            modelBuilder.Entity<UserSuscription>().Property(us => us.UserId).IsRequired();
-            // modelBuilder.Entity<UserSuscription>().Property(us => us.PaymentMethod).IsRequired();
-            modelBuilder.Entity<UserSuscription>().Property(us => us.InitialDate).IsRequired();
-            //TODO: user
-            //Relatiosns
-
-            modelBuilder.Entity<UserSuscription>()
-                 .HasOne(us => us.Suscription)
-                 .WithMany(us => us.UserSuscriptions)
-                 .HasForeignKey(us => us.SuscriptionId);
-             //TODO: a un usuario le pertenece solo una suscripcion
-             modelBuilder.Entity<UserSuscription>()
+            //*Suscription
+            modelBuilder.Entity<Subscription>().ToTable("Subscriptions");
+            modelBuilder.Entity<Subscription>().HasKey(s => s.Id);
+            modelBuilder.Entity<Subscription>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<Subscription>().Property(s => s.Name).IsRequired().HasMaxLength(20);
+            modelBuilder.Entity<Subscription>().Property(s => s.MonthDuration).IsRequired();
+            modelBuilder.Entity<Subscription>().Property(s => s.Price).IsRequired();
+            
+            //*UserSubscription
+            modelBuilder.Entity<UserSubscription>().ToTable("UserSubscriptions");
+            modelBuilder.Entity<UserSubscription>().HasKey(us => new {us.UserId, us.SubscriptionId});
+            //relationship between user and subscription
+            modelBuilder.Entity<UserSubscription>()
                 .HasOne(us => us.User)
-                .WithMany(u => u.UserSuscriptions)
+                .WithMany(us => us.UserSubscriptions)
                 .HasForeignKey(us => us.UserId);
-             //TODO: i'm wondering if this relation is ok 
-           */
+            modelBuilder.Entity<UserSubscription>()
+                .HasOne(us => us.Subscription)
+                .WithMany(us => us.UserSubscriptions)
+                .HasForeignKey(us => us.SubscriptionId);
+            
+
+          
             //TopicsOfInterest
             modelBuilder.Entity<TopicsOfInterest>().ToTable("TopicsOfInterest");
             modelBuilder.Entity<TopicsOfInterest>().HasKey(t => t.Id);
@@ -94,7 +82,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .WithMany(ut => ut.UserLanguage)
                 .HasForeignKey(ut => ut.UserId);
             // User
-            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<User>().HasKey(p => p.Id);
             modelBuilder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             modelBuilder.Entity<User>().Property(p => p.Name).IsRequired().HasMaxLength(30);
@@ -161,6 +149,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             */
 
 
+         
 
         }
     }
