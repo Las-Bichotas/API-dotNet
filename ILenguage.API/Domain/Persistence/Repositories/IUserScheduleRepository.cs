@@ -15,7 +15,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         void Remove(UserSchedule userSchedule);
         Task AssingUserSchedule(int userId, int scheduleId);
         Task UnassingUserSchedule(int userId, int scheduleId);
-        Task<UserSubscription> GetLastUserScheduleByUserIdAsync(int userId);
+        
 
         
     }
