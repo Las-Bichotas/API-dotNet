@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
+using ILenguage.API.Domain.Services.Communications;
 
 namespace ILenguage.API.Domain.Services
 {
@@ -8,7 +9,8 @@ namespace ILenguage.API.Domain.Services
     {
         Task<IEnumerable<UserLanguages>> ListAsync();
         Task<IEnumerable<UserLanguages>> ListByUserId(int userId);
-        Task AssignLanguageUser(int userId, int languageId);
-        Task UnassignLanguageUser(int userId, int languageId);
+        Task<IEnumerable<UserLanguages>> ListByLanguageId(int languageId);
+        Task<UserLanguagesResponse> AssignLanguageUser(int userId, int languageId);
+        Task<UserLanguagesResponse> UnassignLanguageUser(int userId, int languageId);
     }
 }
