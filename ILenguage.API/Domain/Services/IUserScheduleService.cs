@@ -10,7 +10,8 @@ namespace ILenguage.API.Domain.Services
         Task<IEnumerable<UserSchedule>> ListAsync();
         Task<IEnumerable<UserSchedule>> ListByUserIdAsync(int userId);
         Task<IEnumerable<UserSchedule>> ListByScheduleId(int scheduleId);
-        
+        Task<UserScheduleResponse> AssingUserScheduleAsync(int userId, int scheduleId);
+        Task<UserScheduleResponse> UnassingUserScheduleAsync(int userId, int scheduleId);
 
     }
 }
