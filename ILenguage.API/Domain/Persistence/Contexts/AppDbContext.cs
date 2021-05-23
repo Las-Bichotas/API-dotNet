@@ -12,6 +12,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<Role> Roles { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<UserSchedule> UserSchedules { get; set; }
         public DbSet<UserSubscription> UserSuscriptions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RelatedUser> RelatedUsers { get; set; }
@@ -100,26 +101,27 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .WithMany(ru => ru.RelatedUsers)
                 .HasForeignKey(ru => ru.UserIdOne);
 
-            /*
-            // Entidad Schedule
-
+         
+           //*Schedule
             modelBuilder.Entity<Schedule>().ToTable("Schedules");
-            modelBuilder.Entity<Schedule>().HasKey(p => p.Id);
-            modelBuilder.Entity<Schedule>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<Schedule>().Property(p => p.startedAt)
-                .IsRequired();
-            modelBuilder.Entity<Schedule>().Property(p => p.finishedAt)
-                  .IsRequired();
-            modelBuilder.Entity<Schedule>().Property(p => p.state)
-                .IsRequired();
+            modelBuilder.Entity<Schedule>().HasKey(s => s.Id);
+            modelBuilder.Entity<Schedule>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<Schedule>().Property(s => s.Name).IsRequired().HasMaxLength(20);
+            modelBuilder.Entity<Schedule>().Property(s => s.HourDuration).IsRequired();
+            modelBuilder.Entity<Schedule>().Property(s => s.Day).IsRequired().HasMaxLength(20);
 
-
-            modelBuilder.Entity<Schedule>()
-             .HasOne(pt => pt.User)
-             .WithMany(p => p.Schedules)
-             .HasForeignKey(pt => pt.UserId);
-            */
-
+            //*UserSchedules
+            modelBuilder.Entity<UserSchedule>().ToTable("UserSchedules");
+            modelBuilder.Entity<UserSchedule>().HasKey(us => new { us.UserId, us.ScheduleId });
+            //relationship between user and schedules
+            modelBuilder.Entity<UserSchedule>()
+                .HasOne(us => us.User)
+                .WithMany(us => us.UserSchedules)
+                .HasForeignKey(us => us.UserId);
+            modelBuilder.Entity<UserSchedule>()
+                .HasOne(us => us.Schedule)
+                .WithMany(us => us.UserSchedules)
+                .HasForeignKey(us => us.ScheduleId);
 
 
             /*
