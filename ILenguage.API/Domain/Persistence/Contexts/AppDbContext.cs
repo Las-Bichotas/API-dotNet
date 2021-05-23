@@ -17,6 +17,8 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<RelatedUser> RelatedUsers { get; set; }
         public DbSet<LanguageOfInterest> LanguageOfInterests { get; set; }
         public DbSet<TopicsOfInterest> TopicsOfInterests { get; set; }
+        public DbSet<UserLanguages> UserLanguages { get; set; }
+        public DbSet<UserTopics> UserTopics { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
