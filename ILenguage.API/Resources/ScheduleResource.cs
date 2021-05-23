@@ -7,14 +7,13 @@ namespace ILenguage.API.Resources
 
 
         public int Id { get; set; }
-
-        public string startedAt { get; set; }
-        public string finishedAt { get; set; }
-        public bool state { get; set; }
-
+        public string Name { get; set; }
+        public float Day { get; set; }
+        public int HourDuration { get; set; }
 
 
-        public UserResource User { get; set; }
+
+        
 
     }
 }

@@ -16,7 +16,7 @@ namespace ILenguage.API.Domain.Services
         
         
         Task<ScheduleResponse> DeleteAsync(int id);
-        Task<IEnumerable<Schedule>> ListByUserIdAsync(int userId);
+        
 
         Task<ScheduleResponse> SaveAsync(Schedule Schedule);
         Task<ScheduleResponse> UpdateAsync(int id, Schedule Schedule);
