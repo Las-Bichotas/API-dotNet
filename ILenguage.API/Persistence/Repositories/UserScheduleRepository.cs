@@ -60,30 +60,7 @@ namespace ILenguage.API.Persistence.Repositories
             _context.UserSchedules.Remove(userSchedule);
         }
 
-        public async Task AssingUserSchedule(int userId, int scheduleId)
-        {
-            UserSchedule userSchedule = await FindByScheduleIdAndUserId(userId, scheduleId);
-            if (userSchedule == null)
-            {
-                Schedule foundSchedule = await _context.Schedules.FindAsync(scheduleId);
-                
-                userSchedule = new UserSchedule {UserId = userId, ScheduleId = scheduleId};
-                userSchedule.InitialDate = DateTime.Now;
-                userSchedule.FinalDate =
-                    userSchedule.InitialDate.AddHours(foundSchedule.HourDuration);
-
-                await AddAsync(userSchedule);
-            }
-        }
-
-        public async Task UnassingUserSchedule(int userId, int scheduleId)
-        {
-            UserSchedule userSchedule = await FindByScheduleIdAndUserId(scheduleId, userId);
-            if (userSchedule != null)
-                Remove(userSchedule);
-        }
-
-        
+       
 
        
         

@@ -13,8 +13,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task<UserSchedule> FindByScheduleIdAndUserId(int userId, int scheduleId);
         Task AddAsync(UserSchedule userSchedule);
         void Remove(UserSchedule userSchedule);
-        Task AssingUserSchedule(int userId, int scheduleId);
-        Task UnassingUserSchedule(int userId, int scheduleId);
+      
         
 
         
