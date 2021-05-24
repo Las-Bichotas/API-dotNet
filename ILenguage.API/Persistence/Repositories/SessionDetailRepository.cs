@@ -15,53 +15,35 @@ namespace ILenguage.API.Persistence.Repositories
         {
         }
 
-        public async Task<IEnumerable<SessionDetails>> ListAsync()
-        {
-            return await _context.SessionsDetails.Include(p => p.User).ToListAsync();
-        }
-
-
-
-        public async Task<IEnumerable<SessionDetails>> ListByUserIdAsync(int userId)
-        {
-            return await _context.SessionsDetails
-                .Where(p => p.UserId == userId)
-                .Include(p => p.User)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<SessionDetails>> ListBySessionIdAsync(int sesssionId)
-        {
-            return await _context.SessionsDetails
-                .Where(p => p.SessionId == sesssionId)
-                .Include(p => p.Session)
-                .ToListAsync();
-        }
-
-
-        public async Task AddAsync(SessionDetails sessionDetail)
+        public async Task AddAsync(SessionDetail sessionDetail)
         {
             await _context.SessionsDetails.AddAsync(sessionDetail);
         }
 
-        public async Task<SessionDetails> FindById(int userId)
+        public async Task<SessionDetail> FindById(int id)
         {
-            return await _context.SessionsDetails.FindAsync(userId);
+            return await _context.SessionsDetails.FindAsync(id);
         }
 
-        public async Task<SessionDetails> FindBySessionId(int sessionId)
+        public async Task<IEnumerable<SessionDetail>> ListAsync()
         {
-            return await _context.SessionsDetails.FindAsync(sessionId);
+            return await _context.SessionsDetails.Include(p => p.Session).ToListAsync();
         }
 
+        public async Task<IEnumerable<SessionDetail>> ListBySessionIdAsync(int sessionId)
+        {
+            return await _context.SessionsDetails
+               .Where(p => p.SessionId == sessionId)
+               .Include(p => p.Session)
+               .ToListAsync();
+        }
 
-
-        public void Remove(SessionDetails sessionDetail)
+        public void Remove(SessionDetail sessionDetail)
         {
             _context.SessionsDetails.Remove(sessionDetail);
         }
 
-        public void Update(SessionDetails sessionDetail)
+        public void Update(SessionDetail sessionDetail)
         {
             _context.SessionsDetails.Update(sessionDetail);
         }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ILenguage.API.Domain.Services.Communications
 {
-    public class SessionDetailResponse : BaseResponse<SessionDetails>
+    public class SessionDetailResponse : BaseResponse<SessionDetail>
     {
-        public SessionDetailResponse(SessionDetails resource) : base(resource)
+        public SessionDetailResponse(SessionDetail resource) : base(resource)
         {
         }
 

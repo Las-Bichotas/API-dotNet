@@ -15,12 +15,11 @@ namespace ILenguage.API.Persistence.Repositories
         {
         }
 
-
-        public async Task<IEnumerable<Session>> ListAsync()
+        public async Task AddAsync(Session session)
         {
-            return await _context.Sessions.Include(p => p.User).ToListAsync();
+            await _context.Sessions.AddAsync(session);
         }
-
+        /*
         public async Task<IEnumerable<Session>> ListByUserIdAsync(int userId)
         {
             return await _context.Sessions
@@ -29,17 +28,18 @@ namespace ILenguage.API.Persistence.Repositories
                 .ToListAsync();
 
         }
+        */
 
-        public async Task AddAsync(Session session)
+        public async Task<Session> FindById(int id)
         {
-            await _context.Sessions.AddAsync(session);
+            return await _context.Sessions.FindAsync(id);
         }
 
-        public async Task<Session> FindById(int userId)
+        public async Task<IEnumerable<Session>> ListAsync()
         {
-            return await _context.Sessions.FindAsync(userId);
+            return await _context.Sessions.ToListAsync();
+            //return await _context.Sessions.Include(p => p.User).ToListAsync();
         }
-
 
         public void Remove(Session session)
         {

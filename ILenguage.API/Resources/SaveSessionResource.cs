@@ -8,13 +8,16 @@ namespace ILenguage.API.Resources
 {
     public class SaveSessionResource
     {
+        [Required]
+        [MaxLength(100)]
         public string StartAt { get; set; }
+
+        [Required]
+        [MaxLength(100)]
         public string EndAt { get; set; }
 
         [Required]
         [MaxLength(100)]
         public string Link { get; set; }
-
-        public int UserId { get; set; }
     }
 }

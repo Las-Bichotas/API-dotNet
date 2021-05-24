@@ -20,29 +20,12 @@ namespace ILenguage.API.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<SessionDetails>> ListAsync()
+        public async Task<IEnumerable<SessionDetail>> ListAsync()
         {
             return await _sessionDetailRepository.ListAsync();
         }
 
-
-        public async Task<IEnumerable<SessionDetails>> ListByUserIdAsync(int userId)
-        {
-            return await _sessionDetailRepository.ListByUserIdAsync(userId);
-        }
-
-
-        public async Task<SessionDetailResponse> GetByIdAsync(int id)
-        {
-            var existingSessionDetail = await _sessionDetailRepository.FindById(id);
-
-            if (existingSessionDetail == null)
-                return new SessionDetailResponse("SessionDetail not found");
-            return new SessionDetailResponse(existingSessionDetail);
-        }
-
-
-        public async Task<SessionDetailResponse> SaveAsync(SessionDetails sessionDetail)
+        public async Task<SessionDetailResponse> SaveAsync(SessionDetail sessionDetail)
         {
             try
             {
@@ -57,9 +40,10 @@ namespace ILenguage.API.Services
             }
         }
 
-        public async Task<SessionDetailResponse> UpdateAsync(int userId, SessionDetails sessionDetail)
+        public async Task<SessionDetailResponse> UpdateAsync(int id, SessionDetail sessionDetail)
         {
-            var existingSessionDetail = await _sessionDetailRepository.FindById(userId);
+            var existingSessionDetail = await _sessionDetailRepository.FindById(id);
+
             if (existingSessionDetail == null)
                 return new SessionDetailResponse("SessionDetail not found");
 
@@ -79,6 +63,7 @@ namespace ILenguage.API.Services
         }
 
 
+        /*
         public async Task<SessionDetailResponse> DeleteAsync(int id)
         {
             var existingSessionDetail = await _sessionDetailRepository.FindById(id);
@@ -99,10 +84,10 @@ namespace ILenguage.API.Services
             }
 
         }
-
-        public Task<IEnumerable<SessionDetails>> ListBySessionIdAsync(int sessionId)
+        */
+        public async Task<IEnumerable<SessionDetail>> ListBySessionIdAsync(int sessionId)
         {
-            throw new NotImplementedException();
+            return await _sessionDetailRepository.ListBySessionIdAsync(sessionId);
         }
     }
 }
