@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ILenguage.API.Domain.Models
 {
-    public class SessionDetails
+    public class SessionDetail
     {
         public int Id { get; set; }
 
@@ -13,8 +13,5 @@ namespace ILenguage.API.Domain.Models
 
         public int SessionId { get; set; }
         public Session Session { set; get; }
-
-        public int UserId { get; set; }
-        public User User { get; set; }
     }
 }

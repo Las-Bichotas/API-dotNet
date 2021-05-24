@@ -8,7 +8,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
     {
 
         public DbSet<Session> Sessions { get; set; }
-        public DbSet<SessionDetails> SessionsDetails { get; set; }
+        public DbSet<SessionDetail> SessionsDetails { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
@@ -122,36 +122,41 @@ namespace ILenguage.API.Domain.Persistence.Contexts
 
 
 
-            /*
-            //!Session
-            modelBuilder.Entity<Session>().ToTable("Session");
+            // Session Entity
+
+            modelBuilder.Entity<Session>().ToTable("Sessions");
+
+            // Constraints
+
             modelBuilder.Entity<Session>().HasKey(p => p.Id);
             modelBuilder.Entity<Session>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<Session>().Property(p => p.StartAt).IsRequired();
-            modelBuilder.Entity<Session>().Property(p => p.EndAt).IsRequired();
+
+            modelBuilder.Entity<Session>().Property(p => p.StartAt).IsRequired().HasMaxLength(100);
+            modelBuilder.Entity<Session>().Property(p => p.EndAt).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<Session>().Property(p => p.Link).IsRequired().HasMaxLength(100);
-           
+
+            // Relationships
+
             modelBuilder.Entity<Session>()
-            .HasOne(pt => pt.User)
-            .WithMany(p => p.Sessions)
-            .HasForeignKey(pt => pt.UserId);
-            */
-            /*
-            //!Session Details
-            modelBuilder.Entity<SessionDetails>().ToTable("SessionDetail");
-            modelBuilder.Entity<SessionDetails>().HasKey(p => p.Id);
-            modelBuilder.Entity<SessionDetails>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<SessionDetails>().Property(p => p.State).IsRequired().HasMaxLength(100);
+                .HasMany(p => p.SessionsDetails)
+                .WithOne(p => p.Session)
+                .HasForeignKey(p => p.SessionId);
 
-            modelBuilder.Entity<SessionDetails>()
-            .HasOne(pt => pt.Session)
-            .WithMany(p => p.SessionsDetails)
-            .HasForeignKey(pt => pt.SessionId);
-            */
+            // SessionDetail Entity
+
+            modelBuilder.Entity<SessionDetail>().ToTable("Session_Details");
+
+            // Constraints
+
+            modelBuilder.Entity<SessionDetail>().HasKey(p => p.Id);
+            modelBuilder.Entity<SessionDetail>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<SessionDetail>().Property(p => p.State).IsRequired().HasMaxLength(30);
 
 
 
+            // Naming Conventions Policy
 
+            //modelBuilder.ApplySnakeCaseNamingConvention();
         }
     }
 }

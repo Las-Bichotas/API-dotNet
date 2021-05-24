@@ -10,9 +10,6 @@ namespace ILenguage.API.Resources
         public int Id { get; set; }
         public string StartAt { get; set; }
         public string EndAt { get; set; }
-
         public string Link { get; set; }
-
-        public UserResource User { get; set; }
     }
 }

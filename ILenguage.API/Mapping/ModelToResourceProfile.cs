@@ -13,6 +13,8 @@ namespace ILenguage.API.Mapping
             CreateMap<User, UserResource>();
             CreateMap<LanguageOfInterest, LanguageOfInterestResource>();
             CreateMap<TopicsOfInterest, TopicOfInterestResource>();
+            CreateMap<Session, SessionResource>();
+            CreateMap<SessionDetail, SessionDetailResource>();
         }
     }
 }
