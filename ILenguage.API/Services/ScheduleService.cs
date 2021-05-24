@@ -33,50 +33,19 @@ namespace ILenguage.API.Services
             return new ScheduleResponse(existingSchedule);
         }
 
-        public async Task<ScheduleResponse> GetByName(string name)
-        {
-            var existingSchedule = await _scheduleRepository.FindByName(name);
-            if (existingSchedule == null)
-                return new ScheduleResponse("Schedule Not Found");
-            return new ScheduleResponse(existingSchedule);
-            
-        }
-        
-        public async Task<ScheduleResponse> GetByHour(int hour)
-        {
-            var existingSchedule = await _scheduleRepository.FindByHour(hour);
-            if (existingSchedule == null)
-                return new ScheduleResponse("Schedule Not Found");
-            return new ScheduleResponse(existingSchedule);
-        }
-        public async Task<ScheduleResponse> GetByDay(string day)
-        {
-            var existingSchedule = await _scheduleRepository.FindByDay(day);
-            if (existingSchedule == null)
-                return new ScheduleResponse("Schedule Not Found");
-            return new ScheduleResponse(existingSchedule);
-            
-        }
+       
         public async Task<ScheduleResponse> SaveAsync(Schedule schedule)
         {
-            var existingScheduleByHour = await _scheduleRepository.FindByHour(schedule.HourDuration);
-            var existingScheduleByName = await _scheduleRepository.FindByName(schedule.Name);
-            var existingScheduleByDay = await _scheduleRepository.FindByDay(schedule.Day);
-            if (existingScheduleByHour != null)
-                return new ScheduleResponse("There is already a schedule with that time");
-            if(existingScheduleByName != null)
-                return new ScheduleResponse("There already exist a Course with that name");
-             if(existingScheduleByDay != null)
-                return new ScheduleResponse("There already exist a Schedule with that Day");
-            try
+           try
             {
                 await _scheduleRepository.AddAsync(schedule);
                 await _unitOfWork.CompleteAsync();
+
                 return new ScheduleResponse(schedule);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return new ScheduleResponse($"An error ocurred while saving the schedule {e.Message}");
+                return new ScheduleResponse($"An error ocurred while saving Schedule: {ex.Message}");
             }
         }
 
@@ -85,20 +54,6 @@ namespace ILenguage.API.Services
             var existingSchedule = await _scheduleRepository.FindById(id);
             if (existingSchedule == null)
                 return new ScheduleResponse("Schedule Not Found");
-            
-            var existingScheduleByHour = await _scheduleRepository.FindByHour(schedule.HourDuration);
-            var existingScheduleByName = await _scheduleRepository.FindByName(schedule.Name);
-            var existingScheduleByDay = await _scheduleRepository.FindByDay(schedule.Day);
-            if (existingScheduleByHour != null)
-                return new ScheduleResponse("There is already a schedule with that time");
-            if(existingScheduleByName != null)
-                return new ScheduleResponse("There already exist a Course with that name");
-             if(existingScheduleByDay != null)
-                return new ScheduleResponse("There already exist a Schedule with that Day");           
-            
-            existingSchedule.Name = schedule.Name;
-            existingSchedule.Day = schedule.Day;
-            existingSchedule.HourDuration = schedule.HourDuration;
             try
             {
                 _scheduleRepository.Update(existingSchedule);
@@ -107,7 +62,7 @@ namespace ILenguage.API.Services
             }
             catch (Exception e)
             {
-                return new ScheduleResponse($"An error ocurred while saving the schedule {e.Message}");
+                return new ScheduleResponse($"An error ocurred while deleting the schedule: {e.Message}");
             }
         }
 

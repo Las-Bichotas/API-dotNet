@@ -11,9 +11,6 @@ namespace ILenguage.API.Domain.Services
     {
         Task<IEnumerable<Schedule>> ListAsync();
         Task<ScheduleResponse> GetById(int id);
-        Task<ScheduleResponse> GetByName(string name);
-        Task<ScheduleResponse> GetByHour(int hour);
-        
         
         Task<ScheduleResponse> DeleteAsync(int id);
         

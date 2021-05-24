@@ -29,26 +29,7 @@ namespace ILenguage.API.Persistence.Repositories
             await _context.Schedules.AddAsync(schedule);
             _context.SaveChanges();
         }
-        public async Task<Schedule> FindByName(string name)
-        {
-            
-            return await _context.Schedules.Where(s => s.Name == name)
-                .FirstOrDefaultAsync();
-
-        }
-        public async Task<Schedule> FindByDay(string day)
-        {
-            
-            return await _context.Schedules.Where(s => s.Day == day)
-                .FirstOrDefaultAsync();
-
-        }
-        public async Task<Schedule> FindByHour(int hour)
-        {
-            return await _context.Schedules.Where(s => s.HourDuration == hour)
-                .FirstOrDefaultAsync();
-        }
-
+        
         public async Task<Schedule> FindById(int userId)
         {
             return await _context.Schedules.FindAsync(userId);
