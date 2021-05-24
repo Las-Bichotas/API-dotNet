@@ -30,7 +30,7 @@ namespace ILanguage.API.Test
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var service = new ScheduleService(mockScheduleRepository.Object, mockUnitOfWork.Object);
             // Act
-            ScheduleResponse result = await service.GetByIdAsync(ScheduleId);
+            ScheduleResponse result = await service.GetById(ScheduleId);
             var message = result.Message;
             // Assert
             message.Should().Be("Schedule not found");
