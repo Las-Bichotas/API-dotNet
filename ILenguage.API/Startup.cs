@@ -39,7 +39,7 @@ namespace ILenguage.API
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySQL(Configuration.GetConnectionString("LocalConnectionDIAZ"));
+                options.UseMySQL(Configuration.GetConnectionString("LocalConnectionESTRADA"));
 
             });
             // Dependency Injection Configuration
