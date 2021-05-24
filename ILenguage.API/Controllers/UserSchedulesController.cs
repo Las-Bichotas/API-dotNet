@@ -7,6 +7,7 @@ using ILenguage.API.Domain.Services;
 using ILenguage.API.Extensions;
 using ILenguage.API.Resources;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ILenguage.API.Controllers
 {
@@ -17,25 +18,29 @@ namespace ILenguage.API.Controllers
     [Route("/api/users/{userId}/Schedule")]
     public class UserSchedulesController : ControllerBase
     {
-        private readonly IScheduleService _ScheduleService;
+        private readonly IUserScheduleService _userScheduleService;
         private readonly IMapper _mapper;
-
-        public UserSchedulesController(IScheduleService ScheduleService, IMapper mapper)
+        private readonly IUserService _userService;
+        public UserSchedulesController(IUserScheduleService userScheduleService, IMapper mapper, IUserService userService)
         {
-            _ScheduleService = ScheduleService;
+            _userScheduleService = userScheduleService;
             _mapper = mapper;
+            _userService = userService;
         }
 
         
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ScheduleResource>), 200)]
-        public async Task<IEnumerable<ScheduleResource>> GetAllByScheduleAsync(int userId)
+        [SwaggerOperation(
+            Summary = "Get all users filtered by schedule",
+            Description="Get all users that are relatead with an especific schedule",
+            OperationId="GetUserByScheduleId")]
+        public async Task<IEnumerable<UserResource>> GetAllByScheduleIdAsync(int scheduleId)
         {
-            var Schedules = await _ScheduleService.ListByUserIdAsync(userId);
-            var resources = _mapper.Map<IEnumerable<Schedule>, IEnumerable<ScheduleResource>>(Schedules);
+            var users = await _userService.ListByScheduleId(scheduleId);
+            var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
             return resources;
         }
-
+        
 
 
 

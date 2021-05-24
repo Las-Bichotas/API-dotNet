@@ -14,5 +14,7 @@ namespace ILenguage.API.Resources
         public UserSubscription UserSubscription { get; set; }
         //TODO:RoleResoure add
         //public RoleResource Role {get; set;}
+
+        public UserSchedule UserSchedule { get; set; }
     }
 }

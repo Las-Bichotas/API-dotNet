@@ -14,12 +14,13 @@ namespace ILenguage.API.Services
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserSubscriptionRepository _userSubscriptionRepository;
-
-        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository)
+        private readonly IUserScheduleRepository _userScheduleRepository;
+        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository, IUserScheduleRepository userScheduleRepository)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
             _userSubscriptionRepository = userSubscriptionRepository;
+            _userScheduleRepository = userScheduleRepository;
         }
 
 
@@ -49,6 +50,12 @@ namespace ILenguage.API.Services
         {
             var userSubscription = await _userSubscriptionRepository.ListBySubscriptionId(subscriptionId);
             var users = userSubscription.Select(us => us.User).ToList();
+            return users;
+        }
+        public async Task<IEnumerable<User>> ListByScheduleId(int scheduleId)
+        {
+            var userSchedule = await _userScheduleRepository.ListByScheduleId(scheduleId);
+            var users = userSchedule.Select(us => us.User).ToList();
             return users;
         }
 
