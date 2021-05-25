@@ -12,6 +12,13 @@ namespace ILenguage.API.Services
     {
         private readonly IUserLanguageRepository _userLanguageRepository;
         private readonly IUnitOfWork _unitOfWork;
+
+        public UserLanguageService(IUserLanguageRepository userLanguageRepository, IUnitOfWork unitOfWork)
+        {
+            _userLanguageRepository = userLanguageRepository;
+            _unitOfWork = unitOfWork;
+        }
+
         public async Task<UserLanguagesResponse> AssignLanguageUser(int userId, int languageId)
         {
             try

@@ -74,7 +74,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<LanguageOfInterest>().Property(l => l.Name).IsRequired();
 
             modelBuilder.Entity<UserLanguages>().ToTable("UserLanguages");
-            modelBuilder.Entity<UserLanguages>().HasKey(ul => new { ul.LanguageId, ul.UserId });
+            modelBuilder.Entity<UserLanguages>().HasKey(ul => new { ul.UserId, ul.LanguageId });
             modelBuilder.Entity<UserLanguages>()
                 .HasOne(ut => ut.LanguageOfInterest)
                 .WithMany(ut => ut.UserLanguage)

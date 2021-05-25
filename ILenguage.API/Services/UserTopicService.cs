@@ -12,6 +12,13 @@ namespace ILenguage.API.Services
     {
         private readonly IUserTopicRepository _userTopicRepository;
         private readonly IUnitOfWork _unitOfWork;
+
+        public UserTopicService(IUserTopicRepository userTopicRepository, IUnitOfWork unitOfWork)
+        {
+            _userTopicRepository = userTopicRepository;
+            _unitOfWork = unitOfWork;
+        }
+
         public async Task<UserTopicsResponse> AssignTopicUser(int userId, int topicId)
         {
             try
