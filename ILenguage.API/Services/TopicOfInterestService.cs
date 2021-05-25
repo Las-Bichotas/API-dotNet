@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Repositories;
@@ -11,11 +12,13 @@ namespace ILenguage.API.Services
     public class TopicOfInterestService : ITopicOfInterestService
     {
         private readonly ITopicOfInterestRepository _topicOfInterestRespository;
+        private readonly IUserTopicRepository _userTopicRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public TopicOfInterestService(ITopicOfInterestRepository topicOfInterestRespository, IUnitOfWork unitOfWork)
+        public TopicOfInterestService(ITopicOfInterestRepository topicOfInterestRespository, IUserTopicRepository userTopicRepository, IUnitOfWork unitOfWork)
         {
             _topicOfInterestRespository = topicOfInterestRespository;
+            _userTopicRepository = userTopicRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -49,6 +52,13 @@ namespace ILenguage.API.Services
         public async Task<IEnumerable<TopicsOfInterest>> ListAsync()
         {
             return await _topicOfInterestRespository.ListAsync();
+        }
+
+        public async Task<IEnumerable<TopicsOfInterest>> ListByUserIdAsyn(int userId)
+        {
+            var userTopics = await _userTopicRepository.ListByUserId(userId);
+            var topics = userTopics.Select(ut => ut.Topic).ToList();
+            return topics;
         }
 
         public async Task<TopicsOfInterestResponse> SaveAsync(TopicsOfInterest topicOf)

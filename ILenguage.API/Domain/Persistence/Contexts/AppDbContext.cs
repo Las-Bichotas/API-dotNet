@@ -18,6 +18,8 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<RelatedUser> RelatedUsers { get; set; }
         public DbSet<LanguageOfInterest> LanguageOfInterests { get; set; }
         public DbSet<TopicsOfInterest> TopicsOfInterests { get; set; }
+        public DbSet<UserLanguages> UserLanguages { get; set; }
+        public DbSet<UserTopics> UserTopics { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -73,7 +75,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<LanguageOfInterest>().Property(l => l.Name).IsRequired();
 
             modelBuilder.Entity<UserLanguages>().ToTable("UserLanguages");
-            modelBuilder.Entity<UserLanguages>().HasKey(ul => new { ul.LanguageId, ul.UserId });
+            modelBuilder.Entity<UserLanguages>().HasKey(ul => new { ul.UserId, ul.LanguageId });
             modelBuilder.Entity<UserLanguages>()
                 .HasOne(ut => ut.LanguageOfInterest)
                 .WithMany(ut => ut.UserLanguage)

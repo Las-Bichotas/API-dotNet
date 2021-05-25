@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Repositories;
@@ -11,11 +12,13 @@ namespace ILenguage.API.Services
     public class LanguageOfInterestService : ILanguageOfInterestService
     {
         private readonly ILanguageOfInterestRespository _languageOfInterestRepository;
+        private readonly IUserLanguageRepository _userLanguageRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public LanguageOfInterestService(ILanguageOfInterestRespository languageOfInterestRepository, IUnitOfWork unitOfWork)
+        public LanguageOfInterestService(ILanguageOfInterestRespository languageOfInterestRepository, IUserLanguageRepository userLanguageRepository, IUnitOfWork unitOfWork)
         {
             _languageOfInterestRepository = languageOfInterestRepository;
+            _userLanguageRepository = userLanguageRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -48,6 +51,13 @@ namespace ILenguage.API.Services
         public async Task<IEnumerable<LanguageOfInterest>> ListAsync()
         {
             return await _languageOfInterestRepository.ListAsync();
+        }
+
+        public async Task<IEnumerable<LanguageOfInterest>> ListGetByUserId(int userId)
+        {
+            var userLanguage = await _userLanguageRepository.ListByUserIdAsync(userId);
+            var languages = userLanguage.Select(ut => ut.LanguageOfInterest).ToList();
+            return languages;
         }
 
         public async Task<LanguageOfInterestResponse> SaveAsync(LanguageOfInterest languageOf)
