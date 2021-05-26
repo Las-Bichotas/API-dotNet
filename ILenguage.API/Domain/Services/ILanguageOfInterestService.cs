@@ -8,6 +8,7 @@ namespace ILenguage.API.Domain.Services
     public interface ILanguageOfInterestService
     {
         Task<IEnumerable<LanguageOfInterest>> ListAsync();
+        Task<IEnumerable<LanguageOfInterest>> ListGetByUserId(int userId);
         Task<LanguageOfInterestResponse> GetByIdAsync(int languageId);
         Task<LanguageOfInterestResponse> SaveAsync(LanguageOfInterest languageOf);
         Task<LanguageOfInterestResponse> UpdateAsync(int languageId, LanguageOfInterest languageOf);

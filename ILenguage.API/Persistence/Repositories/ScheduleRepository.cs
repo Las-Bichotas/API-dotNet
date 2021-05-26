@@ -17,32 +17,34 @@ namespace ILenguage.API.Persistence.Repositories
         }
 
 
-        public async Task<IEnumerable<Schedule>> ListByUserIdAsync(int userId)
+          public async Task<IEnumerable<Schedule>> ListAsync()
         {
-            return await _context.Schedules
-                .Where(p => p.UserId == userId)
-                .Include(p => p.User)
-                .ToListAsync();
+            return await _context.Schedules.ToListAsync();
+            
         }
 
-        public async Task AddAsync(Schedule Schedule)
-        {
-            await _context.Schedules.AddAsync(Schedule);
-        }
 
+        public async Task AddAsync(Schedule schedule)
+        {
+            await _context.Schedules.AddAsync(schedule);
+            _context.SaveChanges();
+        }
+        
         public async Task<Schedule> FindById(int userId)
         {
             return await _context.Schedules.FindAsync(userId);
         }
 
-        public void Remove(Schedule Schedule)
+        public void Remove(Schedule schedule)
         {
-            _context.Schedules.Remove(Schedule);
+            _context.Schedules.Remove(schedule);
+            _context.SaveChanges();
         }
 
-        public void Update(Schedule Schedule)
+        public void Update(Schedule schedule)
         {
-            _context.Schedules.Update(Schedule);
+            _context.Update(schedule);
+            _context.SaveChanges();
         }
     }
 }

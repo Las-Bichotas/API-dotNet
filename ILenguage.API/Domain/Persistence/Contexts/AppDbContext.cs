@@ -12,11 +12,14 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<Role> Roles { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<UserSchedule> UserSchedules { get; set; }
         public DbSet<UserSubscription> UserSuscriptions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<RelatedUser> RelatedUsers { get; set; }
         public DbSet<LanguageOfInterest> LanguageOfInterests { get; set; }
         public DbSet<TopicsOfInterest> TopicsOfInterests { get; set; }
+        public DbSet<UserLanguages> UserLanguages { get; set; }
+        public DbSet<UserTopics> UserTopics { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -72,7 +75,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<LanguageOfInterest>().Property(l => l.Name).IsRequired();
 
             modelBuilder.Entity<UserLanguages>().ToTable("UserLanguages");
-            modelBuilder.Entity<UserLanguages>().HasKey(ul => new { ul.LanguageId, ul.UserId });
+            modelBuilder.Entity<UserLanguages>().HasKey(ul => new { ul.UserId, ul.LanguageId });
             modelBuilder.Entity<UserLanguages>()
                 .HasOne(ut => ut.LanguageOfInterest)
                 .WithMany(ut => ut.UserLanguage)
@@ -100,26 +103,24 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .WithMany(ru => ru.RelatedUsers)
                 .HasForeignKey(ru => ru.UserIdOne);
 
-            /*
-            // Entidad Schedule
-
+         
+           //*Schedule
             modelBuilder.Entity<Schedule>().ToTable("Schedules");
-            modelBuilder.Entity<Schedule>().HasKey(p => p.Id);
-            modelBuilder.Entity<Schedule>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            modelBuilder.Entity<Schedule>().Property(p => p.startedAt)
-                .IsRequired();
-            modelBuilder.Entity<Schedule>().Property(p => p.finishedAt)
-                  .IsRequired();
-            modelBuilder.Entity<Schedule>().Property(p => p.state)
-                .IsRequired();
-
-
-            modelBuilder.Entity<Schedule>()
-             .HasOne(pt => pt.User)
-             .WithMany(p => p.Schedules)
-             .HasForeignKey(pt => pt.UserId);
-            */
-
+            modelBuilder.Entity<Schedule>().HasKey(s => s.Id);
+            modelBuilder.Entity<Schedule>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
+        
+            //*UserSchedules
+            modelBuilder.Entity<UserSchedule>().ToTable("UserSchedules");
+            modelBuilder.Entity<UserSchedule>().HasKey(us => new { us.UserId, us.ScheduleId });
+            //relationship between user and schedules
+            modelBuilder.Entity<UserSchedule>()
+                .HasOne(us => us.User)
+                .WithMany(us => us.UserSchedules)
+                .HasForeignKey(us => us.UserId);
+            modelBuilder.Entity<UserSchedule>()
+                .HasOne(us => us.Schedule)
+                .WithMany(us => us.UserSchedules)
+                .HasForeignKey(us => us.ScheduleId);
 
 
             // Session Entity

@@ -7,10 +7,10 @@ namespace ILenguage.API.Domain.Persistence.Repositories
 {
     public interface IScheduleRepository
     {
-        Task<IEnumerable<Schedule>> ListByUserIdAsync(int userId);
-
+       Task<IEnumerable<Schedule>> ListAsync();
         Task AddAsync(Schedule Schedule);
-        Task<Schedule> FindById(int userId);
+        Task<Schedule> FindById(int id);
+       
         void Update(Schedule Schedule);
         void Remove(Schedule Schedule);
     }

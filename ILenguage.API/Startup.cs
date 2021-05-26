@@ -51,8 +51,11 @@ namespace ILenguage.API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserSubscriptionRepository, UserSubscriptionRepository>();
+            services.AddScoped<IUserScheduleRepository, UserScheduleRepository>();
             services.AddScoped<ILanguageOfInterestRespository, LanguageOfInterestRepository>();
             services.AddScoped<ITopicOfInterestRepository, TopicOfInterestRepository>();
+            services.AddScoped<IUserTopicRepository, UserTopicsRepository>();
+            services.AddScoped<IUserLanguageRepository, UserLanguageRepository>();
 
             services.AddScoped<IMakePaymentService, MakePaymentService>();
             services.AddScoped<IRelatedUserService, RelatedUserService>();
@@ -62,8 +65,11 @@ namespace ILenguage.API
             services.AddScoped<ISubscriptionService, SubscriptionService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserSubscriptionService, UserSubscriptionService>();
+            services.AddScoped<IUserScheduleService, UserScheduleService>();
             services.AddScoped<ILanguageOfInterestService, LanguageOfInterestService>();
             services.AddScoped<ITopicOfInterestService, TopicOfInterestService>();
+            services.AddScoped<IUserTopicService, UserTopicService>();
+            services.AddScoped<IUserLanguageService, UserLanguageService>();
 
             //Endpoinst case conventions configurations
             services.AddRouting(options => options.LowercaseUrls = true);
