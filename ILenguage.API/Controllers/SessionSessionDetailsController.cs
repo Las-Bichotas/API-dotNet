@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ILenguage.API.Controllers
 {
-    [Route("/api/session/{sessionId}/session-details")]
+    [Route("/api/sessions/{sessionId}/session-details")]
     public class SessionSessionDetailsController : ControllerBase
     {
         private ISessionDetailService _sessionDetailService;
@@ -32,7 +32,7 @@ namespace ILenguage.API.Controllers
 
             return resources;
         }
-
+        /*
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveSessionDetailResource resource)
         {
@@ -67,5 +67,6 @@ namespace ILenguage.API.Controllers
             return Ok(benefitResource);
 
         }
+        */
     }
 }
