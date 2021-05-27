@@ -45,20 +45,33 @@ namespace ILenguage.API
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
             services.AddScoped<ISessionDetailRepository, SessionDetailRepository>();
             services.AddScoped<ISessionRepository, SessionRepository>();
-            services.AddScoped<ISuscriptionRepository, SuscriptionRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserSuscriptionRepository, UserSuscriptionRepository>();
+
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IUserSubscriptionRepository, UserSubscriptionRepository>();
+            services.AddScoped<IUserScheduleRepository, UserScheduleRepository>();
+            services.AddScoped<ILanguageOfInterestRespository, LanguageOfInterestRepository>();
+            services.AddScoped<ITopicOfInterestRepository, TopicOfInterestRepository>();
+            services.AddScoped<IUserTopicRepository, UserTopicsRepository>();
+            services.AddScoped<IUserLanguageRepository, UserLanguageRepository>();
 
             services.AddScoped<IMakePaymentService, MakePaymentService>();
+            services.AddScoped<IRelatedUserService, RelatedUserService>();
             services.AddScoped<IRelatedUserService, RelatedUserService>();
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<ISessionDetailService, SessionDetailService>();
             services.AddScoped<ISessionService, SessionService>();
-            services.AddScoped<ISuscriptionService, SuscriptionService>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IUserSubscriptionService, UserSubscriptionService>();
+            services.AddScoped<IUserScheduleService, UserScheduleService>();
+            services.AddScoped<ILanguageOfInterestService, LanguageOfInterestService>();
+            services.AddScoped<ITopicOfInterestService, TopicOfInterestService>();
+            services.AddScoped<IUserTopicService, UserTopicService>();
+            services.AddScoped<IUserLanguageService, UserLanguageService>();
 
             //Endpoinst case conventions configurations
             services.AddRouting(options => options.LowercaseUrls = true);

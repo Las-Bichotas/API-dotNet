@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
@@ -8,71 +9,90 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ILenguage.API.Persistence.Repositories
 {
-    public class UserSuscriptionRepository : BaseRepository, IUserSuscriptionRepository
+    public class UserSubscriptionRepository : BaseRepository, IUserSubscriptionRepository
     {
-        public UserSuscriptionRepository(AppDbContext context) : base(context)
+        public UserSubscriptionRepository(AppDbContext context) : base(context)
         {
         }
 
-        public async Task<IEnumerable<UserSuscription>> ListAsync()
+        public async Task<IEnumerable<UserSubscription>> ListAsync()
         {
-            //? Is it important to list the PaymentMethod too? 
-            return await _context.UserSuscriptions.Include(us => us.Suscription)
+        
+            return await _context.UserSuscriptions.Include(us => us.Subscription)
                 .Include(us => us.User)
                 .ToListAsync();
             
         }
 
-        public async Task<IEnumerable<UserSuscription>> ListByUserId(int userId)
+        public async Task<IEnumerable<UserSubscription>> ListByUserId(int userId)
         {
             return await _context.UserSuscriptions.Where(us => us.UserId == userId)
-                .Include(us => us.Suscription)
+                .Include(us => us.Subscription)
                 .Include(us => us.User)
                 .ToListAsync();
         
 
         }
 
-        public async Task<IEnumerable<UserSuscription>> ListBySuscriptionId(int suscriptionId)
+        public async Task<IEnumerable<UserSubscription>> ListBySubscriptionId(int suscriptionId)
         {
-            return await _context.UserSuscriptions.Where(us => us.SuscriptionId == suscriptionId)
-                .Include(us => us.Suscription)
+            return await _context.UserSuscriptions.Where(us => us.SubscriptionId == suscriptionId)
+                .Include(us => us.Subscription)
                 .Include(us => us.User)
                 .ToListAsync();
            
 
         }
 
-        public async Task<IEnumerable<UserSuscription>> ListBySuscriptionIdAndUserId(int suscriptionId, int userId)
+        public async Task<UserSubscription> FindBySubscriptionIdAndUserId(int userId, int subscriptionId)
         {
-            return await _context.UserSuscriptions.Where(us => us.SuscriptionId == suscriptionId && us.UserId == userId)
-                .Include(us => us.Suscription)
-                .Include(us => us.User)
-                .ToListAsync();
-         
+            return await _context.UserSuscriptions
+                .Include(sub=> sub.User)
+                .Include(sub => sub.Subscription)
+                .FirstOrDefaultAsync(us => us.UserId == userId && us.SubscriptionId == subscriptionId);
         }
 
-        public async Task AddAsync(UserSuscription userSuscription)
+        public async Task AddAsync(UserSubscription userSubscription)
         {
-            await _context.UserSuscriptions.AddAsync(userSuscription);
+            await _context.UserSuscriptions.AddAsync(userSubscription);
         }
 
-        public void Remove(UserSuscription userSuscription)
+        public void Remove(UserSubscription userSubscription)
         {
-            _context.UserSuscriptions.Remove(userSuscription);
+            _context.UserSuscriptions.Remove(userSubscription);
         }
 
-        public async Task AssingUserSuscription(int userId, int suscriptionId)
+        public async Task AssingUserSubscription(int userId, int subscriptionId)
         {
-           //TODO:
-           await Task.Run(() => { });
-           
+            //UserSubscription userSubscription = await FindBySubscriptionIdAndUserId(userId, subscriptionId);
+           // if (userSubscription == null)
+           // {
+                Subscription foundSubscription = await _context.Subscriptions.FindAsync(subscriptionId);
+                
+                var userSubscription = new UserSubscription {UserId = userId, SubscriptionId = subscriptionId};
+                userSubscription.InitialDate = DateTime.Now;
+                userSubscription.FinalDate =
+                    userSubscription.InitialDate.AddMonths(foundSubscription.MonthDuration);
 
+                await AddAsync(userSubscription);
+           // }
         }
 
-        public async Task UnassingUserSuscription(int userId, int SuscriptionId)
+        public async Task UnassingUserSubscription(int userId)
         {
-            await Task.Run(() => { });
+            var existingUserSubscription = await GetLastUserSubscriptionByUserIdAsync(userId);
+            existingUserSubscription.FinalDate = DateTime.Now;
+            _context.Update(existingUserSubscription);
+            _context.SaveChanges();
+        }
+
+        public async Task<UserSubscription> GetLastUserSubscriptionByUserIdAsync(int userId)
+        {
+            var userSubscription = await _context.UserSuscriptions
+                .Where(u => u.UserId == userId)
+                .OrderByDescending(u => u.FinalDate)
+                .FirstOrDefaultAsync();
+            return userSubscription;
         }
     }
 }

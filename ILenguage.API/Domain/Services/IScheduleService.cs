@@ -9,10 +9,12 @@ namespace ILenguage.API.Domain.Services
 {
     public interface IScheduleService
     {
+        Task<IEnumerable<Schedule>> ListAsync();
+        Task<ScheduleResponse> GetById(int id);
+        
+        Task<ScheduleResponse> DeleteAsync(int id);
+        
 
-        Task<IEnumerable<Schedule>> ListByUserIdAsync(int userId);
-
-        Task<ScheduleResponse> GetByIdAsync(int id);
         Task<ScheduleResponse> SaveAsync(Schedule Schedule);
         Task<ScheduleResponse> UpdateAsync(int id, Schedule Schedule);
     }

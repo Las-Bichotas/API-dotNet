@@ -13,12 +13,17 @@ namespace ILenguage.API.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
-
-        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork)
+        private readonly IUserSubscriptionRepository _userSubscriptionRepository;
+        private readonly IUserScheduleRepository _userScheduleRepository;
+        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository, IUserScheduleRepository userScheduleRepository)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
+            _userSubscriptionRepository = userSubscriptionRepository;
+            _userScheduleRepository = userScheduleRepository;
         }
+
+
 
         public async Task<IEnumerable<User>> ListAsync()
         {
@@ -39,6 +44,19 @@ namespace ILenguage.API.Services
             {
                 return new UserResponse($"and error ocurrend while deleteing user: {ex.Message}");
             }
+        }
+
+        public async Task<IEnumerable<User>> ListBySubscriptionId(int subscriptionId)
+        {
+            var userSubscription = await _userSubscriptionRepository.ListBySubscriptionId(subscriptionId);
+            var users = userSubscription.Select(us => us.User).ToList();
+            return users;
+        }
+        public async Task<IEnumerable<User>> ListByScheduleId(int scheduleId)
+        {
+            var userSchedule = await _userScheduleRepository.ListByScheduleId(scheduleId);
+            var users = userSchedule.Select(us => us.User).ToList();
+            return users;
         }
 
         public async Task<UserResponse> GetByIdAsync(int userId)
@@ -88,5 +106,7 @@ namespace ILenguage.API.Services
                 return new UserResponse($"An error ocurrned while updating user: {ex.Message}");
             }
         }
+        
+        
     }
 }

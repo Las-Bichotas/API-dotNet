@@ -1,5 +1,4 @@
-﻿
-using FluentAssertions;
+﻿using FluentAssertions;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Repositories;
 using ILenguage.API.Domain.Services.Communications;

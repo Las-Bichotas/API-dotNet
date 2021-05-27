@@ -20,8 +20,10 @@ namespace ILanguage.API.Test
             //Arrange
             var mockUserRepository = GetDefaultIUserRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var mockUserSubscriptionRepository = GetDefaultIUserSubscriptionRepositoryInstance();
+            var mockUserScheduleRepository = GetDefaultIUserScheduleRepositoryInstance();
             mockUserRepository.Setup(r => r.ListAsync()).ReturnsAsync(new List<User>());
-            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object);
+            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockUserScheduleRepository.Object);
             //Act
             List<User> result = (List<User>)await service.ListAsync();
             var UsersCount = result.Count;
@@ -36,9 +38,11 @@ namespace ILanguage.API.Test
             //Arrange
             var mockUserRepository = GetDefaultIUserRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var mockUserSubscriptionRepository = GetDefaultIUserSubscriptionRepositoryInstance();
+            var mockUserScheduleRepository = GetDefaultIUserScheduleRepositoryInstance();
             var userId = 1;
             mockUserRepository.Setup(r => r.FindById(userId)).Returns(Task.FromResult<User>(null));
-            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object);
+            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockUserScheduleRepository.Object);
             //Act
             UserResponse result = await service.GetByIdAsync(userId);
             var message = result.Message;
@@ -54,6 +58,15 @@ namespace ILanguage.API.Test
         private Mock<IUnitOfWork> GetDefaultIUnitOfWorkInstance()
         {
             return new Mock<IUnitOfWork>();
+        }
+
+        private Mock<IUserSubscriptionRepository> GetDefaultIUserSubscriptionRepositoryInstance()
+        {
+            return new Mock<IUserSubscriptionRepository>();
+        }
+        private Mock<IUserScheduleRepository> GetDefaultIUserScheduleRepositoryInstance()
+        {
+            return new Mock<IUserScheduleRepository>();
         }
     }
 }

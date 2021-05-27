@@ -8,10 +8,14 @@ namespace ILenguage.API.Mapping
     {
         public ResourceToModelProfile()
         {
-            CreateMap<SaveSuscriptionResource, Suscription>();
+            CreateMap<SaveSuscriptionResource, Subscription>();
             CreateMap<SaveScheduleResource, Schedule>();
-            CreateMap<SaveUserResource,User>();
             CreateMap<SaveRoleResource, Role>();
+            CreateMap<SaveUserResource, User>();
+            CreateMap<SaveLanguageOfInterestResource, LanguageOfInterest>();
+            CreateMap<SaveTopicOfInterestResource, TopicsOfInterest>();
+            CreateMap<SaveSessionResource, Session>();
+            CreateMap<SaveSessionDetailResource, SessionDetail>();
         }
     }
 }

@@ -26,11 +26,12 @@ namespace ILenguage.API.Services
             return await _sessionRepository.ListAsync();
         }
 
+        /*
         public async Task<IEnumerable<Session>> ListByUserIdAsync(int userId)
         {
             return await _sessionRepository.ListByUserIdAsync(userId);
         }
-
+        */
 
         public async Task<SessionResponse> GetByIdAsync(int id)
         {
@@ -38,6 +39,7 @@ namespace ILenguage.API.Services
 
             if (existingSession == null)
                 return new SessionResponse("Session not found");
+
             return new SessionResponse(existingSession);
         }
 
@@ -57,12 +59,15 @@ namespace ILenguage.API.Services
             }
         }
 
-        public async Task<SessionResponse> UpdateAsync(int userId, Session session)
+        public async Task<SessionResponse> UpdateAsync(int id, Session session)
         {
-            var existingSession = await _sessionRepository.FindById(userId);
+            var existingSession = await _sessionRepository.FindById(id);
+
             if (existingSession == null)
                 return new SessionResponse("Session not found");
 
+            existingSession.StartAt = session.StartAt;
+            existingSession.EndAt = session.EndAt;
             existingSession.Link = session.Link;
 
             try

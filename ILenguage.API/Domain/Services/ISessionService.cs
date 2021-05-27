@@ -10,12 +10,10 @@ namespace ILenguage.API.Domain.Services
     public interface ISessionService
     {
         Task<IEnumerable<Session>> ListAsync();
-        Task<IEnumerable<Session>> ListByUserIdAsync(int userId);
-
+        //Task<IEnumerable<Session>> ListByUserIdAsync(int userId);
         Task<SessionResponse> GetByIdAsync(int id);
         Task<SessionResponse> SaveAsync(Session session);
         Task<SessionResponse> UpdateAsync(int id, Session session);
-
         Task<SessionResponse> DeleteAsync(int id);
     }
 }

@@ -12,7 +12,5 @@ namespace ILenguage.API.Resources
         public string State { get; set; }
 
         public SessionResource Session { get; set; }
-
-        public UserResource User { get; set; }
     }
 }
