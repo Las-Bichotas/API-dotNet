@@ -1,5 +1,4 @@
-﻿using ILanguage.API.Domain.Models;
-using ILenguage.API.Domain.Models;
+﻿using ILenguage.API.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ILenguage.API.Domain.Persistence.Contexts
@@ -102,6 +101,14 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<User>().Property(p => p.Email).IsRequired();
             modelBuilder.Entity<User>().Property(p => p.Password).IsRequired();
             modelBuilder.Entity<User>().Property(p => p.Description).IsRequired().HasMaxLength(245);
+            // ROLE
+            modelBuilder.Entity<Role>().ToTable("Role");
+            modelBuilder.Entity<Role>().HasKey(r => r.Id);
+            modelBuilder.Entity<Role>().Property(r => r.Id).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<Role>().Property(r => r.Name).IsRequired().HasMaxLength(30);
+
+
+
             // RelatedUser
             modelBuilder.Entity<RelatedUser>().ToTable("RelatedUser");
             modelBuilder.Entity<RelatedUser>().HasKey(p => new { p.UserIdOne, p.UserIdTwo });

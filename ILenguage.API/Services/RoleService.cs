@@ -1,19 +1,19 @@
-﻿using ILanguage.API.Domain.Models;
-using ILanguage.API.Domain.Repositories;
-using ILanguage.API.Domain.Services;
-using ILanguage.API.Domain.Services.Communication;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Persistence.Repositories;
+using ILenguage.API.Domain.Services;
+using ILenguage.API.Domain.Models;
+using ILenguage.API.Domain.Repositories;
+using ILenguage.API.Domain.Services.Communication;
 
-namespace ILanguage.API.Services
+namespace ILenguage.API.Services
 {
     public class RoleService : IRoleService
     {
         private readonly IRoleRepository _roleRepository;
-        public readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public RoleService(IRoleRepository roleRepository, IUnitOfWork unitOfWork)
         {
@@ -78,7 +78,6 @@ namespace ILanguage.API.Services
 
             if (existingRole == null)
                 return new RoleResponse("Role not found");
-
             try
             {
                 _roleRepository.Remove(existingRole);

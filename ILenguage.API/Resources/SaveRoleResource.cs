@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;//anotaciones y entradas de datos
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ILanguage.API.Resources
+namespace ILenguage.API.Resources
 {
     public class SaveRoleResource
     {

@@ -15,8 +15,8 @@ namespace ILenguage.API.Domain.Models
         // public byte profilePhoto {get; set;}
 
         //TODO: Esperando a modelo Role
-        //public int roleId { get; set; }
-        //public Role role { get; set; }
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
 
         //TODO: PayMethos falta implementar
         // public List<PaymentMethod> PaymentMethods { get; set; } = new List<PaymentMethod>();

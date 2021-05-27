@@ -21,6 +21,5 @@ namespace ILenguage.API.Domain.Services.Communications
             Succes = false;
             Message = message;
         }
-
     }
 }

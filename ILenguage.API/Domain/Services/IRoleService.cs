@@ -1,13 +1,13 @@
-﻿using ILanguage.API.Domain.Models;
-using ILanguage.API.Domain.Services.Communication;
+﻿using ILenguage.API.Domain.Models;
+using ILenguage.API.Domain.Services.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ILanguage.API.Domain.Services
+namespace ILenguage.API.Domain.Services
 {
-    interface IRoleService
+    public interface IRoleService
     {
         Task<IEnumerable<Role>> ListAsync();
         Task<RoleResponse> GetByIdAsync(int id);

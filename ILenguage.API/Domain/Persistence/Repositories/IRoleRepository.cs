@@ -1,10 +1,8 @@
-﻿using ILanguage.API.Domain.Models;
-using System;
+﻿using ILenguage.API.Domain.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace ILanguage.API.Domain.Repositories
+namespace ILenguage.API.Domain.Repositories
 {
     public interface IRoleRepository
     {
