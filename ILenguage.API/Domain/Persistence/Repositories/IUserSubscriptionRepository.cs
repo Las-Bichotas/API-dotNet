@@ -15,7 +15,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         void Remove(UserSubscription userSubscription);
         //? do i have to do by this wy? 
         Task AssingUserSubscription(int userId, int subscriptionId);
-        Task UnassingUserSubscription(int userId, int SuscriptionId);
+        Task UnassingUserSubscription(int userId);
         
         Task<UserSubscription> GetLastUserSubscriptionByUserIdAsync(int userId);
 

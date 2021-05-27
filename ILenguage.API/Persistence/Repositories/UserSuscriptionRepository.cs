@@ -78,11 +78,12 @@ namespace ILenguage.API.Persistence.Repositories
             }
         }
 
-        public async Task UnassingUserSubscription(int userId, int suscriptionId)
+        public async Task UnassingUserSubscription(int userId)
         {
-            UserSubscription userSubscription = await FindBySubscriptionIdAndUserId(suscriptionId, userId);
-            if (userSubscription != null)
-                Remove(userSubscription);
+            var existingUserSubscription = await GetLastUserSubscriptionByUserIdAsync(userId);
+            existingUserSubscription.FinalDate = DateTime.Now;
+            _context.Update(existingUserSubscription);
+            _context.SaveChanges();
         }
 
         public async Task<UserSubscription> GetLastUserSubscriptionByUserIdAsync(int userId)
