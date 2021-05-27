@@ -12,6 +12,8 @@ namespace ILenguage.API.Domain.Models
         
         public DateTime InitialDate { get; set; }
         public DateTime FinalDate { get; set; }
+        
+       
 
     }
 }

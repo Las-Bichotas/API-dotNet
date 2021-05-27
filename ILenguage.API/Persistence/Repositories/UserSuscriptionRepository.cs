@@ -64,18 +64,18 @@ namespace ILenguage.API.Persistence.Repositories
 
         public async Task AssingUserSubscription(int userId, int subscriptionId)
         {
-            UserSubscription userSubscription = await FindBySubscriptionIdAndUserId(userId, subscriptionId);
-            if (userSubscription == null)
-            {
+            //UserSubscription userSubscription = await FindBySubscriptionIdAndUserId(userId, subscriptionId);
+           // if (userSubscription == null)
+           // {
                 Subscription foundSubscription = await _context.Subscriptions.FindAsync(subscriptionId);
                 
-                userSubscription = new UserSubscription {UserId = userId, SubscriptionId = subscriptionId};
+                var userSubscription = new UserSubscription {UserId = userId, SubscriptionId = subscriptionId};
                 userSubscription.InitialDate = DateTime.Now;
                 userSubscription.FinalDate =
                     userSubscription.InitialDate.AddMonths(foundSubscription.MonthDuration);
 
                 await AddAsync(userSubscription);
-            }
+           // }
         }
 
         public async Task UnassingUserSubscription(int userId)

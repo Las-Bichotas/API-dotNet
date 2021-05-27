@@ -53,5 +53,19 @@ namespace ILenguage.API.Controllers
         }
         
         
+        [HttpPut("/user/{userId}")]
+
+        [SwaggerOperation(
+            Summary = "Unassing a user to one subscription",
+            Description = "Unssing a user to one subscription and save it on the Database",
+            OperationId = "UnasingUserSubscription")]
+        public async Task<IActionResult> UnssingUserToSubscription(int userId)
+        {
+            var result = await _userSubscriptionService.UnassingUserSubscriptionAsync(userId);
+            if (!result.Succes)
+                return BadRequest(result.Message);
+            return Ok(result);
+        }
+        
     }
 }
