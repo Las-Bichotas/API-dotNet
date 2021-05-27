@@ -75,12 +75,15 @@ namespace ILenguage.API.Services
         {
             try
             {
+                var existingUserSubscription =
+                    await _userSubscriptionRepository.GetLastUserSubscriptionByUserIdAsync(userId);
+                if (existingUserSubscription == null)
+                    return new UserSubscriptionResponse("The user has never had a subscription");
+                if (DateTime.Compare(existingUserSubscription.FinalDate, DateTime.Now) < 0)
+                    return new UserSubscriptionResponse("The user has not an active subscription");
+                await _userSubscriptionRepository.UnassingUserSubscription(userId);
+                return new UserSubscriptionResponse(existingUserSubscription);
                 
-                UserSubscription userSubscription =
-                    await _userSubscriptionRepository.FindBySubscriptionIdAndUserId(subscriptionId, userId);
-                _userSubscriptionRepository.Remove(userSubscription);
-                await _unitOfWork.CompleteAsync();
-                return new UserSubscriptionResponse(userSubscription);
             }
             catch (Exception e)
             {
