@@ -71,7 +71,7 @@ namespace ILenguage.API.Services
             }
         }
 
-        public async Task<UserSubscriptionResponse> UnassingUserSubscriptionAsync(int userId, int subscriptionId)
+        public async Task<UserSubscriptionResponse> UnassingUserSubscriptionAsync(int userId)
         {
             try
             {
