@@ -6,7 +6,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
 {
     public class AppDbContext : DbContext
     {
-
+        public DbSet<Day> Days{get;set;}
         public DbSet<Session> Sessions { get; set; }
         public DbSet<SessionDetail> SessionsDetails { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -120,6 +120,16 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .WithMany(us => us.UserSchedules)
                 .HasForeignKey(us => us.ScheduleId);
 
+            // Day Entity
+            modelBuilder.Entity<Day>().ToTable("Days");
+            modelBuilder.Entity<Day>().HasKey(p => p.Id);
+            modelBuilder.Entity<Day>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+
+            // Constraints
+            modelBuilder.Entity<Day>()
+                .HasMany(p => p.Sessions)
+                .WithOne(p => p.Day)
+                .HasForeignKey(p => p.DayId);
 
             // Session Entity
 
