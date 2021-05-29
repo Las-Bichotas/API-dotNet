@@ -9,10 +9,12 @@ namespace ILenguage.API.Domain.Persistence.Repositories
     public interface ISessionDetailRepository
     {
         Task<IEnumerable<SessionDetail>> ListAsync();
-        Task<IEnumerable<SessionDetail>> ListBySessionIdAsync(int sessionId);
+        Task<IEnumerable<SessionDetail>> GetBySessionIdAsync(int sessionId);
         Task AddAsync(SessionDetail sessionDetail);
         Task<SessionDetail> FindById(int id);
         void Update(SessionDetail sessionDetail);
         void Remove(SessionDetail sessionDetail);
+        Task AssignSessionSessionDetail(int sessionId, int sessionDetialId);
+        Task UnassignSessionSessionDetail(int sessionId, int sessionDetailId);
     }
 }

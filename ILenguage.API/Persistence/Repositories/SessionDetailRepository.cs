@@ -20,9 +20,22 @@ namespace ILenguage.API.Persistence.Repositories
             await _context.SessionsDetails.AddAsync(sessionDetail);
         }
 
+        public Task AssignSessionSessionDetail(int sessionId, int sessionDetialId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<SessionDetail> FindById(int id)
         {
             return await _context.SessionsDetails.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<SessionDetail>> GetBySessionIdAsync(int sessionId)
+        {
+            return await _context.SessionsDetails
+              .Where(p => p.SessionId == sessionId)
+              .Include(p => p.Session)
+              .ToListAsync();
         }
 
         public async Task<IEnumerable<SessionDetail>> ListAsync()
@@ -43,7 +56,17 @@ namespace ILenguage.API.Persistence.Repositories
             _context.SessionsDetails.Remove(sessionDetail);
         }
 
-        public void Update(SessionDetail sessionDetail)
+        public async Task UnassignSessionSessionDetail(int sessionId, int sessionDetailId)
+        {
+            Session session = await FindById(sessionId);
+            if (productTag == null)
+            {
+                productTag = new ProductTag { ProductId = productId, TagId = tagId };
+                await AddAsync(productTag);
+            }
+        }
+
+        public async void Update(SessionDetail sessionDetail)
         {
             _context.SessionsDetails.Update(sessionDetail);
         }

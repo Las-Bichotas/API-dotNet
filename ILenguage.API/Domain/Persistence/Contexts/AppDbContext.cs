@@ -146,13 +146,13 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             // Relationships
 
             modelBuilder.Entity<Session>()
-                .HasMany(p => p.SessionsDetails)
+                .HasOne(p => p.SessionDetail)
                 .WithOne(p => p.Session)
-                .HasForeignKey(p => p.SessionId);
+                .HasForeignKey<SessionDetail>(p => p.SessionId);
 
             // SessionDetail Entity
 
-            modelBuilder.Entity<SessionDetail>().ToTable("Session_Details");
+            modelBuilder.Entity<SessionDetail>().ToTable("SessionDetails");
 
             // Constraints
 

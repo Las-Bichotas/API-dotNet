@@ -32,7 +32,7 @@ namespace ILenguage.API.Controllers
 
             return resources;
         }
-        /*
+        
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveSessionDetailResource resource)
         {
@@ -62,11 +62,11 @@ namespace ILenguage.API.Controllers
             if (!result.Succes)
                 return BadRequest(result.Message);
 
-            var benefitResource = _mapper.Map<SessionDetail, SessionDetailResource>(result.Resource);
+            var sessionDetailResource = _mapper.Map<SessionDetail, SessionDetailResource>(result.Resource);
 
-            return Ok(benefitResource);
+            return Ok(sessionDetailResource);
 
         }
-        */
+        
     }
 }
