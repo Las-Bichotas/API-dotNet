@@ -1,5 +1,6 @@
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Repositories;
+using ILenguage.API.Domain.Repositories;
 using ILenguage.API.Domain.Services;
 using ILenguage.API.Domain.Services.Communications;
 using System;
@@ -15,15 +16,16 @@ namespace ILenguage.API.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserSubscriptionRepository _userSubscriptionRepository;
         private readonly IUserScheduleRepository _userScheduleRepository;
-        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository, IUserScheduleRepository userScheduleRepository)
+        private readonly IRoleRepository _roleRepository;
+
+        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository, IUserScheduleRepository userScheduleRepository, IRoleRepository roleRepository)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
             _userSubscriptionRepository = userSubscriptionRepository;
             _userScheduleRepository = userScheduleRepository;
+            _roleRepository = roleRepository;
         }
-
-
 
         public async Task<IEnumerable<User>> ListAsync()
         {
@@ -69,8 +71,13 @@ namespace ILenguage.API.Services
         }
 
 
-        public async Task<UserResponse> SaveAsync(User user)
+        public async Task<UserResponse> SaveAsync(User user, int roleId)
         {
+            var existingRole = await _roleRepository.FindById(roleId);
+            if (existingRole == null)
+                return new UserResponse("Role to assing User not found");
+            user.Role = existingRole;
+            user.RoleId = roleId;
             try
             {
                 await _userRepository.AddAsync(user);
@@ -106,7 +113,7 @@ namespace ILenguage.API.Services
                 return new UserResponse($"An error ocurrned while updating user: {ex.Message}");
             }
         }
-        
-        
+
+
     }
 }
