@@ -62,8 +62,6 @@ namespace ILenguage.API.Services
             }
         }
 
-
-        /*
         public async Task<SessionDetailResponse> DeleteAsync(int id)
         {
             var existingSessionDetail = await _sessionDetailRepository.FindById(id);
@@ -84,10 +82,19 @@ namespace ILenguage.API.Services
             }
 
         }
-        */
+        
         public async Task<IEnumerable<SessionDetail>> ListBySessionIdAsync(int sessionId)
         {
             return await _sessionDetailRepository.ListBySessionIdAsync(sessionId);
+        }
+
+        public async Task<SessionDetailResponse> GetByIdAsync(int id)
+        {
+            var existingSessionDetail = await _sessionDetailRepository.FindById(id);
+
+            if (existingSessionDetail == null)
+                return new SessionDetailResponse("SessionDetail not found");
+            return new SessionDetailResponse(existingSessionDetail);
         }
     }
 }
