@@ -121,7 +121,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .HasForeignKey(us => us.ScheduleId);
 
             // Day Entity
-            modelBuilder.Entity<Day>().ToTable("Days");
+          /*   modelBuilder.Entity<Day>().ToTable("Days");
             modelBuilder.Entity<Day>().HasKey(p => p.Id);
             modelBuilder.Entity<Day>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
 
@@ -129,7 +129,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Day>()
                 .HasMany(p => p.Sessions)
                 .WithOne(p => p.Day)
-                .HasForeignKey(p => p.DayId);
+                .HasForeignKey(p => p.DayId); */
 
             // Session Entity
 

@@ -7,9 +7,11 @@ namespace ILenguage.API.Domain.Models
     {
         public int Id { get; set; }
         
-        public DateTime Days {get;set;} 
+        public DateTime InitialDays {get;set;}
+        public DateTime FinalDays {get;set;} 
+
     
-        public IList<Session> Sessions { get; set; } 
+  /*       public IList<Session> Sessions { get; set; }  */
       
     }
 }
