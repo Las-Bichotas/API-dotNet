@@ -26,13 +26,13 @@ namespace ILenguage.API.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
         [SwaggerOperation(
             Summary = "List all sessions",
             Description = "List of sessions",
             OperationId = "ListAllSessions"
             )]
         [SwaggerResponse(200, "List of Sessions", typeof(IEnumerable<SessionResource>))]
-        [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SessionResource>), 200)]
         public async Task<IEnumerable<SessionResource>> GetAllAsync()
         {
@@ -50,8 +50,8 @@ namespace ILenguage.API.Controllers
             Description = "Get Session By Session Id",
             OperationId = "GetSessionById"
         )]
-        [SwaggerResponse(200, "Session Returned", typeof(UserResource))]
-        [ProducesResponseType(typeof(UserResource), 200)]
+        [SwaggerResponse(200, "Session Returned", typeof(SessionResource))]
+        [ProducesResponseType(typeof(SessionResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         [Produces("application/json")]
         public async Task<IActionResult> GetAsync(int id)
@@ -72,8 +72,8 @@ namespace ILenguage.API.Controllers
             Description = "Add new session with initial data",
             OperationId = "AddSession"
         )]
-        [SwaggerResponse(200, "Session Added", typeof(UserResource))]
-        [ProducesResponseType(typeof(UserResource), 200)]
+        [SwaggerResponse(200, "Session Added", typeof(SessionResource))]
+        [ProducesResponseType(typeof(SessionResource), 200)]
         [Produces("application/json")]
         public async Task<IActionResult> PostAsync([FromBody] SaveSessionResource resource)
         {
@@ -86,9 +86,9 @@ namespace ILenguage.API.Controllers
             if (!result.Succes)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<Session, SessionResource>(result.Resource);
+            var sessionResource = _mapper.Map<Session, SessionResource>(result.Resource);
 
-            return Ok(categoryResource);
+            return Ok(sessionResource);
         }
 
         [HttpPut("{id}")]
@@ -97,8 +97,8 @@ namespace ILenguage.API.Controllers
             Description = "Update Session By Session Id",
             OperationId = "UpdateSessionById"
         )]
-        [SwaggerResponse(200, "Session Updated", typeof(UserResource))]
-        [ProducesResponseType(typeof(UserResource), 200)]
+        [SwaggerResponse(200, "Session Updated", typeof(SessionResource))]
+        [ProducesResponseType(typeof(SessionResource), 200)]
         [Produces("application/json")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveSessionResource resource)
         {
@@ -111,9 +111,9 @@ namespace ILenguage.API.Controllers
             if (!result.Succes)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<Session, SessionResource>(result.Resource);
+            var sessionResource = _mapper.Map<Session, SessionResource>(result.Resource);
 
-            return Ok(categoryResource);
+            return Ok(sessionResource);
 
         }
 
@@ -123,11 +123,10 @@ namespace ILenguage.API.Controllers
             Description = "Delete Session By Session Id",
             OperationId = "DeleteSessionById"
         )]
-        [SwaggerResponse(200, "Session Deleted", typeof(UserResource))]
-        [ProducesResponseType(typeof(UserResource), 200)]
+        [SwaggerResponse(200, "Session Deleted", typeof(SessionResource))]
+        [ProducesResponseType(typeof(SessionResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         [Produces("application/json")]
-
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _sessionService.DeleteAsync(id);

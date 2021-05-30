@@ -9,15 +9,13 @@ namespace ILenguage.API.Resources
     public class SaveSessionResource
     {
         [Required]
-        [MaxLength(100)]
         public DateTime StartAt { get; set; }
 
         [Required]
-        [MaxLength(100)]
         public DateTime EndAt { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(200)]
         public string Link { get; set; }
     }
 }
