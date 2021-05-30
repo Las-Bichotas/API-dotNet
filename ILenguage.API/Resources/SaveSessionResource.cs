@@ -10,11 +10,11 @@ namespace ILenguage.API.Resources
     {
         [Required]
         [MaxLength(100)]
-        public string StartAt { get; set; }
+        public DateTime StartAt { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string EndAt { get; set; }
+        public DateTime EndAt { get; set; }
 
         [Required]
         [MaxLength(100)]

@@ -26,13 +26,6 @@ namespace ILenguage.API.Services
             return await _sessionRepository.ListAsync();
         }
 
-        /*
-        public async Task<IEnumerable<Session>> ListByUserIdAsync(int userId)
-        {
-            return await _sessionRepository.ListByUserIdAsync(userId);
-        }
-        */
-
         public async Task<SessionResponse> GetByIdAsync(int id)
         {
             var existingSession = await _sessionRepository.FindById(id);
