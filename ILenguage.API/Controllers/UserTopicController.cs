@@ -42,7 +42,6 @@ namespace ILenguage.API.Controllers
             var resources = _mapper.Map<IEnumerable<TopicsOfInterest>, IEnumerable<TopicOfInterestResource>>(topics);
             return resources;
         }
-
         [HttpPost("{topicId}")]
         [SwaggerOperation(
             Summary = "Assign topic to user",
