@@ -11,7 +11,6 @@ namespace ILenguage.API.Domain.Models
         public DateTime StartAt { get; set; }
         public DateTime EndAt { get; set; }
         public string Link { get; set; }
-
-        public IList<SessionDetail> SessionsDetails { get; set; } = new List<SessionDetail>();
+        public SessionDetail SessionDetail { get;set; }
     }
 }

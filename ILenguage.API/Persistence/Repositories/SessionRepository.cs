@@ -19,6 +19,7 @@ namespace ILenguage.API.Persistence.Repositories
         {
             await _context.Sessions.AddAsync(session);
         }
+
         public async Task<Session> FindById(int id)
         {
             return await _context.Sessions.FindAsync(id);

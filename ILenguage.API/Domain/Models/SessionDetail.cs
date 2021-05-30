@@ -12,6 +12,6 @@ namespace ILenguage.API.Domain.Models
         public string State { get; set; }
 
         public int SessionId { get; set; }
-        public Session Session { set; get; }
+        public Session Session { get; set; }
     }
 }

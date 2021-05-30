@@ -24,12 +24,13 @@ namespace ILenguage.API.Services
         {
             return await _sessionDetailRepository.ListAsync();
         }
+        
 
-        public async Task<SessionDetailResponse> SaveAsync(SessionDetail sessionDetail)
+        public async Task<SessionDetailResponse> SaveAsync(SessionDetail sessionDetail, int sessionId)
         {
             try
             {
-                await _sessionDetailRepository.AddAsync(sessionDetail);
+                await _sessionDetailRepository.AddAsync(sessionDetail, sessionId);
                 await _unitOfWork.CompleteAsync();
 
                 return new SessionDetailResponse(sessionDetail);
@@ -39,7 +40,7 @@ namespace ILenguage.API.Services
                 return new SessionDetailResponse($"An error ocurred while saving sessionDetail: {ex.Message}");
             }
         }
-
+        
         public async Task<SessionDetailResponse> UpdateAsync(int id, SessionDetail sessionDetail)
         {
             var existingSessionDetail = await _sessionDetailRepository.FindById(id);
@@ -62,8 +63,6 @@ namespace ILenguage.API.Services
             }
         }
 
-
-        /*
         public async Task<SessionDetailResponse> DeleteAsync(int id)
         {
             var existingSessionDetail = await _sessionDetailRepository.FindById(id);
@@ -84,10 +83,35 @@ namespace ILenguage.API.Services
             }
 
         }
-        */
+        
         public async Task<IEnumerable<SessionDetail>> ListBySessionIdAsync(int sessionId)
         {
-            return await _sessionDetailRepository.ListBySessionIdAsync(sessionId);
+            return await _sessionDetailRepository.GetBySessionIdAsync(sessionId);
         }
+
+        public async Task<SessionDetailResponse> GetByIdAsync(int id)
+        {
+            var existingSessionDetail = await _sessionDetailRepository.FindById(id);
+
+            if (existingSessionDetail == null)
+                return new SessionDetailResponse("SessionDetail not found");
+            return new SessionDetailResponse(existingSessionDetail);
+        }
+        /*
+        public async Task<SessionDetailResponse> AssignSessionSessionDetail(int sessionId, int sessionDetailId)
+        {
+            try
+            {
+                await _sessionDetailRepository.AssignSessionSessionDetail(sessionId, sessionDetailId);
+                await _unitOfWork.CompleteAsync();
+                SessionDetail sessionDetail = await _sessionDetailRepository.FindById(sessionDetailId);
+                return new SessionDetailResponse(sessionDetail);
+
+            }
+            catch (Exception ex)
+            {
+                return new SessionDetailResponse($"An error ocurred while assigning SessionDetail to Session: {ex.Message}");
+            }
+        }*/
     }
 }
