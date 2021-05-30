@@ -18,12 +18,15 @@ namespace ILenguage.API.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IUserTopicService _userTopicService;
 
-        public UserController(IUserService userService, IMapper mapper)
+        public UserController(IUserService userService, IMapper mapper, IUserTopicService userTopicService)
         {
             _userService = userService;
             _mapper = mapper;
+            _userTopicService = userTopicService;
         }
+
         [HttpPost("{roleId}")]
         [SwaggerOperation(
             Summary = "Add new user",
@@ -45,7 +48,23 @@ namespace ILenguage.API.Controllers
             var userResource = _mapper.Map<User, UserResource>(result.Resource);
             return Ok(userResource);
         }
+        [HttpGet("role/{roleId}/topics/{topicId}")]
+        [SwaggerOperation(
+            Summary = "Get All Users By Role Id And Topic Id",
+            Description = "Get All Users by role id and topic Id",
+            OperationId = "GetAllUsersByRoleIdAndTopicId"
+        )]
+        [SwaggerResponse(200, "Users Returned", typeof(IEnumerable<UserResource>))]
+        [ProducesResponseType(typeof(IEnumerable<UserResource>), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<UserResource>> GetAllUserByRoleIdAndTopicId(int roleId, int topicId)
+        {
+            var users = await _userService.ListByRoleIdAndTopicId(roleId, topicId);
+            var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
+            return resources;
 
+        }
         [HttpGet]
         [SwaggerOperation(
             Summary = "Get All Users",
@@ -64,6 +83,15 @@ namespace ILenguage.API.Controllers
         }
 
         [HttpGet("/role/{roleId}")]
+        [SwaggerOperation(
+            Summary = "Get All Users By Role Id",
+            Description = "Get All Users by role Id",
+            OperationId = "GetAllUsersByRoleId"
+        )]
+        [SwaggerResponse(200, "Users Returned", typeof(IEnumerable<UserResource>))]
+        [ProducesResponseType(typeof(IEnumerable<UserResource>), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        [Produces("application/json")]
         public async Task<IEnumerable<UserResource>> GetAllUsersByRoleId(int roleId)
         {
             var users = await _userService.ListByRoleId(roleId);

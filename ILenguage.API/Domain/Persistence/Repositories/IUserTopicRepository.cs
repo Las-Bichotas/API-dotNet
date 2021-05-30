@@ -9,6 +9,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task<IEnumerable<UserTopics>> ListAsync();
         Task<IEnumerable<UserTopics>> ListByUserId(int userId);
         Task<IEnumerable<UserTopics>> ListByTopicId(int topicId);
+        Task<IEnumerable<UserTopics>> ListByRoleIdAndTopicId(int roleId, int topicId);
         Task AssignTopicUser(int userId, int topicId);
         Task UnassignTopicUser(int userId, int topicId);
         Task<UserTopics> FindByUserIdAndTopicId(int userId, int topicId);

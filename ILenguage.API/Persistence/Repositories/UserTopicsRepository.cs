@@ -41,6 +41,15 @@ namespace ILenguage.API.Persistence.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<UserTopics>> ListByRoleIdAndTopicId(int roleId, int topicId)
+        {
+            return await _context.UserTopics
+            .Where(ut => ut.TopicId == topicId && ut.User.RoleId == roleId)
+            .Include(ut => ut.User)
+            .Include(ut => ut.Topic)
+            .ToListAsync();
+        }
+
         public async Task<IEnumerable<UserTopics>> ListByTopicId(int topicId)
         {
             return await _context.UserTopics
