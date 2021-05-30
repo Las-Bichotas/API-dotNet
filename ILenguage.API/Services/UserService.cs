@@ -18,8 +18,9 @@ namespace ILenguage.API.Services
         private readonly IUserScheduleRepository _userScheduleRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IUserTopicRepository _userTopicRepository;
+        private readonly IUserLanguageRepository _userLanguageRepository;
 
-        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository, IUserScheduleRepository userScheduleRepository, IRoleRepository roleRepository, IUserTopicRepository userTopicRepository)
+        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository, IUserScheduleRepository userScheduleRepository, IRoleRepository roleRepository, IUserTopicRepository userTopicRepository, IUserLanguageRepository userLanguageRepository)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
@@ -27,6 +28,7 @@ namespace ILenguage.API.Services
             _userScheduleRepository = userScheduleRepository;
             _roleRepository = roleRepository;
             _userTopicRepository = userTopicRepository;
+            _userLanguageRepository = userLanguageRepository;
         }
 
         public async Task<IEnumerable<User>> ListAsync()
@@ -125,6 +127,13 @@ namespace ILenguage.API.Services
         {
             var userTopics = await _userTopicRepository.ListByRoleIdAndTopicId(roleId, topicId);
             var users = userTopics.Select(ut => ut.User).ToList();
+            return users;
+        }
+
+        public async Task<IEnumerable<User>> ListByRoleIdAndLanguageId(int roleId, int languageId)
+        {
+            var userLanguages = await _userLanguageRepository.ListByRoleIdAndLanguageId(roleId, languageId);
+            var users = userLanguages.Select(ul => ul.User).ToList();
             return users;
         }
     }

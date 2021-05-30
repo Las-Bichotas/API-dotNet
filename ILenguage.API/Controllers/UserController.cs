@@ -65,6 +65,23 @@ namespace ILenguage.API.Controllers
             return resources;
 
         }
+        [HttpGet("role/{roleId}/language/{languageId}")]
+        [SwaggerOperation(
+            Summary = "Get All Users By Role Id And Languge Id",
+            Description = "Get All Users by role id and language Id",
+            OperationId = "GetAllUsersByRoleIdAndLanguageId"
+        )]
+        [SwaggerResponse(200, "Users Returned", typeof(IEnumerable<UserResource>))]
+        [ProducesResponseType(typeof(IEnumerable<UserResource>), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<UserResource>> GetAllUsersByRoleIdAndTopicId(int roleId, int languageId)
+        {
+            var users = await _userService.ListByRoleIdAndLanguageId(roleId, languageId);
+            var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
+            return resources;
+
+        }
         [HttpGet]
         [SwaggerOperation(
             Summary = "Get All Users",
@@ -82,7 +99,7 @@ namespace ILenguage.API.Controllers
             return resources;
         }
 
-        [HttpGet("/role/{roleId}")]
+        [HttpGet("role/{roleId}")]
         [SwaggerOperation(
             Summary = "Get All Users By Role Id",
             Description = "Get All Users by role Id",

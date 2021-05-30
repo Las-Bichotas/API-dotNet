@@ -52,6 +52,15 @@ namespace ILenguage.API.Persistence.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<UserLanguages>> ListByRoleIdAndLanguageId(int roleId, int languageId)
+        {
+            return await _context.UserLanguages
+            .Where(ul => ul.User.RoleId == roleId && ul.LanguageId == languageId)
+            .Include(ul => ul.User)
+            .Include(ul => ul.LanguageOfInterest)
+            .ToListAsync();
+        }
+
         public async Task<IEnumerable<UserLanguages>> ListByUserIdAsync(int userId)
         {
             return await _context.UserLanguages
