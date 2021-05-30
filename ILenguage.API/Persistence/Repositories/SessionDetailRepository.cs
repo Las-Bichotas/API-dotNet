@@ -20,6 +20,17 @@ namespace ILenguage.API.Persistence.Repositories
             await _context.SessionsDetails.AddAsync(sessionDetail);
         }
 
+        public async Task AssignSessionSessionDetail(int sessionId, int sessionDetailId)
+        {
+            SessionDetail sessionDetail = await FindById(sessionDetailId);
+            if (sessionDetail != null)
+            {
+                sessionDetail = new SessionDetail { SessionId = sessionId };
+                await AddAsync(sessionDetail);
+            }
+
+        }
+
         public async Task<SessionDetail> FindById(int id)
         {
             return await _context.SessionsDetails.FindAsync(id);

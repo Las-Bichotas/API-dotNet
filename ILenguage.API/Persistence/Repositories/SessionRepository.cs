@@ -28,7 +28,6 @@ namespace ILenguage.API.Persistence.Repositories
         public async Task<IEnumerable<Session>> ListAsync()
         {
             return await _context.Sessions.ToListAsync();
-            //return await _context.Sessions.Include(p => p.User).ToListAsync();
         }
 
         public void Remove(Session session)

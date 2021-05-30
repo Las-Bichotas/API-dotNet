@@ -14,5 +14,6 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task<SessionDetail> FindById(int id);
         void Update(SessionDetail sessionDetail);
         void Remove(SessionDetail sessionDetail);
+        Task AssignSessionSessionDetail(int sessionId, int sessionDetailId);
     }
 }

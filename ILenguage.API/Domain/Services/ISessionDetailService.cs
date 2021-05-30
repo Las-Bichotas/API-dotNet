@@ -15,5 +15,6 @@ namespace ILenguage.API.Domain.Services
         Task<SessionDetailResponse> SaveAsync(SessionDetail sessionDetail);
         Task<SessionDetailResponse> UpdateAsync(int id, SessionDetail sessionDetail);
         Task<SessionDetailResponse> DeleteAsync(int id);
+        Task<SessionDetailResponse> AssignSessionSessionDetail(int sessionId, int sessionDetailId);
     }
 }

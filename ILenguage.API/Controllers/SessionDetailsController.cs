@@ -13,7 +13,10 @@ using System.Threading.Tasks;
 
 namespace ILenguage.API.Controllers
 {
-    [Route("/api/sessions/{sessionId}/session-details")]
+    //[Route("/api/sessions/{sessionId}/session-details")]
+    [Route("/api/[controller]")]
+    [Produces("application/json")]
+    [ApiController]
     public class SessionDetailsController : ControllerBase
     {
         private readonly ISessionDetailService _sessionDetailService;
@@ -131,5 +134,28 @@ namespace ILenguage.API.Controllers
             return Ok(sessionDetailResource);
 
         }
+
+        [HttpPost("{sessionDetailId}")]
+        [SwaggerOperation(
+           Summary = "Assing SessionDetail to Session",
+           Description = "Assing SessionDetail to Session by SessionId",
+           OperationId = "AssingSessionDetailToSessionBySessionId"
+       )]
+        [SwaggerResponse(200, "SessionDetail Assigned", typeof(SessionDetailResource))]
+        [ProducesResponseType(typeof(SessionDetailResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        [Produces("application/json")]
+        public async Task<IActionResult> AssignSessionSessionDetail(int sessionId, int sessionDetailId)
+        {
+            var result = await _sessionDetailService.AssignSessionSessionDetail(sessionId, sessionDetailId);
+
+            if (!result.Succes)
+                return BadRequest(result.Message);
+
+            var sessionDetailResource = _mapper.Map<SessionDetail, SessionDetailResource>(result.Resource);
+
+            return Ok(sessionDetailResource);
+        }
+
     }
 }
