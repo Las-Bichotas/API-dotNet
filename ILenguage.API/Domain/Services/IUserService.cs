@@ -9,7 +9,7 @@ namespace ILenguage.API.Domain.Services
     {
         Task<IEnumerable<User>> ListAsync();
         Task<UserResponse> GetByIdAsync(int userId);
-        Task<UserResponse> SaveAsync(User user);
+        Task<UserResponse> SaveAsync(User user, int roleId);
         Task<UserResponse> UpdateAsync(int userId, User user);
         Task<UserResponse> DeleteAsync(int userId);
 

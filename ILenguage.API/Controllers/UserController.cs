@@ -24,7 +24,7 @@ namespace ILenguage.API.Controllers
             _userService = userService;
             _mapper = mapper;
         }
-        [HttpPost]
+        [HttpPost("{roleId}")]
         [SwaggerOperation(
             Summary = "Add new user",
             Description = "Add new user with initial data",
@@ -33,13 +33,13 @@ namespace ILenguage.API.Controllers
         [SwaggerResponse(200, "User Added", typeof(UserResource))]
         [ProducesResponseType(typeof(UserResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> PostAsync([FromBody] SaveUserResource resource)
+        public async Task<IActionResult> PostAsync(int roleId, [FromBody] SaveUserResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessage());
 
             var user = _mapper.Map<SaveUserResource, User>(resource);
-            var result = await _userService.SaveAsync(user);
+            var result = await _userService.SaveAsync(user, roleId);
             if (!result.Succes)
                 return BadRequest(result.Message);
             var userResource = _mapper.Map<User, UserResource>(result.Resource);
