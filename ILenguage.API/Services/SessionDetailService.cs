@@ -24,12 +24,13 @@ namespace ILenguage.API.Services
         {
             return await _sessionDetailRepository.ListAsync();
         }
+        
 
-        public async Task<SessionDetailResponse> SaveAsync(SessionDetail sessionDetail)
+        public async Task<SessionDetailResponse> SaveAsync(SessionDetail sessionDetail, int sessionId)
         {
             try
             {
-                await _sessionDetailRepository.AddAsync(sessionDetail);
+                await _sessionDetailRepository.AddAsync(sessionDetail, sessionId);
                 await _unitOfWork.CompleteAsync();
 
                 return new SessionDetailResponse(sessionDetail);
@@ -39,7 +40,7 @@ namespace ILenguage.API.Services
                 return new SessionDetailResponse($"An error ocurred while saving sessionDetail: {ex.Message}");
             }
         }
-
+        
         public async Task<SessionDetailResponse> UpdateAsync(int id, SessionDetail sessionDetail)
         {
             var existingSessionDetail = await _sessionDetailRepository.FindById(id);
@@ -96,7 +97,7 @@ namespace ILenguage.API.Services
                 return new SessionDetailResponse("SessionDetail not found");
             return new SessionDetailResponse(existingSessionDetail);
         }
-
+        /*
         public async Task<SessionDetailResponse> AssignSessionSessionDetail(int sessionId, int sessionDetailId)
         {
             try
@@ -111,6 +112,6 @@ namespace ILenguage.API.Services
             {
                 return new SessionDetailResponse($"An error ocurred while assigning SessionDetail to Session: {ex.Message}");
             }
-        }
+        }*/
     }
 }

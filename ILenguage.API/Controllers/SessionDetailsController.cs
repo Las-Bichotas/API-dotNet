@@ -71,13 +71,13 @@ namespace ILenguage.API.Controllers
         [SwaggerResponse(200, "SessionDetail Added", typeof(SessionDetailResource))]
         [ProducesResponseType(typeof(SessionDetailResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> PostAsync([FromBody] SaveSessionDetailResource resource)
+        public async Task<IActionResult> PostAsync([FromBody] SaveSessionDetailResource resource, int sessionId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessage());
 
             var sessionDetail = _mapper.Map<SaveSessionDetailResource, SessionDetail>(resource);
-            var result = await _sessionDetailService.SaveAsync(sessionDetail);
+            var result = await _sessionDetailService.SaveAsync(sessionDetail, sessionId);
 
             if (!result.Succes)
                 return BadRequest(result.Message);

@@ -12,9 +12,9 @@ namespace ILenguage.API.Domain.Services
         Task<IEnumerable<SessionDetail>> ListAsync();
         Task<IEnumerable<SessionDetail>> ListBySessionIdAsync(int sessionId);
         Task<SessionDetailResponse> GetByIdAsync(int id);
-        Task<SessionDetailResponse> SaveAsync(SessionDetail sessionDetail);
+        Task<SessionDetailResponse> SaveAsync(SessionDetail sessionDetail, int sessionId);
         Task<SessionDetailResponse> UpdateAsync(int id, SessionDetail sessionDetail);
         Task<SessionDetailResponse> DeleteAsync(int id);
-        Task<SessionDetailResponse> AssignSessionSessionDetail(int sessionId, int sessionDetailId);
+        //Task<SessionDetailResponse> AssignSessionSessionDetail(int sessionId, int sessionDetailId);
     }
 }

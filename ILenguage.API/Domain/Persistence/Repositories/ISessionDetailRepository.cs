@@ -10,10 +10,10 @@ namespace ILenguage.API.Domain.Persistence.Repositories
     {
         Task<IEnumerable<SessionDetail>> ListAsync();
         Task<IEnumerable<SessionDetail>> GetBySessionIdAsync(int sessionId);
-        Task AddAsync(SessionDetail sessionDetail);
+        Task AddAsync(SessionDetail sessionDetail, int sessionId);
         Task<SessionDetail> FindById(int id);
         void Update(SessionDetail sessionDetail);
         void Remove(SessionDetail sessionDetail);
-        Task AssignSessionSessionDetail(int sessionId, int sessionDetailId);
+        //Task AssignSessionSessionDetail(int sessionId, int sessionDetailId);
     }
 }
