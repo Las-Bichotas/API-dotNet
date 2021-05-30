@@ -85,7 +85,7 @@ namespace ILenguage.API.Services
         
         public async Task<IEnumerable<SessionDetail>> ListBySessionIdAsync(int sessionId)
         {
-            return await _sessionDetailRepository.ListBySessionIdAsync(sessionId);
+            return await _sessionDetailRepository.GetBySessionIdAsync(sessionId);
         }
 
         public async Task<SessionDetailResponse> GetByIdAsync(int id)

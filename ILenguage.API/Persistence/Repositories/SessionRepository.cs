@@ -19,16 +19,6 @@ namespace ILenguage.API.Persistence.Repositories
         {
             await _context.Sessions.AddAsync(session);
         }
-        /*
-        public async Task<IEnumerable<Session>> ListByUserIdAsync(int userId)
-        {
-            return await _context.Sessions
-                .Where(p => p.UserId == userId)
-                .Include(p => p.User)
-                .ToListAsync();
-
-        }
-        */
 
         public async Task<Session> FindById(int id)
         {
