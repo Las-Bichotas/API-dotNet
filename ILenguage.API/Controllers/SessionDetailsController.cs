@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ILenguage.API.Controllers
 {
-    //[Route("/api/sessions/{sessionId}/session-details")]
+    //[Route("/api/sessions/{sessionId}/session_details")]
     [Route("/api/[controller]")]
     [Produces("application/json")]
     [ApiController]
@@ -28,13 +28,13 @@ namespace ILenguage.API.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
         [SwaggerOperation(
             Summary = "List all sessionsDetails",
             Description = "List of sessionsDetails",
             OperationId = "ListAllSessionsDetails"
             )]
         [SwaggerResponse(200, "List of SessionDetails", typeof(IEnumerable<SessionDetailResource>))]
-        [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SessionDetailResource>), 200)]
         public async Task<IEnumerable<SessionDetailResource>> GetAllAsync()
         {
@@ -44,7 +44,7 @@ namespace ILenguage.API.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("sessions/{sessionId}")]
         [SwaggerOperation(
           Summary = "Get SessionDetail",
           Description = "Get SessionDetail By Session Id",
@@ -62,7 +62,7 @@ namespace ILenguage.API.Controllers
             return resources;
         }
 
-        [HttpPost]
+        [HttpPost("sessions/{sessionId}")]
         [SwaggerOperation(
             Summary = "Add new sessionDetail",
             Description = "Add new sessionDetail",
@@ -76,18 +76,18 @@ namespace ILenguage.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessage());
 
-            var sesionDetail = _mapper.Map<SaveSessionDetailResource, SessionDetail>(resource);
-            var result = await _sessionDetailService.SaveAsync(sesionDetail);
+            var sessionDetail = _mapper.Map<SaveSessionDetailResource, SessionDetail>(resource);
+            var result = await _sessionDetailService.SaveAsync(sessionDetail);
 
             if (!result.Succes)
                 return BadRequest(result.Message);
 
-            var sesionDetailResource = _mapper.Map<SessionDetail, SessionDetailResource>(result.Resource);
+            var sessionDetailResource = _mapper.Map<SessionDetail, SessionDetailResource>(result.Resource);
 
-            return Ok(sesionDetailResource);
+            return Ok(sessionDetailResource);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("sessions/{sessionId}")]
         [SwaggerOperation(
             Summary = "Update SessionDetail",
             Description = "Update SessionDetail By Id",
@@ -112,7 +112,7 @@ namespace ILenguage.API.Controllers
             return Ok(sessionDetailResource);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("sessions/{sessionId}")]
         [SwaggerOperation(
            Summary = "Delete SessionDetail",
            Description = "Delete SessionDetail By Session Id",
@@ -134,7 +134,7 @@ namespace ILenguage.API.Controllers
             return Ok(sessionDetailResource);
 
         }
-
+        /*
         [HttpPost("{sessionDetailId}")]
         [SwaggerOperation(
            Summary = "Assing SessionDetail to Session",
@@ -156,6 +156,6 @@ namespace ILenguage.API.Controllers
 
             return Ok(sessionDetailResource);
         }
-
+        */
     }
 }
