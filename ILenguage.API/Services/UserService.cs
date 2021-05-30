@@ -114,6 +114,10 @@ namespace ILenguage.API.Services
             }
         }
 
+        public async Task<IEnumerable<User>> ListByRoleId(int roleId)
+        {
+            return await _userRepository.ListUsersByRoleId(roleId);
+        }
 
     }
 }

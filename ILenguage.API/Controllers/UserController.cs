@@ -63,6 +63,14 @@ namespace ILenguage.API.Controllers
             return resources;
         }
 
+        [HttpGet("/role/{roleId}")]
+        public async Task<IEnumerable<UserResource>> GetAllUsersByRoleId(int roleId)
+        {
+            var users = await _userService.ListByRoleId(roleId);
+            var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
+            return resources;
+        }
+
         [HttpDelete("{id}")]
         [SwaggerOperation(
             Summary = "Delete User",
