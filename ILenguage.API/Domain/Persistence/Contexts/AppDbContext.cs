@@ -6,7 +6,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Day> Days{get;set;}
+        public DbSet<Sday> Sdays{get;set;}
         public DbSet<Session> Sessions { get; set; }
         public DbSet<SessionDetail> SessionsDetails { get; set; }
         public DbSet<Role> Roles { get; set; }

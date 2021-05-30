@@ -3,12 +3,11 @@ using System.Collections.Generic;
 
 namespace ILenguage.API.Domain.Models
 {
-    public class Day
+    public class Sday
     {
         public int Id { get; set; }
         
-        public DateTime InitialDays {get;set;}
-        public DateTime FinalDays {get;set;} 
+        public DateTime InicialDay {get;set;}
 
     
   /*       public IList<Session> Sessions { get; set; }  */
