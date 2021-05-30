@@ -33,7 +33,7 @@ namespace ILenguage.API.Services
 
         
         
-        public async Task<SdayResponse> AssingSdayAsync(int id,Sday sday)
+        public async Task<SdayResponse> AssingSdayAsync(int id)
         {
           var existingSday = await _sdayRepository.FindById(id);
             if (existingSday == null)

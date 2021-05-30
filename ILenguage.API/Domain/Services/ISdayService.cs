@@ -10,7 +10,7 @@ namespace ILenguage.API.Domain.Services
         Task<IEnumerable<Sday>> ListAsync();
 
         Task<SdayResponse> GetById(int id);
-        Task<SdayResponse> AssingSdayAsync(int id, Sday Sday);
+        Task<SdayResponse> AssingSdayAsync(int id);
 
     }
 }
