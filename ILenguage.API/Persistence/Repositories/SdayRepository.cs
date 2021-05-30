@@ -28,35 +28,31 @@ namespace ILenguage.API.Persistence.Repositories
         public async Task AddAsync(Sday sday)
         {
             await _context.Sdays.AddAsync(sday);
-            _context.SaveChanges();
+            
         }
         
-        public async Task<Sday> FindById(int Id)
+        public async Task<Sday> FindById(int id)
         {
-            return await _context.Sdays.FindAsync(Id);
+            return await _context.Sdays.FindAsync(id);
         }
 
         public void Remove(Sday sday)
         {
             _context.Sdays.Remove(sday);
-            _context.SaveChanges();
         }
 
-        public void Update(Sday sday)
+        
+        public async Task AssingSday(int id)
         {
-            _context.Update(sday);
-            _context.SaveChanges();
-        }
-        public async Task AssingSday(int Id)
-        {
-            Sday sday = await FindById(Id);
+            Sday sday = await FindById(id);
             if (sday == null)
             {
-                Sday foundSday = await _context.Sdays.FindAsync(Id);
+                Sday foundSday = await _context.Sdays.FindAsync(id);
                 
-                sday = new Sday {Id = Id};
+                sday = new Sday {Id = id};
                 sday.InicialDay = DateTime.Now;
-                
+                DateTime dt=sday.InicialDay;
+                Console.WriteLine("The day of the week for {0:d} is {1}.", dt, dt.DayOfWeek);
 
                 await AddAsync(sday);
             }
