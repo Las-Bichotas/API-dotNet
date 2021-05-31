@@ -1,5 +1,6 @@
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Repositories;
+using ILenguage.API.Domain.Repositories;
 using ILenguage.API.Domain.Services;
 using ILenguage.API.Domain.Services.Communications;
 using System;
@@ -15,15 +16,20 @@ namespace ILenguage.API.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserSubscriptionRepository _userSubscriptionRepository;
         private readonly IUserScheduleRepository _userScheduleRepository;
-        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository, IUserScheduleRepository userScheduleRepository)
+        private readonly IRoleRepository _roleRepository;
+        private readonly IUserTopicRepository _userTopicRepository;
+        private readonly IUserLanguageRepository _userLanguageRepository;
+
+        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository, IUserScheduleRepository userScheduleRepository, IRoleRepository roleRepository, IUserTopicRepository userTopicRepository, IUserLanguageRepository userLanguageRepository)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
             _userSubscriptionRepository = userSubscriptionRepository;
             _userScheduleRepository = userScheduleRepository;
+            _roleRepository = roleRepository;
+            _userTopicRepository = userTopicRepository;
+            _userLanguageRepository = userLanguageRepository;
         }
-
-
 
         public async Task<IEnumerable<User>> ListAsync()
         {
@@ -69,8 +75,13 @@ namespace ILenguage.API.Services
         }
 
 
-        public async Task<UserResponse> SaveAsync(User user)
+        public async Task<UserResponse> SaveAsync(User user, int roleId)
         {
+            var existingRole = await _roleRepository.FindById(roleId);
+            if (existingRole == null)
+                return new UserResponse("Role to assing User not found");
+            user.Role = existingRole;
+            user.RoleId = roleId;
             try
             {
                 await _userRepository.AddAsync(user);
@@ -106,7 +117,24 @@ namespace ILenguage.API.Services
                 return new UserResponse($"An error ocurrned while updating user: {ex.Message}");
             }
         }
-        
-        
+
+        public async Task<IEnumerable<User>> ListByRoleId(int roleId)
+        {
+            return await _userRepository.ListUsersByRoleId(roleId);
+        }
+
+        public async Task<IEnumerable<User>> ListByRoleIdAndTopicId(int roleId, int topicId)
+        {
+            var userTopics = await _userTopicRepository.ListByRoleIdAndTopicId(roleId, topicId);
+            var users = userTopics.Select(ut => ut.User).ToList();
+            return users;
+        }
+
+        public async Task<IEnumerable<User>> ListByRoleIdAndLanguageId(int roleId, int languageId)
+        {
+            var userLanguages = await _userLanguageRepository.ListByRoleIdAndLanguageId(roleId, languageId);
+            var users = userLanguages.Select(ul => ul.User).ToList();
+            return users;
+        }
     }
 }

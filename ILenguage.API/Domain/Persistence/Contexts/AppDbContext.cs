@@ -99,7 +99,10 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Role>().Property(r => r.Id).IsRequired().ValueGeneratedOnAdd();
             modelBuilder.Entity<Role>().Property(r => r.Name).IsRequired().HasMaxLength(30);
 
-
+            modelBuilder.Entity<Role>()
+            .HasMany(r => r.Users)
+            .WithOne(u => u.Role)
+            .HasForeignKey(u => u.RoleId);
 
             // RelatedUser
             modelBuilder.Entity<RelatedUser>().ToTable("RelatedUser");
@@ -110,12 +113,12 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .WithMany(ru => ru.RelatedUsers)
                 .HasForeignKey(ru => ru.UserIdOne);
 
-         
-           //*Schedule
+
+            //*Schedule
             modelBuilder.Entity<Schedule>().ToTable("Schedules");
             modelBuilder.Entity<Schedule>().HasKey(s => s.Id);
             modelBuilder.Entity<Schedule>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
-        
+
             //*UserSchedules
             modelBuilder.Entity<UserSchedule>().ToTable("UserSchedules");
             modelBuilder.Entity<UserSchedule>().HasKey(us => new { us.UserId, us.ScheduleId });
@@ -149,20 +152,20 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Session>().HasKey(p => p.Id);
             modelBuilder.Entity<Session>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
 
-            modelBuilder.Entity<Session>().Property(p => p.StartAt).IsRequired().HasMaxLength(100);
-            modelBuilder.Entity<Session>().Property(p => p.EndAt).IsRequired().HasMaxLength(100);
-            modelBuilder.Entity<Session>().Property(p => p.Link).IsRequired().HasMaxLength(100);
+            modelBuilder.Entity<Session>().Property(p => p.StartAt).IsRequired();
+            modelBuilder.Entity<Session>().Property(p => p.EndAt).IsRequired();
+            modelBuilder.Entity<Session>().Property(p => p.Link).IsRequired().HasMaxLength(200);
 
             // Relationships
 
             modelBuilder.Entity<Session>()
-                .HasMany(p => p.SessionsDetails)
+                .HasOne(p => p.SessionDetail)
                 .WithOne(p => p.Session)
-                .HasForeignKey(p => p.SessionId);
+                .HasForeignKey<SessionDetail>(p => p.SessionId);
 
             // SessionDetail Entity
 
-            modelBuilder.Entity<SessionDetail>().ToTable("Session_Details");
+            modelBuilder.Entity<SessionDetail>().ToTable("SessionDetails");
 
             // Constraints
 

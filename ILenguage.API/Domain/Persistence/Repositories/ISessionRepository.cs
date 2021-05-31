@@ -9,7 +9,6 @@ namespace ILenguage.API.Domain.Persistence.Repositories
     public interface ISessionRepository
     {
         Task<IEnumerable<Session>> ListAsync();
-        //Task<IEnumerable<Session>> ListByUserIdAsync(int userId);
 
         Task AddAsync(Session session);
 
@@ -18,6 +17,5 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         void Update(Session session);
 
         void Remove(Session session);
-
     }
 }

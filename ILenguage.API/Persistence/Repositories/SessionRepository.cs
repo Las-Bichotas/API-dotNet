@@ -19,16 +19,6 @@ namespace ILenguage.API.Persistence.Repositories
         {
             await _context.Sessions.AddAsync(session);
         }
-        /*
-        public async Task<IEnumerable<Session>> ListByUserIdAsync(int userId)
-        {
-            return await _context.Sessions
-                .Where(p => p.UserId == userId)
-                .Include(p => p.User)
-                .ToListAsync();
-
-        }
-        */
 
         public async Task<Session> FindById(int id)
         {
@@ -38,7 +28,6 @@ namespace ILenguage.API.Persistence.Repositories
         public async Task<IEnumerable<Session>> ListAsync()
         {
             return await _context.Sessions.ToListAsync();
-            //return await _context.Sessions.Include(p => p.User).ToListAsync();
         }
 
         public void Remove(Session session)

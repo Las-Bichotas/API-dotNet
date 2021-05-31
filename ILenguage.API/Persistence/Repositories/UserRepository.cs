@@ -28,6 +28,14 @@ namespace ILenguage.API.Persistence.Repositories
         {
             return await _context.Users.ToListAsync();
         }
+
+        public async Task<IEnumerable<User>> ListUsersByRoleId(int roleId)
+        {
+            return await _context.Users
+            .Where(u => u.RoleId == roleId)
+            .ToListAsync();
+        }
+
         public void Remove(User user)
         {
             _context.Users.Remove(user);

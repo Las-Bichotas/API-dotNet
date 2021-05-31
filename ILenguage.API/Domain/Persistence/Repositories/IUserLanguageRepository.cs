@@ -9,6 +9,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task<IEnumerable<UserLanguages>> ListAsync();
         Task<IEnumerable<UserLanguages>> ListByUserIdAsync(int userId);
         Task<IEnumerable<UserLanguages>> ListByLanguageIdAsync(int languageId);
+        Task<IEnumerable<UserLanguages>> ListByRoleIdAndLanguageId(int roleId, int languageId);
         Task AssignLanguagUser(int userId, int languageId);
         Task UnassignLanguagUser(int userId, int languageId);
         Task<UserLanguages> FindByUserIdAndLanguageId(int userId, int languageId);
