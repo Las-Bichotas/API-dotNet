@@ -24,7 +24,7 @@ namespace ILenguage.API.Services
             return await _sdayRepository.ListAsync();
         }
 
-        public async Task<SdayResponse> GetById(int id)
+        public async Task<SdayResponse> GetByIdAsync(int id)
         {
         var existingSday = await _sdayRepository.FindById(id);
             if (existingSday == null)
@@ -32,7 +32,64 @@ namespace ILenguage.API.Services
             return new SdayResponse(existingSday);        }
 
         
-        
+        public async Task<SdayResponse> SaveAsync(Sday sday)
+        {
+            try
+            {
+                await _sdayRepository.AddAsync(sday);
+                await _unitOfWork.CompleteAsync();
+
+                return new SdayResponse(sday);
+            }
+            catch (Exception ex)
+            {
+                return new SdayResponse($"An error ocurred while saving day: {ex.Message}");
+            }
+        }
+
+        public async Task<SdayResponse> UpdateAsync(int id, Sday sday)
+        {
+            var existingSday = await _sdayRepository.FindById(id);
+
+            if (existingSday == null)
+                return new SdayResponse("Sday not found");
+
+            existingSday.InicialDay = sday.InicialDay;
+            existingSday.FinalDay = sday.FinalDay;
+
+            try
+            {
+                _sdayRepository.Update(existingSday);
+                await _unitOfWork.CompleteAsync();
+
+                return new SdayResponse(existingSday);
+            }
+            catch (Exception ex)
+            {
+                return new SdayResponse($"An error ocurred while updating Day: {ex.Message}");
+            }
+        }
+
+
+        public async Task<SdayResponse> DeleteAsync(int id)
+        {
+            var existingSday = await _sdayRepository.FindById(id);
+
+            if (existingSday == null)
+                return new SdayResponse("Day not found");
+
+            try
+            {
+                _sdayRepository.Remove(existingSday);
+                await _unitOfWork.CompleteAsync();
+
+                return new SdayResponse(existingSday);
+            }
+            catch (Exception ex)
+            {
+                return new SdayResponse($"An error ocurred while deleting day: {ex.Message}");
+            }
+        }
         public async Task<SdayResponse> AssingSdayAsync(int id)
         {
           var existingSday = await _sdayRepository.FindById(id);

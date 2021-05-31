@@ -9,7 +9,12 @@ namespace ILenguage.API.Domain.Services
     {
         Task<IEnumerable<Sday>> ListAsync();
 
-        Task<SdayResponse> GetById(int id);
+        Task<SdayResponse> GetByIdAsync(int id);
+        Task<SdayResponse> DeleteAsync(int id);
+        
+        Task<SdayResponse> UpdateAsync(int id, Sday sday);
+
+        Task<SdayResponse> SaveAsync(Sday Sday);
         Task<SdayResponse> AssingSdayAsync(int id);
 
     }

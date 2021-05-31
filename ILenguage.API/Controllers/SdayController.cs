@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Services;
 using ILenguage.API.Resources;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Swashbuckle.AspNetCore.Annotations;
+using ILenguage.API.Extensions;
 
 namespace ILenguage.API.Controllers
 {
@@ -37,7 +40,7 @@ namespace ILenguage.API.Controllers
 
         public async Task<IActionResult> GetByIdAsync(int id)
         {
-            var result = await _sdayService.GetById(id);
+            var result = await _sdayService.GetByIdAsync(id);
             if (!result.Succes)
                 return BadRequest(result.Message);
             var sdayResource = _mapper.Map<Sday, SdayResource>(result.Resource);
@@ -58,7 +61,79 @@ namespace ILenguage.API.Controllers
             return Ok(sdayResource);
         }
 
-        
+        [HttpPost]
+        [SwaggerOperation(
+            Summary = "Add new day",
+            Description = "Add new day with initial data",
+            OperationId = "Addday"
+        )]
+        [SwaggerResponse(200, "Day Added", typeof(SdayResource))]
+        [ProducesResponseType(typeof(SdayResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> PostAsync([FromBody] SaveSdayResource resource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessage());
+
+            var sday = _mapper.Map<SaveSdayResource, Sday>(resource);
+            var result = await _sdayService.SaveAsync(sday);
+
+            if (!result.Succes)
+                return BadRequest(result.Message);
+
+            var sdayResource = _mapper.Map<Sday, SdayResource>(result.Resource);
+
+            return Ok(sdayResource);
+        }
+
+        [HttpPut("{id}")]
+        [SwaggerOperation(
+            Summary = "Update Day",
+            Description = "Update Day By Day Id",
+            OperationId = "UpdateDayById"
+        )]
+        [SwaggerResponse(200, "Day Updated", typeof(SdayResource))]
+        [ProducesResponseType(typeof(SdayResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveSdayResource resource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessage());
+
+            var sday = _mapper.Map<SaveSdayResource, Sday>(resource);
+            var result = await _sdayService.UpdateAsync(id, sday);
+
+            if (!result.Succes)
+                return BadRequest(result.Message);
+
+            var sdayResource = _mapper.Map<Sday, SdayResource>(result.Resource);
+
+            return Ok(sdayResource);
+
+        }
+
+        [HttpDelete("{id}")]
+        [SwaggerOperation(
+            Summary = "Delete Day",
+            Description = "Delete Day By Day Id",
+            OperationId = "DeleteDayById"
+        )]
+        [SwaggerResponse(200, "Day Deleted", typeof(SdayResource))]
+        [ProducesResponseType(typeof(SdayResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        [Produces("application/json")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _sdayService.DeleteAsync(id);
+
+            if (!result.Succes)
+                return BadRequest(result.Message);
+
+            var sdayResource = _mapper.Map<Sday, SdayResource>(result.Resource);
+
+            return Ok(sdayResource);
+
+        }
         
         
     }

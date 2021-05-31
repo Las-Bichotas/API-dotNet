@@ -28,9 +28,14 @@ namespace ILenguage.API.Persistence.Repositories
         public async Task AddAsync(Sday sday)
         {
             await _context.Sdays.AddAsync(sday);
+            _context.SaveChanges();
+
             
         }
-        
+        public void Update(Sday sday)
+        {
+            _context.Sdays.Update(sday);
+        }
         public async Task<Sday> FindById(int id)
         {
             return await _context.Sdays.FindAsync(id);
@@ -44,18 +49,18 @@ namespace ILenguage.API.Persistence.Repositories
         
         public async Task AssingSday(int id)
         {
-            Sday sday = await FindById(id);
-            if (sday == null)
-            {
+            
                 Sday foundSday = await _context.Sdays.FindAsync(id);
                 
-                sday = new Sday {Id = id};
+                var sday = new Sday {Id = id};
                 sday.InicialDay = DateTime.Now;
                 DateTime dt=sday.InicialDay;
                 Console.WriteLine("The day of the week for {0:d} is {1}.", dt, dt.DayOfWeek);
 
                 await AddAsync(sday);
-            }
+
+                
+            
         }
     }
 }
