@@ -7,8 +7,7 @@ namespace ILenguage.API.Resources
         [Required]
         public DateTime InicialDay { get; set; }
 
-        [Required]
-        public DateTime FinalDate { get; set; }
+        
 
     }
 }
