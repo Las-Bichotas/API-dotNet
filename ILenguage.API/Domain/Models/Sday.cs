@@ -8,7 +8,6 @@ namespace ILenguage.API.Domain.Models
         public int Id { get; set; }
         
         public DateTime InicialDay {get;set;}
-        public DateTime FinalDay {get;set;}
 
     
   /*       public IList<Session> Sessions { get; set; }  */

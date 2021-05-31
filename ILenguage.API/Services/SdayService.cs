@@ -55,7 +55,6 @@ namespace ILenguage.API.Services
                 return new SdayResponse("Sday not found");
 
             existingSday.InicialDay = sday.InicialDay;
-            existingSday.FinalDay = sday.FinalDay;
 
             try
             {

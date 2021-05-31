@@ -53,7 +53,7 @@ namespace ILenguage.API.Persistence.Repositories
                 Sday foundSday = await _context.Sdays.FindAsync(id);
                 
                 var sday = new Sday {Id = id};
-                sday.InicialDay = DateTime.Now;
+                
                 DateTime dt=sday.InicialDay;
                 Console.WriteLine("The day of the week for {0:d} is {1}.", dt, dt.DayOfWeek);
 
