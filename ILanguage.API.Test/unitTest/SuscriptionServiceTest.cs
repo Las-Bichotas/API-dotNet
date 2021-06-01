@@ -29,6 +29,7 @@ namespace ILanguage.API.Test
             List<Subscription> result = (List<Subscription>) await service.ListAsync();
             var suscriptionsCount = result.Count;
 
+            // ReSharper disable once HeapView.BoxingAllocation
             suscriptionsCount.Should().Equals(0);
         }
 
