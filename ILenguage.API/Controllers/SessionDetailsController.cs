@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace ILenguage.API.Controllers
 {
-    //[Route("/api/sessions/{sessionId}/session_details")]
     [Route("/api/[controller]")]
     [Produces("application/json")]
     [ApiController]

@@ -49,6 +49,8 @@ namespace ILenguage.API.Services
                 return new SessionDetailResponse("SessionDetail not found");
 
             existingSessionDetail.State = sessionDetail.State;
+            existingSessionDetail.Topic = sessionDetail.Topic;
+            existingSessionDetail.Information = sessionDetail.Information;
 
             try
             {
@@ -97,21 +99,5 @@ namespace ILenguage.API.Services
                 return new SessionDetailResponse("SessionDetail not found");
             return new SessionDetailResponse(existingSessionDetail);
         }
-        /*
-        public async Task<SessionDetailResponse> AssignSessionSessionDetail(int sessionId, int sessionDetailId)
-        {
-            try
-            {
-                await _sessionDetailRepository.AssignSessionSessionDetail(sessionId, sessionDetailId);
-                await _unitOfWork.CompleteAsync();
-                SessionDetail sessionDetail = await _sessionDetailRepository.FindById(sessionDetailId);
-                return new SessionDetailResponse(sessionDetail);
-
-            }
-            catch (Exception ex)
-            {
-                return new SessionDetailResponse($"An error ocurred while assigning SessionDetail to Session: {ex.Message}");
-            }
-        }*/
     }
 }

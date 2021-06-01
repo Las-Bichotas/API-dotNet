@@ -177,7 +177,8 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<SessionDetail>().HasKey(p => p.Id);
             modelBuilder.Entity<SessionDetail>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             modelBuilder.Entity<SessionDetail>().Property(p => p.State).IsRequired().HasMaxLength(30);
-
+            modelBuilder.Entity<SessionDetail>().Property(p => p.Topic).IsRequired();
+            modelBuilder.Entity<SessionDetail>().Property(p => p.Information).IsRequired();
 
 
             // Naming Conventions Policy

@@ -10,6 +10,8 @@ namespace ILenguage.API.Resources
         public int Id { get; set; }
 
         public string State { get; set; }
+        public string Topic { get; set; }
+        public string Information { get; set; }
 
         public SessionResource Session { get; set; }
     }
