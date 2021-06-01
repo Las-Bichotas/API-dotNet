@@ -8,7 +8,7 @@ namespace ILenguage.API.Domain.Models
         public int Id { get; set; }
         
     
-       
+        public ICollection<Sday> Sdays {get; set;}
         public List<UserSchedule> UserSchedules { get; set; }
     }
 }

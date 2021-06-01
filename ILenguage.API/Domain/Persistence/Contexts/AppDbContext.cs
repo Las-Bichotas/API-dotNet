@@ -118,6 +118,11 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Schedule>().ToTable("Schedules");
             modelBuilder.Entity<Schedule>().HasKey(s => s.Id);
             modelBuilder.Entity<Schedule>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
+            // Constraints
+            modelBuilder.Entity<Schedule>()
+                .HasMany<Sday>(g => g.Sdays)
+                .WithOne(s => s.CurrentSchedule)
+                .HasForeignKey(s => s.CurrentScheduleId);
 
             //*UserSchedules
             modelBuilder.Entity<UserSchedule>().ToTable("UserSchedules");
