@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace ILanguage.API.Test
 {
     public class UserServiceTest
-    {
+    {/*
         [Test]
         public async Task GetALlAsync_WhenNoUser_ReturnsEmptyCollection()
         {
@@ -67,6 +67,6 @@ namespace ILanguage.API.Test
         private Mock<IUserScheduleRepository> GetDefaultIUserScheduleRepositoryInstance()
         {
             return new Mock<IUserScheduleRepository>();
-        }
+        }*/
     }
 }
