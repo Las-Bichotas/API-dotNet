@@ -62,6 +62,9 @@ namespace ILenguage.API.Services
             existingSession.StartAt = session.StartAt;
             existingSession.EndAt = session.EndAt;
             existingSession.Link = session.Link;
+            existingSession.State = session.State;
+            existingSession.Topic = session.Topic;
+            existingSession.Information = session.Information;
 
             try
             {

@@ -13,11 +13,13 @@ using System.Threading.Tasks;
 
 namespace ILenguage.API.Controllers
 {
+    /*
     [Route("/api/[controller]")]
-    [Produces("application/json")]
+    [Produces("application/json")]*/
     [ApiController]
-    public class SessionDetailsController : ControllerBase
+    public class SessionDetailsController /*: ControllerBase*/
     {
+        /*
         private readonly ISessionDetailService _sessionDetailService;
         private readonly IMapper _mapper;
 

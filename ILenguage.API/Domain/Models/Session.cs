@@ -12,8 +12,10 @@ namespace ILenguage.API.Domain.Models
         public DateTime EndAt { get; set; }
         public string Link { get; set; }
 
-       /*  public int DayId { get; set; }
-        public Day Day { get; set;} */
+        public string State { get; set; }
+        public string Topic { get; set; }
+        public string Information { get; set; }
+
 
         public SessionDetail SessionDetail { get;set; }
     }

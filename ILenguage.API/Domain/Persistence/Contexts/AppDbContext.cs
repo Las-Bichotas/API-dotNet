@@ -159,7 +159,9 @@ namespace ILenguage.API.Domain.Persistence.Contexts
 
             modelBuilder.Entity<Session>().Property(p => p.StartAt).IsRequired();
             modelBuilder.Entity<Session>().Property(p => p.EndAt).IsRequired();
-            modelBuilder.Entity<Session>().Property(p => p.Link).IsRequired().HasMaxLength(200);
+            modelBuilder.Entity<Session>().Property(p => p.State).IsRequired().HasMaxLength(30);
+            modelBuilder.Entity<Session>().Property(p => p.Topic).IsRequired();
+            modelBuilder.Entity<Session>().Property(p => p.Information).IsRequired();
 
             // Relationships
 

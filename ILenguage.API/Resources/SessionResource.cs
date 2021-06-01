@@ -11,5 +11,9 @@ namespace ILenguage.API.Resources
         public DateTime StartAt { get; set; }
         public DateTime EndAt { get; set; }
         public string Link { get; set; }
+        public string State { get; set; }
+        public string Topic { get; set; }
+        public string Information { get; set; }
+
     }
 }
