@@ -15,6 +15,7 @@ using FluentAssertions;
 using ILenguage.API.Domain.Models;
 using Newtonsoft.Json;
 using Xunit;
+// ReSharper disable All
 
 
 namespace ILanguage.API.Test.integrationTest
@@ -55,12 +56,12 @@ namespace ILanguage.API.Test.integrationTest
         {
             //Arrange
             var request = "/api/subscriptions/50";
-            var expectedStatusCode = 404;
+            int expectedStatusCode = 404;
             string expectedMessage = "Bad Request";
             //Act
             var response = await Client.GetAsync(request);
             var gottenStatusCode = response.StatusCode;
-            var gottenMessage = response.ReasonPhrase;
+            string gottenMessage = response.ReasonPhrase;
 
             //Arrange
             expectedMessage.Should().Be(gottenMessage);
@@ -84,6 +85,46 @@ namespace ILanguage.API.Test.integrationTest
             listOfGottenSubscriptions[0].Name.Should().Be("All New Basic");
             listOfGottenSubscriptions[1].Name.Should().Be("Full");
             listOfGottenSubscriptions[2].Name.Should().Be("All Year");
+
+        }
+
+
+        [Fact]
+        public async Task DeleteByIdAsyncWhenSubscriptionIdIsValidReturnsSuccess()
+        {
+            //Arrange
+            var request = "/api/subscriptions/6";
+            int expectedStatusCode = 200;
+            string expectedMessage = "OK";
+            
+            //Act
+            var response = await Client.DeleteAsync(request);
+            string gottenMessage = response.ReasonPhrase;
+            var gottenStatusCode = response.StatusCode;
+
+            //Asserts
+            response.EnsureSuccessStatusCode();
+            expectedMessage.Should().Be(gottenMessage);
+            expectedStatusCode.Should().Equals(gottenStatusCode);
+
+        }
+        [Fact]
+        public async Task GetByIdAsyncWhenInvalidReturnsSuscriptionNotFoundResponse()
+        {
+            //Arrange
+            var request = "/api/subscriptions/50";
+            int expectedStatusCode = 400;
+            string expectedMessage = "Bad Request";
+            
+            //Act
+            var response = await Client.DeleteAsync(request);
+            string gottenMessage = response.ReasonPhrase;
+            var gottenStatusCode = response.StatusCode;
+
+            //Asserts
+            
+            expectedMessage.Should().Be(gottenMessage);
+            expectedStatusCode.Should().Equals(gottenStatusCode);
 
         }
 
