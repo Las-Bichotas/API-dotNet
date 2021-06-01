@@ -77,7 +77,7 @@ namespace ILenguage.API.Controllers
             return Ok(suscriptionResource);
         }
 
-        [HttpGet("/name/{name}")]
+        [HttpGet("name/{name}")]
         [ProducesResponseType(typeof(SubscriptionResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         [SwaggerOperation(
@@ -96,7 +96,7 @@ namespace ILenguage.API.Controllers
             return Ok(suscriptionResource);
         }
 
-        [HttpGet("/duration/{duration}")]
+        [HttpGet("duration/{duration}")]
         [ProducesResponseType(typeof(SubscriptionResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         [SwaggerOperation(
