@@ -49,7 +49,6 @@ namespace ILenguage.API
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
             services.AddScoped<ISessionDetailRepository, SessionDetailRepository>();
             services.AddScoped<ISessionRepository, SessionRepository>();
-            services.AddScoped<ISdayRepository, SdayRepository>();
             services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
@@ -64,7 +63,6 @@ namespace ILenguage.API
             services.AddScoped<IMakePaymentService, MakePaymentService>();
             services.AddScoped<IRelatedUserService, RelatedUserService>();
             services.AddScoped<IRelatedUserService, RelatedUserService>();
-            services.AddScoped<ISdayService, SdayService>();
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<ISessionDetailService, SessionDetailService>();
             services.AddScoped<ISessionService, SessionService>();
