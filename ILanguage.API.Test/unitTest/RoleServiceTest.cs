@@ -1,12 +1,12 @@
-using ILanguage.API.Domain.Repositories;
+using ILenguage.API.Domain.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using ILanguage.API.Domain.Models;
-using ILanguage.API.Services;
-using ILanguage.API.Domain.Services.Communication;
+using ILenguage.API.Domain.Models;
+using ILenguage.API.Services;
+using ILenguage.API.Domain.Services.Communication;
 using ILenguage.API.Domain.Persistence.Repositories;
 
 namespace ILanguage.API.Test
