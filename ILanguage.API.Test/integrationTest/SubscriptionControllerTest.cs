@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ILenguage.API;
@@ -28,21 +30,44 @@ namespace ILanguage.API.Test.integrationTest
         }
 
         [Fact]
-        public async Task GetTheFieldsOfSubscriptionWithAValidSubscriptionReturnsCorrect()
+        public async Task GetTheFieldsOfSubscriptionAsyncWithAValidSubscriptionReturnsCorrect()
         {
 
+            //Arrange
             var request = "/api/subscriptions/1";
+            
+            //Act
             var response = await Client.GetAsync(request);
-            response.EnsureSuccessStatusCode();
             var responseAsJsonDeserialized  = await response.Content.ReadFromJsonAsync<Subscription>();
             
+            //Asserts
+            response.EnsureSuccessStatusCode();
             responseAsJsonDeserialized.Id.Should().Equals(1);
             responseAsJsonDeserialized.Name.Should().Be("All New Basic");
             responseAsJsonDeserialized.Price.Should().Equals(99.99);
             responseAsJsonDeserialized.MonthDuration.Should().Equals(10);
+            
+        }
 
+        [Fact]
+        public async Task GetAllNamesOfSubscriptionsAsyncWhenAtLeastOneSubscriptionReturnsPassedTest()
+        {
+            //Arrange
+            var request = "/api/subscriptions";
+            
+            //Act
+            var response = await Client.GetAsync(request);
+            var responseAsJsonDeserialized  = await response.Content.ReadFromJsonAsync<IEnumerable<Subscription>>();
+            var listOfGottenSubscriptions = responseAsJsonDeserialized.ToList();
+            
+            //Asserts
+            response.EnsureSuccessStatusCode();
+            listOfGottenSubscriptions[0].Name.Should().Be("All New Basic");
+            listOfGottenSubscriptions[1].Name.Should().Be("Full");
+            listOfGottenSubscriptions[2].Name.Should().Be("All Year");
 
         }
+
 
      
         
