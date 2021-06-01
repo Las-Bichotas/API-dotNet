@@ -17,5 +17,14 @@ namespace ILenguage.API.Resources
         [Required]
         [MaxLength(200)]
         public string Link { get; set; }
+
+        [Required]
+        [MaxLength(30)]
+        public string State { get; set; }
+
+        [Required]
+        public string Topic { get; set; }
+        [Required]
+        public string Information { get; set; }
     }
 }

@@ -10,6 +10,8 @@ namespace ILenguage.API.Domain.Models
         public int Id { get; set; }
 
         public string State { get; set; }
+        public string Topic { get; set; }
+        public string Information { get; set; }
 
         public int SessionId { get; set; }
         public Session Session { get; set; }
