@@ -29,6 +29,7 @@ namespace ILanguage.API.Test.integrationTest
             Client = fixture.Client;
         }
 
+        //HappyPath
         [Fact]
         public async Task GetTheFieldsOfSubscriptionAsyncWithAValidSubscriptionReturnsCorrect()
         {
@@ -47,6 +48,24 @@ namespace ILanguage.API.Test.integrationTest
             responseAsJsonDeserialized.Price.Should().Equals(99.99);
             responseAsJsonDeserialized.MonthDuration.Should().Equals(10);
             
+        }
+        //UnhappyPath
+        [Fact]
+        public async Task GetSubscriptionByIdWhenSubscriptionDoesNotExistreturnsNotFound()
+        {
+            //Arrange
+            var request = "/api/subscriptions/50";
+            var expectedStatusCode = 404;
+            string expectedMessage = "Bad Request";
+            //Act
+            var response = await Client.GetAsync(request);
+            var gottenStatusCode = response.StatusCode;
+            var gottenMessage = response.ReasonPhrase;
+
+            //Arrange
+            expectedMessage.Should().Be(gottenMessage);
+            expectedStatusCode.Should().Equals(gottenStatusCode);
+
         }
 
         [Fact]
