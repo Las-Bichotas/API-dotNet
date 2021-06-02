@@ -48,39 +48,21 @@ namespace ILenguage.API.Controllers
             var userResource = _mapper.Map<User, UserResource>(result.Resource);
             return Ok(userResource);
         }
-        [HttpGet("role/{roleId}/topics/{topicId}")]
+        [HttpGet("/languages/{languageId}/topics/{topicId}/tuthors")]
         [SwaggerOperation(
-            Summary = "Get All Users By Role Id And Topic Id",
-            Description = "Get All Users by role id and topic Id",
-            OperationId = "GetAllUsersByRoleIdAndTopicId"
+            Summary = "Get All Users By Languages Id And Topic Id",
+            Description = "Get All Users by languages id and topic Id",
+            OperationId = "GetAllUsersByLanguageIdAndTopicId"
         )]
         [SwaggerResponse(200, "Users Returned", typeof(IEnumerable<UserResource>))]
         [ProducesResponseType(typeof(IEnumerable<UserResource>), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         [Produces("application/json")]
-        public async Task<IEnumerable<UserResource>> GetAllUserByRoleIdAndTopicId(int roleId, int topicId)
+        public async Task<IEnumerable<UserResource>> GetAllUserByLanguaguesIdAndTopicId(int languageId, int topicId)
         {
-            var users = await _userService.ListByRoleIdAndTopicId(roleId, topicId);
+            var users = await _userService.ListTuthorsByLanguageIdAndTopicId(languageId, topicId);
             var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
             return resources;
-
-        }
-        [HttpGet("role/{roleId}/language/{languageId}")]
-        [SwaggerOperation(
-            Summary = "Get All Users By Role Id And Languge Id",
-            Description = "Get All Users by role id and language Id",
-            OperationId = "GetAllUsersByRoleIdAndLanguageId"
-        )]
-        [SwaggerResponse(200, "Users Returned", typeof(IEnumerable<UserResource>))]
-        [ProducesResponseType(typeof(IEnumerable<UserResource>), 200)]
-        [ProducesResponseType(typeof(BadRequestResult), 404)]
-        [Produces("application/json")]
-        public async Task<IEnumerable<UserResource>> GetAllUsersByRoleIdAndTopicId(int roleId, int languageId)
-        {
-            var users = await _userService.ListByRoleIdAndLanguageId(roleId, languageId);
-            var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
-            return resources;
-
         }
         [HttpGet]
         [SwaggerOperation(
@@ -99,7 +81,7 @@ namespace ILenguage.API.Controllers
             return resources;
         }
 
-        [HttpGet("role/{roleId}")]
+        [HttpGet("/role/{roleId}/users")]
         [SwaggerOperation(
             Summary = "Get All Users By Role Id",
             Description = "Get All Users by role Id",

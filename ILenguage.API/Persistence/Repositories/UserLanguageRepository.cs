@@ -42,7 +42,6 @@ namespace ILenguage.API.Persistence.Repositories
                 .Include(ul => ul.LanguageOfInterest)
                 .ToListAsync();
         }
-
         public async Task<IEnumerable<UserLanguages>> ListByLanguageIdAsync(int languageId)
         {
             return await _context.UserLanguages

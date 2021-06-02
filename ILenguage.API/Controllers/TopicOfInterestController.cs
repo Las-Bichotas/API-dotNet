@@ -13,12 +13,12 @@ namespace ILenguage.API.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("/api/[controller]")]
-    public class TopicOfInterestController : ControllerBase
+    public class Topics : ControllerBase
     {
         private readonly ITopicOfInterestService _topicOfInterestService;
         private readonly IMapper _mapper;
 
-        public TopicOfInterestController(ITopicOfInterestService topicOfInterestService, IMapper mapper)
+        public Topics(ITopicOfInterestService topicOfInterestService, IMapper mapper)
         {
             _topicOfInterestService = topicOfInterestService;
             _mapper = mapper;
