@@ -60,9 +60,33 @@ namespace ILenguage.API.Persistence.Repositories
             _context.UserSchedules.Remove(userSchedule);
         }
 
-       
+        public async Task AssingUserSchedule(int userId, int scheduleId)
+        {
+            
+            Schedule foundSchedule = await _context.Schedules.FindAsync(scheduleId);
+                
+            var userSchedule = new UserSchedule {UserId = userId, ScheduleId = scheduleId};
+            
+            await AddAsync(userSchedule);
+            
+        }
 
-       
-        
+        public async Task UnassingUserSchedule(int userId)
+        {
+            var existingUserSchedule = await GetLastUserScheduleByUserIdAsync(userId);
+            _context.Update(existingUserSchedule);
+            _context.SaveChanges();
+        }
+
+        public async Task<UserSchedule> GetLastUserScheduleByUserIdAsync(int userId)
+        {
+            var userSchedule = await _context.UserSchedules
+                .Where(u => u.UserId == userId)
+                .FirstOrDefaultAsync();
+            return userSchedule;
+
+
+
+        }
     }
 }

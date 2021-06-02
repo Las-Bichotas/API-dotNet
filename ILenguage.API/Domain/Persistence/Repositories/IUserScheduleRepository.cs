@@ -14,7 +14,9 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task AddAsync(UserSchedule userSchedule);
         void Remove(UserSchedule userSchedule);
       
-        
+        Task AssingUserSchedule(int userId, int scheduleId);
+        Task UnassingUserSchedule(int userId);
+        Task<UserSchedule> GetLastUserScheduleByUserIdAsync(int userId);
 
         
     }

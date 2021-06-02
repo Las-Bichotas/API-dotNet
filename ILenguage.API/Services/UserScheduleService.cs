@@ -33,6 +33,58 @@ namespace ILenguage.API.Services
         {
             return await _userScheduleRepository.ListByScheduleId(scheduleId);
         }
+        
+         public async Task<UserScheduleResponse> AssingUserScheduleAsync(int userId, int scheduleId)
+        {
+            try
+            {
+                
+                var existingUserSchedule = await _userScheduleRepository.GetLastUserScheduleByUserIdAsync(userId);
+                if (existingUserSchedule == null)
+                {
+                    await _userScheduleRepository.AssingUserSchedule(userId, scheduleId);
+                    await _unitOfWork.CompleteAsync();
+                    UserSchedule userScheduleWhenUserHasNoSchedule =
+                        await _userScheduleRepository.FindByScheduleIdAndUserId(userId, scheduleId);
+                    
+                    return new UserScheduleResponse(userScheduleWhenUserHasNoSchedule);
+                    
+                }
+               
+                await _userScheduleRepository.AssingUserSchedule(userId, scheduleId);
+                await _unitOfWork.CompleteAsync();
+                UserSchedule userSchedule =
+                    await _userScheduleRepository.FindByScheduleIdAndUserId(userId, scheduleId);
+ 
+              
+                return new UserScheduleResponse(userSchedule);
+            }
+            catch (Exception e)
+            {
+                return new UserScheduleResponse(
+                    $"An error ocurred while assingin User to schedule: {e.Message} ");
+            }
+        }
+
+        public async Task<UserScheduleResponse> UnassingUserScheduleAsync(int userId)
+        {
+            try
+            {
+                var existingUserSchedule =
+                    await _userScheduleRepository.GetLastUserScheduleByUserIdAsync(userId);
+                if (existingUserSchedule == null)
+                    return new UserScheduleResponse("The user has never had a schedule");
+                
+                await _userScheduleRepository.UnassingUserSchedule(userId);
+                return new UserScheduleResponse(existingUserSchedule);
+                
+            }
+            catch (Exception e)
+            {
+                return new UserScheduleResponse(
+                    $"An error ocurred while unassinging User From Schedule: {e.Message}");
+            }
+        }
 
     }
 }

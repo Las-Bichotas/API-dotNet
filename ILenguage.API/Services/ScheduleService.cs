@@ -54,7 +54,7 @@ namespace ILenguage.API.Services
             var existingSchedule = await _scheduleRepository.FindById(id);
             if (existingSchedule == null)
                 return new ScheduleResponse("Schedule Not Found");
-            existingSchedule.NameDay=schedule.NameDay;
+            existingSchedule.NameDay = schedule.NameDay;
             try
             {
                 _scheduleRepository.Update(existingSchedule);
@@ -63,7 +63,7 @@ namespace ILenguage.API.Services
             }
             catch (Exception e)
             {
-                return new ScheduleResponse($"An error ocurred while deleting the schedule: {e.Message}");
+                return new ScheduleResponse($"An error ocurred while updating  schedule: {e.Message}");
             }
         }
 

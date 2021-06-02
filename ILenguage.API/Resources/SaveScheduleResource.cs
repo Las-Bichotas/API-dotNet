@@ -10,6 +10,6 @@ namespace ILenguage.API.Resources
 
       [Required]
       [MaxLength(30)]
-        public string NameDay { get; set; }
+      public string NameDay { get; set; }
     }
 }

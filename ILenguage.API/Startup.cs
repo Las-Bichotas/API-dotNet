@@ -43,7 +43,7 @@ namespace ILenguage.API
             {
 
 
-                options.UseMySQL(Configuration.GetConnectionString("LocalConnectionDIAZ"));
+                options.UseMySQL(Configuration.GetConnectionString("LocalConnectionHUAMANI"));
 
 
             });

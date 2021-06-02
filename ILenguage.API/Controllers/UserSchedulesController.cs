@@ -29,11 +29,25 @@ namespace ILenguage.API.Controllers
         }
 
         
+        [HttpPost("{scheduleId}")]
+        [SwaggerOperation(
+            Summary = "Assing a user to one Schedule",
+            Description="Assing a user to one Schedule and save it on the Database",
+            OperationId="AssingUserSchedule")]
+        public async Task<IActionResult> AssingUserSchedule(int userId, int scheduleId)
+        {
+            var result = await _userScheduleService.AssingUserScheduleAsync(userId, scheduleId);
+            if (!result.Succes)
+                return BadRequest(result.Message);
+            var userResource = _mapper.Map<User, UserResource>(result.Resource.User);
+            return Ok(userResource);
+        }
+
         [HttpGet]
         [SwaggerOperation(
             Summary = "Get all users filtered by schedule",
             Description="Get all users that are relatead with an especific schedule",
-            OperationId="GetUserByScheduleId")]
+            OperationId="GetAllByScheduleIdAsync")]
         public async Task<IEnumerable<UserResource>> GetAllByScheduleIdAsync(int scheduleId)
         {
             var users = await _userService.ListByScheduleId(scheduleId);
@@ -41,6 +55,20 @@ namespace ILenguage.API.Controllers
             return resources;
         }
         
+        
+        [HttpPut("/{scheduleId}")]
+
+        [SwaggerOperation(
+            Summary = "Unassing a user to one schedule",
+            Description = "Unassing a user to one shedule and save it on the Database",
+            OperationId = "UnasingUserSchedule")]
+        public async Task<IActionResult> UnssingUserToSchedule(int userId)
+        {
+            var result = await _userScheduleService.UnassingUserScheduleAsync(userId);
+            if (!result.Succes)
+                return BadRequest(result.Message);
+            return Ok(result);
+        }
 
 
 
