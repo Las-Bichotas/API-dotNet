@@ -12,13 +12,15 @@ namespace ILenguage.API.Services
     public class SessionService : ISessionService
     {
 
+        private readonly IScheduleRepository _scheduleRepository;
         private readonly ISessionRepository _sessionRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public SessionService(ISessionRepository sessionRepository, IUnitOfWork unitOfWork)
+        public SessionService( IScheduleRepository scheduleRepository,ISessionRepository sessionRepository, IUnitOfWork unitOfWork)
         {
             _sessionRepository = sessionRepository;
             _unitOfWork = unitOfWork;
+            _scheduleRepository = scheduleRepository;
         }
 
         public async Task<IEnumerable<Session>> ListAsync()
@@ -98,6 +100,29 @@ namespace ILenguage.API.Services
             {
                 return new SessionResponse($"An error ocurred while deleting session: {ex.Message}");
             }
+        }
+
+        public async Task<SessionResponse> AssignSessionSchedule(Session session, int scheduleId)
+        {
+            try
+            {
+                //var foundSchedule = await _scheduleRepository.FindById(scheduleId);
+                //session.Schedule = foundSchedule;
+
+                _sessionRepository.AssignSessionSchedule(session, scheduleId);
+                await _unitOfWork.CompleteAsync();
+
+                return new SessionResponse(session);
+            }
+            catch (Exception ex)
+            {
+                return new SessionResponse($"An error ocurred while saving sessionSchedule: {ex.Message}");
+            }
+        }
+
+        public async Task<IEnumerable<Session>> ListByScheduleIdAsync(int scheduleId)
+        {
+            return await _sessionRepository.ListByScheduleIdAsync(scheduleId);
         }
     }
 }

@@ -10,6 +10,8 @@ namespace ILenguage.API.Domain.Persistence.Repositories
     {
         Task<IEnumerable<Session>> ListAsync();
 
+        Task<IEnumerable<Session>> ListByScheduleIdAsync(int scheduleId);
+
         Task AddAsync(Session session);
 
         Task<Session> FindById(int id);
@@ -17,5 +19,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         void Update(Session session);
 
         void Remove(Session session);
+
+        public void AssignSessionSchedule(Session session, int scheduleId);
     }
 }

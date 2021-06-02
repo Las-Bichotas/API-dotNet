@@ -140,5 +140,47 @@ namespace ILenguage.API.Controllers
 
         }
 
+        [HttpPost("schedules/{scheduleId}")]
+        [SwaggerOperation(
+            Summary = "Assign session to Schedule",
+            Description = "Assign Session By ScheduleId",
+            OperationId = "AssignSessionByScheduleId"
+        )]
+        [SwaggerResponse(200, "Session Assigned", typeof(SessionResource))]
+        [ProducesResponseType(typeof(SessionResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> AssignSessionSchedule(int scheduleId, int sessionId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessage());
+
+            var session = await _sessionService.GetByIdAsync(sessionId);
+            var result = await _sessionService.AssignSessionSchedule(session.Resource, scheduleId);
+
+            if (!result.Succes)
+                return BadRequest(result.Message);
+
+
+            return Ok(result.Resource);
+        }
+
+        [HttpGet("schedules/{scheduleId}")]
+        [SwaggerOperation(
+          Summary = "List Sessions",
+          Description = "List Sessions By ScheduleId",
+          OperationId = "SessionsByScheduleId"
+        )]
+        [SwaggerResponse(200, "Sessions Returned", typeof(SessionResource))]
+        [ProducesResponseType(typeof(SessionResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<SessionResource>> GetAllByScheduleIdAsync(int scheduleId)
+        {
+            var sessions = await _sessionService.ListByScheduleIdAsync(scheduleId);
+            var resources = _mapper.Map<IEnumerable<Session>, IEnumerable<SessionResource>>(sessions);
+
+            return resources;
+        }
+
     }
 }
