@@ -30,9 +30,9 @@ namespace ILenguage.API.Persistence.Repositories
             _context.SaveChanges();
         }
         
-        public async Task<Schedule> FindById(int userId)
+        public async Task<Schedule> FindById(int scheduleId)
         {
-            return await _context.Schedules.FindAsync(userId);
+            return await _context.Schedules.FindAsync(scheduleId);
         }
 
         public void Remove(Schedule schedule)
