@@ -4,8 +4,12 @@ namespace ILenguage.API.Resources
 {
     public class SaveScheduleResource
     {
+/* 
+      [Required]
+       public DateTime Day { get; set; } */
 
       [Required]
-       public DateTime Day { get; set; }
+      [MaxLength(30)]
+        public string NameDay { get; set; }
     }
 }

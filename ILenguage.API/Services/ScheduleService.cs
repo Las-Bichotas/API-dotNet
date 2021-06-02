@@ -54,7 +54,7 @@ namespace ILenguage.API.Services
             var existingSchedule = await _scheduleRepository.FindById(id);
             if (existingSchedule == null)
                 return new ScheduleResponse("Schedule Not Found");
-            existingSchedule.Day=schedule.Day;
+            existingSchedule.NameDay=schedule.NameDay;
             try
             {
                 _scheduleRepository.Update(existingSchedule);
