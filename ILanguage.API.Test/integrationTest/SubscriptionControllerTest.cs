@@ -45,9 +45,9 @@ namespace ILanguage.API.Test.integrationTest
             //Asserts
             response.EnsureSuccessStatusCode();
             responseAsJsonDeserialized.Id.Should().Equals(1);
-            responseAsJsonDeserialized.Name.Should().Be("All New Basic");
+            responseAsJsonDeserialized.Name.Should().Be("Full Year");
             responseAsJsonDeserialized.Price.Should().Equals(99.99);
-            responseAsJsonDeserialized.MonthDuration.Should().Equals(10);
+            responseAsJsonDeserialized.MonthDuration.Should().Equals(12);
             
         }
         //UnhappyPath
@@ -82,9 +82,9 @@ namespace ILanguage.API.Test.integrationTest
             
             //Asserts
             response.EnsureSuccessStatusCode();
-            listOfGottenSubscriptions[0].Name.Should().Be("All New Basic");
-            listOfGottenSubscriptions[1].Name.Should().Be("Full");
-            listOfGottenSubscriptions[2].Name.Should().Be("All Year");
+            listOfGottenSubscriptions[0].Name.Should().Be("Full Year");
+            listOfGottenSubscriptions[1].Name.Should().Be("Full Summer");
+            listOfGottenSubscriptions[2].Name.Should().Be("Trimestral");
 
         }
 
@@ -109,7 +109,7 @@ namespace ILanguage.API.Test.integrationTest
 
         }
         [Fact]
-        public async Task GetByIdAsyncWhenInvalidReturnsSuscriptionNotFoundResponse()
+        public async Task DeleteByIdAsyncWhenInvalidReturnsSuscriptionNotFoundResponse()
         {
             //Arrange
             var request = "/api/subscriptions/50";
