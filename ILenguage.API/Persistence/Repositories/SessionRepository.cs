@@ -20,6 +20,12 @@ namespace ILenguage.API.Persistence.Repositories
             await _context.Sessions.AddAsync(session);
         }
 
+        public void AssignSessionSchedule(Session session, int scheduleId)
+        {
+            session.ScheduleId = scheduleId;
+            _context.Sessions.Update(session);
+        }
+
         public async Task<Session> FindById(int id)
         {
             return await _context.Sessions.FindAsync(id);
@@ -28,6 +34,14 @@ namespace ILenguage.API.Persistence.Repositories
         public async Task<IEnumerable<Session>> ListAsync()
         {
             return await _context.Sessions.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Session>> ListByScheduleIdAsync(int scheduleId)
+        {
+            return await _context.Sessions
+               .Where(p => p.ScheduleId == scheduleId)
+               .Include(p => p.Schedule)
+               .ToListAsync();
         }
 
         public void Remove(Session session)

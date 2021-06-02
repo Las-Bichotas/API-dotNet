@@ -9,5 +9,6 @@ namespace ILenguage.API.Domain.Models
         public DateTime Day { get; set;}
         public string NameDay;
         public List<UserSchedule> UserSchedules { get; set; }
+        public List<Session> Sessions { get; set; }
     }
 }

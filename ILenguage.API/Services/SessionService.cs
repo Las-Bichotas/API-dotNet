@@ -99,5 +99,20 @@ namespace ILenguage.API.Services
                 return new SessionResponse($"An error ocurred while deleting session: {ex.Message}");
             }
         }
+
+        public async Task<SessionResponse> AssignSessionSchedule(Session session, int scheduleId)
+        {
+            try
+            {
+                _sessionRepository.AssignSessionSchedule(session, scheduleId);
+                await _unitOfWork.CompleteAsync();
+
+                return new SessionResponse(session);
+            }
+            catch (Exception ex)
+            {
+                return new SessionResponse($"An error ocurred while saving sessionSchedule: {ex.Message}");
+            }
+        }
     }
 }
