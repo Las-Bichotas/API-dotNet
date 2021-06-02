@@ -136,5 +136,21 @@ namespace ILenguage.API.Services
             var users = userLanguages.Select(ul => ul.User).ToList();
             return users;
         }
+
+        public async Task<IEnumerable<User>> ListTuthorsByLanguageIdAndTopicId(int languageId, int topicId)
+        {
+            var userLanguages = await _userLanguageRepository.ListByLanguageIdAsync(languageId);
+            var userTopics = await _userTopicRepository.ListByTopicId(topicId);
+
+            var users = userLanguages.Join(userTopics,
+             ul => ul.UserId,
+             ut => ut.UserId,
+             (ul, ut) => new
+             {
+                 ul.User
+             }).Where(u => u.User.RoleId == 2).Select(u => u.User);
+
+            return users;
+        }
     }
 }

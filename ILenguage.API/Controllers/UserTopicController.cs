@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ILenguage.API.Controllers
 {
-    [Route("/api/user/{userId}/topics")]
+    [Route("/api/users/{userId}/topics")]
     [ApiController]
     [Produces("application/json")]
     public class UserTopicController : ControllerBase

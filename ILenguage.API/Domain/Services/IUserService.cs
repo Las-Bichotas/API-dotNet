@@ -9,6 +9,7 @@ namespace ILenguage.API.Domain.Services
     {
         Task<IEnumerable<User>> ListAsync();
         Task<IEnumerable<User>> ListByRoleId(int roleId);
+        Task<IEnumerable<User>> ListTuthorsByLanguageIdAndTopicId(int languageId, int topicId);
         Task<IEnumerable<User>> ListByRoleIdAndTopicId(int roleId, int topicId);
         Task<IEnumerable<User>> ListByRoleIdAndLanguageId(int roleId, int languageId);
         Task<UserResponse> GetByIdAsync(int userId);
