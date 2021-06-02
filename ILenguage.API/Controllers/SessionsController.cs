@@ -149,17 +149,19 @@ namespace ILenguage.API.Controllers
         [SwaggerResponse(200, "Session Assigned", typeof(SessionResource))]
         [ProducesResponseType(typeof(SessionResource), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> AssignSessionSchedule(int id, [FromBody] SaveSessionResource resource)
+        public async Task<IActionResult> AssignSessionSchedule(int scheduleId, int sessionId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessage());
 
-            var session = _mapper.Map<SaveSessionResource, Session>(resource);
-            var result = await _sessionService.AssignSessionSchedule(session, id);
+            var session = await _sessionService.GetByIdAsync(sessionId);
+            var result = await _sessionService.AssignSessionSchedule(session.Resource, scheduleId);
+
             if (!result.Succes)
                 return BadRequest(result.Message);
-            var sessionResource = _mapper.Map<Session, SessionResource>(result.Resource);
-            return Ok(sessionResource);
+
+
+            return Ok(result.Resource);
         }
 
 
