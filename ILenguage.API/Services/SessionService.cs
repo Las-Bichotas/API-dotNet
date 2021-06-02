@@ -11,16 +11,13 @@ namespace ILenguage.API.Services
 {
     public class SessionService : ISessionService
     {
-
-        private readonly IScheduleRepository _scheduleRepository;
         private readonly ISessionRepository _sessionRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public SessionService( IScheduleRepository scheduleRepository,ISessionRepository sessionRepository, IUnitOfWork unitOfWork)
+        public SessionService(ISessionRepository sessionRepository, IUnitOfWork unitOfWork)
         {
             _sessionRepository = sessionRepository;
             _unitOfWork = unitOfWork;
-            _scheduleRepository = scheduleRepository;
         }
 
         public async Task<IEnumerable<Session>> ListAsync()

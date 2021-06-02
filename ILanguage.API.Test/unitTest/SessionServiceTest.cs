@@ -26,9 +26,7 @@ namespace ILanguage.API.Test
             mockSessionRepository.Setup(r => r.ListAsync())
                 .ReturnsAsync(new List<Session>());
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
-            var service = new SessionService(
-                mockSessionRepository.Object,
-                mockUnitOfWork.Object);
+            var service = new SessionService(mockSessionRepository.Object,mockUnitOfWork.Object);
 
             // Act
             List<Session> result = (List<Session>)await service.ListAsync();
