@@ -13,12 +13,12 @@ namespace ILenguage.API.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("/api/[controller]")]
-    public class LanguageOfInterestController : ControllerBase
+    public class Languages : ControllerBase
     {
         private readonly ILanguageOfInterestService _languageOfInterestService;
         private readonly IMapper _mapper;
 
-        public LanguageOfInterestController(ILanguageOfInterestService languageOfInterestService, IMapper mapper)
+        public Languages(ILanguageOfInterestService languageOfInterestService, IMapper mapper)
         {
             _languageOfInterestService = languageOfInterestService;
             _mapper = mapper;

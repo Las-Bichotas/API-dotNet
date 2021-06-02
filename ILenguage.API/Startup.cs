@@ -41,7 +41,10 @@ namespace ILenguage.API
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySQL(Configuration.GetConnectionString("LocalConnectionHUAMANI"));
+<<<<<<< HEAD
+=======
+                options.UseMySQL(Configuration.GetConnectionString("LocalConnectionDIAZ"));
+>>>>>>> 31c06a2898fd812eafa476b82c2ea8394682aba9
 
             });
             // Dependency Injection Configuration

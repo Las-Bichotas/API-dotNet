@@ -15,47 +15,44 @@ using FluentAssertions;
 using ILenguage.API.Domain.Models;
 using Newtonsoft.Json;
 using Xunit;
-// ReSharper disable All
-
 
 namespace ILanguage.API.Test.integrationTest
 {
-  
-    public class SubscriptionControllerTest : IClassFixture<TestFixture<Startup>>
+    public class SessionControllerTest : IClassFixture<TestFixture<Startup>>
     {
         private HttpClient Client;
 
-        public SubscriptionControllerTest(TestFixture<Startup> fixture)
+        public SessionControllerTest(TestFixture<Startup> fixture)
         {
             Client = fixture.Client;
         }
 
         //HappyPath
         [Fact]
-        public async Task GetTheFieldsOfSubscriptionAsyncWithAValidSubscriptionReturnsCorrect()
+        public async Task GetTheFieldsOfSessionAsyncWithAValidSessionReturnsCorrect()
         {
 
             //Arrange
-            var request = "/api/subscriptions/1";
-            
+            var request = "/api/sessions/1";
+
             //Act
             var response = await Client.GetAsync(request);
-            var responseAsJsonDeserialized  = await response.Content.ReadFromJsonAsync<Subscription>();
-            
+            var responseAsJsonDeserialized = await response.Content.ReadFromJsonAsync<Session>();
+
             //Asserts
             response.EnsureSuccessStatusCode();
             responseAsJsonDeserialized.Id.Should().Equals(1);
-            responseAsJsonDeserialized.Name.Should().Be("Full Year");
-            responseAsJsonDeserialized.Price.Should().Equals(99.99);
-            responseAsJsonDeserialized.MonthDuration.Should().Equals(12);
-            
+            responseAsJsonDeserialized.Link.Should().Be("zoom.com");
+            responseAsJsonDeserialized.State.Should().Be("active");
+            responseAsJsonDeserialized.Topic.Should().Be("nothing");
+
         }
         //UnhappyPath
         [Fact]
-        public async Task GetSubscriptionByIdWhenSubscriptionDoesNotExistreturnsNotFound()
+        public async Task GetSessionByIdWhenSessionDoesNotExistreturnsNotFound()
         {
             //Arrange
-            var request = "/api/subscriptions/50";
+            var request = "/api/sessions/1000";
             int expectedStatusCode = 404;
             string expectedMessage = "Bad Request";
             //Act
@@ -70,33 +67,33 @@ namespace ILanguage.API.Test.integrationTest
         }
 
         [Fact]
-        public async Task GetAllNamesOfSubscriptionsAsyncWhenAtLeastOneSubscriptionReturnsPassedTest()
+        public async Task GetAllStatesOfSessionssAsyncWhenAtLeastOneSessionReturnsPassedTest()
         {
             //Arrange
-            var request = "/api/subscriptions";
-            
+            var request = "/api/sessions";
+
             //Act
             var response = await Client.GetAsync(request);
-            var responseAsJsonDeserialized  = await response.Content.ReadFromJsonAsync<IEnumerable<Subscription>>();
-            var listOfGottenSubscriptions = responseAsJsonDeserialized.ToList();
-            
+            var responseAsJsonDeserialized = await response.Content.ReadFromJsonAsync<IEnumerable<Session>>();
+            var listOfGottenSessions = responseAsJsonDeserialized.ToList();
+
             //Asserts
             response.EnsureSuccessStatusCode();
-            listOfGottenSubscriptions[0].Name.Should().Be("Full Year");
-            listOfGottenSubscriptions[1].Name.Should().Be("Full Summer");
-            listOfGottenSubscriptions[2].Name.Should().Be("Trimestral");
+            listOfGottenSessions[0].State.Should().Be("active");
+            listOfGottenSessions[1].State.Should().Be("active");
+            listOfGottenSessions[2].State.Should().Be("active");
 
         }
 
 
         [Fact]
-        public async Task DeleteByIdAsyncWhenSubscriptionIdIsValidReturnsSuccess()
+        public async Task DeleteByIdAsyncWhenSessionIdIsValidReturnsSuccess()
         {
             //Arrange
-            var request = "/api/subscriptions/6";
+            var request = "/api/sessions/7";
             int expectedStatusCode = 200;
             string expectedMessage = "OK";
-            
+
             //Act
             var response = await Client.DeleteAsync(request);
             string gottenMessage = response.ReasonPhrase;
@@ -109,28 +106,28 @@ namespace ILanguage.API.Test.integrationTest
 
         }
         [Fact]
-        public async Task DeleteByIdAsyncWhenInvalidReturnsSuscriptionNotFoundResponse()
+        public async Task GetByIdAsyncWhenInvalidReturnsSessionsNotFoundResponse()
         {
             //Arrange
-            var request = "/api/subscriptions/50";
+            var request = "/api/sessions/50";
             int expectedStatusCode = 400;
             string expectedMessage = "Bad Request";
-            
+
             //Act
             var response = await Client.DeleteAsync(request);
             string gottenMessage = response.ReasonPhrase;
             var gottenStatusCode = response.StatusCode;
 
             //Asserts
-            
+
             expectedMessage.Should().Be(gottenMessage);
             expectedStatusCode.Should().Equals(gottenStatusCode);
 
         }
 
 
-     
-        
-        
+
+
+
     }
 }
