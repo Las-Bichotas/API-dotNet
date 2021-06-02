@@ -1,4 +1,5 @@
 ﻿using ILenguage.API.Domain.Models;
+using System;
 
 namespace ILenguage.API.Resources
 {
@@ -7,6 +8,7 @@ namespace ILenguage.API.Resources
 
         public int Id { get; set; }
         
+        public DateTime Day { get; set; }
 
 
 

@@ -10,7 +10,7 @@ namespace ILenguage.API.Domain.Services
     public interface IScheduleService
     {
         Task<IEnumerable<Schedule>> ListAsync();
-        Task<ScheduleResponse> GetById(int id);
+        Task<ScheduleResponse> GetByIdAsync(int id);
         
         Task<ScheduleResponse> DeleteAsync(int id);
         

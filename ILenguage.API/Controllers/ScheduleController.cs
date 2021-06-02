@@ -55,7 +55,7 @@ namespace ILenguage.API.Controllers
 
         public async Task<IActionResult> GetByIdAsync(int id)
         {
-            var result = await _scheduleService.GetById(id);
+            var result = await _scheduleService.GetByIdAsync(id);
             if (!result.Succes)
                 return BadRequest(result.Message);
             var scheduleResource = _mapper.Map<Schedule, ScheduleResource>(result.Resource);

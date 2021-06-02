@@ -25,7 +25,7 @@ namespace ILenguage.API.Services
             return await _scheduleRepository.ListAsync();
         }
 
-        public async Task<ScheduleResponse> GetById(int id)
+        public async Task<ScheduleResponse> GetByIdAsync(int id)
         {
             var existingSchedule = await _scheduleRepository.FindById(id);
             if (existingSchedule == null)
@@ -54,6 +54,7 @@ namespace ILenguage.API.Services
             var existingSchedule = await _scheduleRepository.FindById(id);
             if (existingSchedule == null)
                 return new ScheduleResponse("Schedule Not Found");
+            existingSchedule.Day=schedule.Day;
             try
             {
                 _scheduleRepository.Update(existingSchedule);
