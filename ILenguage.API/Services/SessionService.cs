@@ -119,5 +119,10 @@ namespace ILenguage.API.Services
                 return new SessionResponse($"An error ocurred while saving sessionSchedule: {ex.Message}");
             }
         }
+
+        public async Task<IEnumerable<Session>> ListByScheduleIdAsync(int scheduleId)
+        {
+            return await _sessionRepository.ListByScheduleIdAsync(scheduleId);
+        }
     }
 }

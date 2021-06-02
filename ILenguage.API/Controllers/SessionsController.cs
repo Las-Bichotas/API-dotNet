@@ -164,6 +164,23 @@ namespace ILenguage.API.Controllers
             return Ok(result.Resource);
         }
 
+        [HttpGet("schedules/{scheduleId}")]
+        [SwaggerOperation(
+          Summary = "List Sessions",
+          Description = "List Sessions By ScheduleId",
+          OperationId = "SessionsByScheduleId"
+        )]
+        [SwaggerResponse(200, "Sessions Returned", typeof(SessionResource))]
+        [ProducesResponseType(typeof(SessionResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<SessionResource>> GetAllByScheduleIdAsync(int scheduleId)
+        {
+            var sessions = await _sessionService.ListByScheduleIdAsync(scheduleId);
+            var resources = _mapper.Map<IEnumerable<Session>, IEnumerable<SessionResource>>(sessions);
+
+            return resources;
+        }
 
     }
 }
