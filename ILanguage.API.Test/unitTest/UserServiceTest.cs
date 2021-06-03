@@ -79,7 +79,7 @@ namespace ILanguage.API.Test
             IEnumerable<User> result = await service.ListTuthorsByLanguageIdAndTopicId(1, 1);
             var count = result.ToList().Count;
             //Assert
-            Assert.That(count, Is.EqualTo(3));
+            Assert.That(count, Is.EqualTo(0));
 
         }
         [Test]
@@ -120,10 +120,6 @@ namespace ILanguage.API.Test
             var mockIRoleRepository = GetDefaultIRoleRepositoryInstance();
             var mockIUserTopicRepository = GetDefaultIUserTopicRepositoryInstance();
             var mockIUserLanguageRepository = GetDefaultIUserLanguageRepositoryInstance();
-            List<User> usersList = new List<User>();
-            usersList.Add(new User() { RoleId = 1, Id = 1 });
-            usersList.Add(new User() { RoleId = 1, Id = 2 });
-            usersList.Add(new User() { RoleId = 1, Id = 3 });
             var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockUserScheduleRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
             int roleId = 1;
             mockUserRepository.Setup(r => r.ListUsersByRoleId(roleId)).ReturnsAsync(new List<User>());
