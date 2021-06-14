@@ -27,6 +27,7 @@ namespace ILenguage.API.Persistence.Repositories
         public async Task AddAsync(Schedule schedule)
         {
             await _context.Schedules.AddAsync(schedule);
+            
             _context.SaveChanges();
         }
         

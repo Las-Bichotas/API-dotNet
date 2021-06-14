@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ILenguage.API.Resources;
 
 namespace ILenguage.API.Services
 {
@@ -108,6 +109,7 @@ namespace ILenguage.API.Services
 
                 _sessionRepository.AssignSessionSchedule(session, scheduleId);
                 await _unitOfWork.CompleteAsync();
+                
 
                 return new SessionResponse(session);
             }
