@@ -19,6 +19,13 @@ namespace ILenguage.API.Persistence.Repositories
             await _context.Users.AddAsync(user);
 
         }
+
+        public async Task<User> FindByEmailAndPassword(string email, string password)
+        {
+            return await _context.Users
+            .Where(u => u.Email == email && u.Password == password).FirstOrDefaultAsync();
+        }
+
         public async Task<User> FindById(int userId)
         {
             return await _context.Users.FindAsync(userId);

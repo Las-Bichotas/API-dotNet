@@ -13,6 +13,7 @@ namespace ILenguage.API.Domain.Services
         Task<IEnumerable<User>> ListByRoleIdAndTopicId(int roleId, int topicId);
         Task<IEnumerable<User>> ListByRoleIdAndLanguageId(int roleId, int languageId);
         Task<UserResponse> GetByIdAsync(int userId);
+        Task<UserResponse> GetByEmailAndPasswordAsync(string email, string password);
         Task<UserResponse> SaveAsync(User user, int roleId);
         Task<UserResponse> UpdateAsync(int userId, User user);
         Task<UserResponse> DeleteAsync(int userId);

@@ -108,8 +108,6 @@ namespace ILenguage.API.Controllers
         [ProducesResponseType(typeof(UserResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         [Produces("application/json")]
-
-
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _userService.DeleteAsync(id);
@@ -134,6 +132,27 @@ namespace ILenguage.API.Controllers
         public async Task<IActionResult> GetAsync(int id)
         {
             var result = await _userService.GetByIdAsync(id);
+
+            if (!result.Succes)
+                return BadRequest(result.Message);
+
+            var userResource = _mapper.Map<User, UserResource>(result.Resource);
+            return Ok(userResource);
+        }
+
+        [HttpPost("/login")]
+        [SwaggerOperation(
+            Summary = "Login",
+            Description = "Get User By User Email and User Password",
+            OperationId = "GetlUserByEmailAndPassword"
+        )]
+        [SwaggerResponse(200, "User Returned", typeof(UserResource))]
+        [ProducesResponseType(typeof(UserResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetUserForLoginAsync([FromBody] SaveLoginResource resource)
+        {
+            var result = await _userService.GetByEmailAndPasswordAsync(resource.Email, resource.Password);
 
             if (!result.Succes)
                 return BadRequest(result.Message);

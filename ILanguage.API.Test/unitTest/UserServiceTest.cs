@@ -149,6 +149,25 @@ namespace ILanguage.API.Test
             int usersCount = users.ToList().Count;
             Assert.That(usersCount, Is.EqualTo(3));
         }
+        [Test]
+        public async Task GetUserByEmailAndPassword_WhenHaveOnlyOneUserWithThisAtributes_ReturnUser()
+        {
+            var mockUserRepository = GetDefaultIUserRepositoryInstance();
+            var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
+            var mockUserSubscriptionRepository = GetDefaultIUserSubscriptionRepositoryInstance();
+            var mockUserScheduleRepository = GetDefaultIUserScheduleRepositoryInstance();
+            var mockIRoleRepository = GetDefaultIRoleRepositoryInstance();
+            var mockIUserTopicRepository = GetDefaultIUserTopicRepositoryInstance();
+            var mockIUserLanguageRepository = GetDefaultIUserLanguageRepositoryInstance();
+            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockUserScheduleRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
+            User userExpected = new User() { Email = "algo@algo.com", Password = "1234" };
+            string email = "algo@algo.com";
+            string password = "1234";
+            mockUserRepository.Setup(r => r.FindByEmailAndPassword(email, password)).ReturnsAsync(userExpected);
+
+            UserResponse userRest = await service.GetByEmailAndPasswordAsync(email, password);
+            Assert.That(userRest.Resource.Email, Is.EqualTo(email));
+        }
         private Mock<IUserRepository> GetDefaultIUserRepositoryInstance()
         {
             return new Mock<IUserRepository>();

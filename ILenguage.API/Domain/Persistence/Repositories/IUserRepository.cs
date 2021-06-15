@@ -10,6 +10,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task<IEnumerable<User>> ListUsersByRoleId(int roleId);
         Task AddAsync(User user);
         Task<User> FindById(int userId);
+        Task<User> FindByEmailAndPassword(string email, string password);
         void Update(User user);
         void Remove(User user);
 

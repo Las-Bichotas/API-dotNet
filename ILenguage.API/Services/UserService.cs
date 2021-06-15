@@ -152,5 +152,14 @@ namespace ILenguage.API.Services
 
             return users;
         }
+
+        public async Task<UserResponse> GetByEmailAndPasswordAsync(string email, string password)
+        {
+            var existingUser = await _userRepository.FindByEmailAndPassword(email, password);
+            if (existingUser == null)
+                return new UserResponse("User not found");
+
+            return new UserResponse(existingUser);
+        }
     }
 }
