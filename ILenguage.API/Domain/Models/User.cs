@@ -17,6 +17,7 @@ namespace ILenguage.API.Domain.Models
         //TODO: Esperando a modelo Role
         public int RoleId { get; set; }
         public Role Role { get; set; }
+        public List<UserBadgets> UserBadgets;
 
         //TODO: PayMethos falta implementar
         // public List<PaymentMethod> PaymentMethods { get; set; } = new List<PaymentMethod>();
