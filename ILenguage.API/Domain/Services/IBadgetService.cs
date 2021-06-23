@@ -9,7 +9,6 @@ namespace ILenguage.API.Domain.Services
     {
         Task<IEnumerable<Badgets>> ListAsync();
         Task<IEnumerable<Badgets>> ListByUserId(int userId);
-        Task<IEnumerable<Badgets>> ListByBadgetId(int badgetId);
         Task<BadgetsResponse> GetByIdAsync(int badgetId);
         Task<BadgetsResponse> SaveAsync(Badgets badget);
         Task<BadgetsResponse> UpdateAsync(int badgetId, Badgets badget);

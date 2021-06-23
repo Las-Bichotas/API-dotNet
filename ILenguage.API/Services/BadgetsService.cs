@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Repositories;
@@ -11,39 +13,80 @@ namespace ILenguage.API.Services
     {
         private readonly IBadgetsRepository _badgetRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public Task<BadgetsResponse> DeleteAsync(int badgetId)
+        private readonly IUserBadgetsRepository _userBadgetRepository;
+        public BadgetsService(IBadgetsRepository badgetRepository, IUnitOfWork unitOfWork, IUserBadgetsRepository userBadgetRepository)
         {
-            throw new System.NotImplementedException();
+            _badgetRepository = badgetRepository;
+            _unitOfWork = unitOfWork;
+            _userBadgetRepository = userBadgetRepository;
         }
 
-        public Task<BadgetsResponse> GetByIdAsync(int badgetId)
+        public async Task<BadgetsResponse> DeleteAsync(int badgetId)
         {
-            throw new System.NotImplementedException();
+            var existingBadgets = await _badgetRepository.FindById(badgetId);
+            if (existingBadgets == null)
+                return new BadgetsResponse("Badgets Not Found");
+            try
+            {
+                _badgetRepository.Remove(existingBadgets);
+                await _unitOfWork.CompleteAsync();
+                return new BadgetsResponse(existingBadgets);
+            }
+            catch (Exception ex) { return new BadgetsResponse($"An error ocurred while deleteting badget: {ex.Message}"); }
         }
 
-        public Task<IEnumerable<Badgets>> ListAsync()
+        public async Task<BadgetsResponse> GetByIdAsync(int badgetId)
         {
-            throw new System.NotImplementedException();
+            var existingBadget = await _badgetRepository.FindById(badgetId);
+            if (existingBadget == null)
+                return new BadgetsResponse("Badget Not Found");
+            return new BadgetsResponse(existingBadget);
         }
 
-        public Task<IEnumerable<Badgets>> ListByBadgetId(int badgetId)
+        public async Task<IEnumerable<Badgets>> ListAsync()
         {
-            throw new System.NotImplementedException();
+            return await _badgetRepository.ListAsync();
         }
 
-        public Task<IEnumerable<Badgets>> ListByUserId(int userId)
+        public async Task<IEnumerable<Badgets>> ListByUserId(int userId)
         {
-            throw new System.NotImplementedException();
+            var userBadgets = await _userBadgetRepository.ListByUserIdAsync(userId);
+            var badgets = userBadgets.Select(ub => ub.Badget).ToList();
+            return badgets;
         }
 
-        public Task<BadgetsResponse> SaveAsync(Badgets badget)
+        public async Task<BadgetsResponse> SaveAsync(Badgets badget)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                await _badgetRepository.AddAsync(badget);
+                await _unitOfWork.CompleteAsync();
+                return new BadgetsResponse(badget);
+            }
+            catch (Exception ex)
+            {
+                return new BadgetsResponse($"An error while saving badget: {ex.Message}");
+            }
         }
 
-        public Task<BadgetsResponse> UpdateAsync(int badgetId, Badgets badget)
+        public async Task<BadgetsResponse> UpdateAsync(int badgetId, Badgets badget)
         {
-            throw new System.NotImplementedException();
+            var existingBadget = await _badgetRepository.FindById(badgetId);
+            if (existingBadget == null)
+                return new BadgetsResponse("Badget Not Found");
+            existingBadget.Title = badget.Title;
+            existingBadget.Description = badget.Description;
+            existingBadget.ImgSrc = badget.ImgSrc;
+            try
+            {
+                _badgetRepository.Update(existingBadget);
+                await _unitOfWork.CompleteAsync();
+                return new BadgetsResponse(existingBadget);
+            }
+            catch (Exception ex)
+            {
+                return new BadgetsResponse($"An error while updating badget: {ex.Message}");
+            }
         }
     }
 }

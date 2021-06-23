@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
+using ILenguage.API.Domain.Persistence.Repositories;
 using ILenguage.API.Domain.Services;
 using ILenguage.API.Domain.Services.Communications;
 
@@ -8,29 +10,58 @@ namespace ILenguage.API.Services
 {
     public class UserBadgetsService : IUserBadgetsService
     {
-        public Task<UserBadgetsResponse> AssignBadgetUser(int userId, int badgetId)
+        private readonly IUserBadgetsRepository _userBadgetsRepository;
+        private readonly IUnitOfWork _uniOfWork;
+
+        public UserBadgetsService(IUserBadgetsRepository userBadgetsRepository, IUnitOfWork uniOfWork)
         {
-            throw new System.NotImplementedException();
+            _userBadgetsRepository = userBadgetsRepository;
+            _uniOfWork = uniOfWork;
         }
 
-        public Task<IEnumerable<UserBadgets>> ListAsync()
+        public async Task<UserBadgetsResponse> AssignBadgetUser(int userId, int badgetId)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                await _userBadgetsRepository.AssignBadgetUser(userId, badgetId);
+                await _uniOfWork.CompleteAsync();
+                UserBadgets userBadgets = await _userBadgetsRepository.FindByUserIdAndBadgetId(userId, badgetId);
+                return new UserBadgetsResponse(userBadgets);
+            }
+            catch (Exception ex)
+            {
+                return new UserBadgetsResponse($"An errro ocurrend while assign badget to user: {ex.Message}");
+            }
         }
 
-        public Task<IEnumerable<UserBadgets>> ListByBadgetId(int badgetId)
+        public async Task<IEnumerable<UserBadgets>> ListAsync()
         {
-            throw new System.NotImplementedException();
+            return await _userBadgetsRepository.ListAsync();
         }
 
-        public Task<IEnumerable<UserBadgets>> ListByUserId(int userId)
+        public async Task<IEnumerable<UserBadgets>> ListByBadgetId(int badgetId)
         {
-            throw new System.NotImplementedException();
+            return await _userBadgetsRepository.ListByBadgetIdAsync(badgetId);
         }
 
-        public Task<UserBadgetsResponse> UnassignBadgetUser(int userId, int badgetId)
+        public async Task<IEnumerable<UserBadgets>> ListByUserId(int userId)
         {
-            throw new System.NotImplementedException();
+            return await _userBadgetsRepository.ListByUserIdAsync(userId);
+        }
+
+        public async Task<UserBadgetsResponse> UnassignBadgetUser(int userId, int badgetId)
+        {
+            try
+            {
+                UserBadgets userBadgets = await _userBadgetsRepository.FindByUserIdAndBadgetId(userId, badgetId);
+                _userBadgetsRepository.Remove(userBadgets);
+                await _uniOfWork.CompleteAsync();
+                return new UserBadgetsResponse(userBadgets);
+            }
+            catch (Exception ex)
+            {
+                return new UserBadgetsResponse($"An errro ocurrend while unassign badget to user: {ex.Message}");
+            }
         }
     }
 }
