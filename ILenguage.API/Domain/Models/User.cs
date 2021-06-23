@@ -34,5 +34,8 @@ namespace ILenguage.API.Domain.Models
         public List<UserSchedule> UserSchedules { get; set; }
         public List<UserSubscription> UserSubscriptions { get; set; }
 
+        // Relationship with session 06/22/2021
+        public List<Session> Sessions { get; set; }
+
     }
 }

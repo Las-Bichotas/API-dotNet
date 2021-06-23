@@ -140,7 +140,11 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .WithMany(us => us.UserSchedules)
                 .HasForeignKey(us => us.ScheduleId);
 
-          
+            // User -> Sessions
+            modelBuilder.Entity<User>()
+                .HasMany(p => p.Sessions)
+                .WithOne(p => p.User)
+                .HasForeignKey(p => p.UserId);
 
             // Session Entity
 

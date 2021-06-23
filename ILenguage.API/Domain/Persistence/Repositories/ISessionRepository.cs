@@ -11,6 +11,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task<IEnumerable<Session>> ListAsync();
 
         Task<IEnumerable<Session>> ListByScheduleIdAsync(int scheduleId);
+        Task<IEnumerable<Session>> ListByUserIdAsync(int userId);
 
         Task AddAsync(Session session);
 
@@ -21,5 +22,6 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         void Remove(Session session);
 
         public void AssignSessionSchedule(Session session, int scheduleId);
+        public void AssignSessionUser(Session session, int userId);
     }
 }

@@ -16,6 +16,6 @@ namespace ILenguage.API.Resources
         public string Information { get; set; }
 
         public ScheduleResource Schedule { get; set; }
-
+        public UserResource User { get; set; }
     }
 }
