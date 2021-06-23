@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
+using ILenguage.API.Domain.Persistence.Repositories;
 using ILenguage.API.Domain.Services;
 using ILenguage.API.Domain.Services.Communications;
 
@@ -8,6 +9,8 @@ namespace ILenguage.API.Services
 {
     public class BadgetsService : IBadgetService
     {
+        private readonly IBadgetsRepository _badgetRepository;
+        private readonly IUnitOfWork _unitOfWork;
         public Task<BadgetsResponse> DeleteAsync(int badgetId)
         {
             throw new System.NotImplementedException();

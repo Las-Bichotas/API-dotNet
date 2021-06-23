@@ -3,38 +3,39 @@ using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Contexts;
 using ILenguage.API.Domain.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace ILenguage.API.Persistence.Repositories
 {
-    public class BadgetsRepository : BaseRepository, IBadgetsRespository
+    public class BadgetsRepository : BaseRepository, IBadgetsRepository
     {
         public BadgetsRepository(AppDbContext context) : base(context)
         {
         }
 
-        public Task AddAsync(Badgets badget)
+        public async Task AddAsync(Badgets badget)
         {
-            throw new System.NotImplementedException();
+            await _context.Badgets.AddAsync(badget);
         }
 
-        public Task FindById(int badgetId)
+        public async Task<Badgets> FindById(int badgetId)
         {
-            throw new System.NotImplementedException();
+            return await _context.Badgets.FindAsync(badgetId);
         }
 
-        public Task<IEnumerable<Badgets>> ListAsync()
+        public async Task<IEnumerable<Badgets>> ListAsync()
         {
-            throw new System.NotImplementedException();
+            return await _context.Badgets.ToListAsync();
         }
 
         public void Remove(Badgets badget)
         {
-            throw new System.NotImplementedException();
+            _context.Badgets.Remove(badget);
         }
 
         public void Update(Badgets badget)
         {
-            throw new System.NotImplementedException();
+            _context.Badgets.Update(badget);
         }
     }
 }

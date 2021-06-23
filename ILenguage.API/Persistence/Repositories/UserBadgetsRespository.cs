@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Contexts;
 using ILenguage.API.Domain.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace ILenguage.API.Persistence.Repositories
 {
@@ -12,44 +14,64 @@ namespace ILenguage.API.Persistence.Repositories
         {
         }
 
-        public Task AddAsync(UserBadgets userBadgets)
+        public async Task AddAsync(UserBadgets userBadgets)
         {
-            throw new System.NotImplementedException();
+            await _context.UserBadgets.AddAsync(userBadgets);
         }
 
-        public Task AssignBadgetUser(int userId, int badgetId)
+        public async Task AssignBadgetUser(int userId, int badgetId)
         {
-            throw new System.NotImplementedException();
+            UserBadgets userBadgets = await FindByUserIdAndBadgetId(userId, badgetId);
+            if (userBadgets == null)
+            {
+                userBadgets = new UserBadgets { UserId = userId, BadgetId = badgetId };
+                await AddAsync(userBadgets);
+            }
         }
 
-        public Task<UserBadgets> FindByUserIdAndBadgetId(int userId, int BadgetId)
+        public async Task<UserBadgets> FindByUserIdAndBadgetId(int userId, int badgetId)
         {
-            throw new System.NotImplementedException();
+            return await _context.UserBadgets.FindAsync(userId, badgetId);
         }
 
-        public Task<IEnumerable<UserBadgets>> ListAsync()
+        public async Task<IEnumerable<UserBadgets>> ListAsync()
         {
-            throw new System.NotImplementedException();
+            return await _context.UserBadgets
+                .Include(ub => ub.User)
+                .Include(ub => ub.Badget)
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<UserBadgets>> ListByBadgetIdAsync(int badgetId)
+        public async Task<IEnumerable<UserBadgets>> ListByBadgetIdAsync(int badgetId)
         {
-            throw new System.NotImplementedException();
+            return await _context.UserBadgets
+            .Where(ub => ub.BadgetId == badgetId)
+            .Include(ub => ub.User)
+            .Include(ub => ub.Badget)
+            .ToListAsync();
         }
 
-        public Task<IEnumerable<UserBadgets>> ListByUserIdAsync(int userId)
+        public async Task<IEnumerable<UserBadgets>> ListByUserIdAsync(int userId)
         {
-            throw new System.NotImplementedException();
+            return await _context.UserBadgets
+            .Where(ub => ub.UserId == userId)
+            .Include(ub => ub.User)
+            .Include(ub => ub.Badget)
+            .ToListAsync();
         }
 
         public void Remove(UserBadgets userBadgets)
         {
-            throw new System.NotImplementedException();
+            _context.UserBadgets.Remove(userBadgets);
         }
 
-        public Task UnassignBadgetUser(int userId, int badgetId)
+        public async Task UnassignBadgetUser(int userId, int badgetId)
         {
-            throw new System.NotImplementedException();
+            UserBadgets userBadgets = await FindByUserIdAndBadgetId(userId, badgetId);
+            if (userBadgets != null)
+            {
+                Remove(userBadgets);
+            }
         }
     }
 }

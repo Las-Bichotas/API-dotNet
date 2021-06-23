@@ -62,6 +62,7 @@ namespace ILenguage.API
             services.AddScoped<ITopicOfInterestRepository, TopicOfInterestRepository>();
             services.AddScoped<IUserTopicRepository, UserTopicsRepository>();
             services.AddScoped<IUserLanguageRepository, UserLanguageRepository>();
+            services.AddScoped<IBadgetsRepository, BadgetsRepository>();
 
             services.AddScoped<IMakePaymentService, MakePaymentService>();
             services.AddScoped<IRelatedUserService, RelatedUserService>();
