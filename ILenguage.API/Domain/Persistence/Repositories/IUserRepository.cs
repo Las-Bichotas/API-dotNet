@@ -14,5 +14,8 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         void Update(User user);
         void Remove(User user);
 
+        /*  */
+        Task<IEnumerable<User>> ListBySessionIdAsync(int sessionId);
+        public void AssignUserSession(User user, int sessionId);
     }
 }

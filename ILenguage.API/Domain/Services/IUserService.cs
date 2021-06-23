@@ -20,5 +20,9 @@ namespace ILenguage.API.Domain.Services
 
         Task<IEnumerable<User>> ListBySubscriptionId(int subscriptionId);
         Task<IEnumerable<User>> ListByScheduleId(int scheduledId);
+
+        /* */
+        Task<UserResponse> AssignUserSession(User user, int sessionId);
+        Task<IEnumerable<User>> ListBySessionIdAsync(int sessionId);
     }
 }

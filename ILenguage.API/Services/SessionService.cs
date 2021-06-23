@@ -124,28 +124,5 @@ namespace ILenguage.API.Services
             return await _sessionRepository.ListByScheduleIdAsync(scheduleId);
         }
 
-        public async Task<SessionResponse> AssignSessionUser(Session session, int userId)
-        {
-            try
-            {
-                //var foundSchedule = await _scheduleRepository.FindById(scheduleId);
-                //session.Schedule = foundSchedule;
-
-                _sessionRepository.AssignSessionUser(session, userId);
-                await _unitOfWork.CompleteAsync();
-
-
-                return new SessionResponse(session);
-            }
-            catch (Exception ex)
-            {
-                return new SessionResponse($"An error ocurred while saving sessionUser: {ex.Message}");
-            }
-        }
-
-        public Task<IEnumerable<Session>> ListByUserIdAsync(int userId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

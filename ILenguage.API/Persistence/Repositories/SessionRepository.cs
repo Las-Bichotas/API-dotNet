@@ -27,12 +27,6 @@ namespace ILenguage.API.Persistence.Repositories
             _context.Sessions.Update(session);
         }
 
-        public void AssignSessionUser(Session session, int userId)
-        {
-            session.UserId = userId;
-            _context.Sessions.Update(session);
-        }
-
         public async Task<Session> FindById(int id)
         {
             return await _context.Sessions.FindAsync(id);
@@ -49,11 +43,6 @@ namespace ILenguage.API.Persistence.Repositories
                .Where(p => p.ScheduleId == scheduleId)
                .Include(p => p.Schedule)
                .ToListAsync();
-        }
-
-        public Task<IEnumerable<Session>> ListByUserIdAsync(int userId)
-        {
-            throw new NotImplementedException();
         }
 
         public void Remove(Session session)
