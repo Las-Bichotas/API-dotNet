@@ -17,10 +17,15 @@ namespace ILenguage.API.Domain.Models
         public string Topic { get; set; }
         public string Information { get; set; }
 
+        public List<User> Users { get; set; }
+
+        /* To Delete */
         public int ScheduleId { get; set; }
         public Schedule Schedule { get; set; }
 
 
         public SessionDetail SessionDetail { get;set; }
+
+        /* ! To Delete*/
     }
 }

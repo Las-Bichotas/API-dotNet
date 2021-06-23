@@ -161,5 +161,27 @@ namespace ILenguage.API.Services
 
             return new UserResponse(existingUser);
         }
+
+        /* */
+
+        public async Task<UserResponse> AssignUserSession(User user, int sessionId)
+        {
+            try
+            {
+                _userRepository.AssignUserSession(user, sessionId);
+                await _unitOfWork.CompleteAsync();
+
+                return new UserResponse(user);
+            }
+            catch (Exception ex)
+            {
+                return new UserResponse($"An error ocurred while saving userSession: {ex.Message}");
+            }
+        }
+
+        public async Task<IEnumerable<User>> ListBySessionIdAsync(int sessionId)
+        {
+            return await _userRepository.ListBySessionIdAsync(sessionId);
+        }
     }
 }

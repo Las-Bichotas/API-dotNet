@@ -123,5 +123,6 @@ namespace ILenguage.API.Services
         {
             return await _sessionRepository.ListByScheduleIdAsync(scheduleId);
         }
+
     }
 }

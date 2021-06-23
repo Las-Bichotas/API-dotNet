@@ -184,5 +184,53 @@ namespace ILenguage.API.Controllers
             var userResource = _mapper.Map<User, UserResource>(result.Resource);
             return Ok(userResource);
         }
+
+
+        /*****************************************************************************/
+
+
+        [HttpGet("sessions/{sessionId}")]
+        [SwaggerOperation(
+         Summary = "List Users by SessionId",
+         Description = "List Users By SessionId",
+         OperationId = "UsersBySessionId"
+        )]
+        [SwaggerResponse(200, "Users Returned", typeof(UserResource))]
+        [ProducesResponseType(typeof(UserResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<UserResource>> GetAllBySessionIdAsync(int sessionId)
+        {
+            var users = await _userService.ListBySessionIdAsync(sessionId);
+            var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
+
+            return resources;
+        }
+
+
+        [HttpPost("sessions/{sessionId}")]
+        [SwaggerOperation(
+        Summary = "Assign users to Session",
+        Description = "Assign User By SessionId",
+        OperationId = "AssignUserBySessionId"
+        )]
+        [SwaggerResponse(200, "Users Assigned", typeof(UserResource))]
+        [ProducesResponseType(typeof(UserResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> AssignUsersSession(int sessionId, int userId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessage());
+
+            var user = await _userService.GetByIdAsync(userId);
+            var result = await _userService.AssignUserSession(user.Resource, sessionId);
+
+            if (!result.Succes)
+                return BadRequest(result.Message);
+
+
+            return Ok(result.Resource);
+        }
+
     }
 }

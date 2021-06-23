@@ -20,6 +20,7 @@ namespace ILenguage.API.Persistence.Repositories
 
         }
 
+ 
         public async Task<User> FindByEmailAndPassword(string email, string password)
         {
             return await _context.Users
@@ -50,6 +51,22 @@ namespace ILenguage.API.Persistence.Repositories
 
         public void Update(User user)
         {
+            _context.Users.Update(user);
+        }
+
+        /* */
+
+        public async Task<IEnumerable<User>> ListBySessionIdAsync(int sessionId)
+        {
+            return await _context.Users
+           .Where(p => p.SessionId == sessionId)
+           .Include(p => p.Session)
+           .ToListAsync();
+        }
+
+        public void AssignUserSession(User user, int sessionId)
+        {
+            user.SessionId = sessionId;
             _context.Users.Update(user);
         }
     }
