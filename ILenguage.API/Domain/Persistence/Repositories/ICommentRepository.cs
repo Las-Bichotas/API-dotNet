@@ -9,7 +9,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task<IEnumerable<Comment>> ListAsync();
         Task AddAsync(Comment comment);
         Task<IEnumerable<Comment>> FindAllByTutorId(int tutorId);
-        Task<Comment> FindById(int commentId);
+        Task<Comment> GetById(int commentId);
         Task AssingComment(int tutorId, int commentId);
         Task UnassingComment(int tutorId, int commentId);
         void Update(Comment comment);
