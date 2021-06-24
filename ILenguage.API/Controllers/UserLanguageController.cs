@@ -35,7 +35,7 @@ namespace ILenguage.API.Controllers
         [SwaggerResponse(200, "all topics retuned", typeof(IEnumerable<LanguageOfInterestResource>))]
         [ProducesResponseType(typeof(IEnumerable<LanguageOfInterestResource>), 200)]
         [Produces("application/json")]
-        public async Task<IEnumerable<LanguageOfInterestResource>> GetAllTopicsByUserId(int userId)
+        public async Task<IEnumerable<LanguageOfInterestResource>> GetAllLanguageByUserId(int userId)
         {
             var languages = await _languageOfInterestService.ListGetByUserId(userId);
             var resources = _mapper.Map<IEnumerable<LanguageOfInterest>, IEnumerable<LanguageOfInterestResource>>(languages);
@@ -51,7 +51,7 @@ namespace ILenguage.API.Controllers
         [SwaggerResponse(200, "language user Assigned", typeof(LanguageOfInterest))]
         [ProducesResponseType(typeof(LanguageOfInterest), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> AssignUserTopic(int userId, int languageId)
+        public async Task<IActionResult> AssignUserLanguage(int userId, int languageId)
         {
             var result = await _userLanguageService.AssignLanguageUser(userId, languageId);
             if (!result.Succes)
@@ -70,7 +70,7 @@ namespace ILenguage.API.Controllers
         [SwaggerResponse(200, "language user unassigned", typeof(LanguageOfInterest))]
         [ProducesResponseType(typeof(LanguageOfInterest), 200)]
         [Produces("application/json")]
-        public async Task<IActionResult> UnassignUserTopic(int userId, int languageId)
+        public async Task<IActionResult> UnassignUserLanguage(int userId, int languageId)
         {
             var result = await _userLanguageService.UnassignLanguageUser(userId, languageId);
             if (!result.Succes)
