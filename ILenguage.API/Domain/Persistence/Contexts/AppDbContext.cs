@@ -18,6 +18,8 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<TopicsOfInterest> TopicsOfInterests { get; set; }
         public DbSet<UserLanguages> UserLanguages { get; set; }
         public DbSet<UserTopics> UserTopics { get; set; }
+        public DbSet<Badgets> Badgets { get; set; }
+        public DbSet<UserBadgets> UserBadgets { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -65,6 +67,25 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .HasOne(ut => ut.User)
                 .WithMany(ut => ut.UserTopic)
                 .HasForeignKey(ut => ut.UserId);
+            //Badgets
+            modelBuilder.Entity<Badgets>().ToTable("Badgets");
+            modelBuilder.Entity<Badgets>().HasKey(b => b.Id);
+            modelBuilder.Entity<Badgets>().Property(b => b.Id).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<Badgets>().Property(b => b.Title).IsRequired();
+            modelBuilder.Entity<Badgets>().Property(b => b.Description).IsRequired();
+            modelBuilder.Entity<Badgets>().Property(b => b.ImgSrc).IsRequired();
+
+            modelBuilder.Entity<UserBadgets>().ToTable("UserBadgets");
+            modelBuilder.Entity<UserBadgets>().HasKey(ub => new { ub.UserId, ub.BadgetId });
+            modelBuilder.Entity<UserBadgets>()
+                .HasOne(ub => ub.Badget)
+                .WithMany(ub => ub.UserBadgets)
+                .HasForeignKey(ub => ub.BadgetId);
+
+            modelBuilder.Entity<UserBadgets>()
+                .HasOne(ub => ub.User)
+                .WithMany(ub => ub.UserBadgets)
+                .HasForeignKey(ub => ub.UserId);
 
             //LanguageOfInterest
             modelBuilder.Entity<LanguageOfInterest>().ToTable("LanguageOfInterest");
@@ -118,7 +139,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
             modelBuilder.Entity<Schedule>().HasKey(s => s.Id);
             modelBuilder.Entity<Schedule>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
             modelBuilder.Entity<Schedule>().Property(s => s.NameEventSchedule).IsRequired().HasMaxLength(30);
-       
+
 
             // Constraints
 
@@ -140,11 +161,15 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .WithMany(us => us.UserSchedules)
                 .HasForeignKey(us => us.ScheduleId);
 
+<<<<<<< HEAD
             // Session -> Users
             modelBuilder.Entity<Session>()
                 .HasMany(p => p.Users)
                 .WithOne(p => p.Session)
                 .HasForeignKey(p => p.SessionId);
+=======
+
+>>>>>>> feature/badgets
 
             // Session Entity
 
