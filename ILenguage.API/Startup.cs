@@ -64,6 +64,7 @@ namespace ILenguage.API
             services.AddScoped<IUserLanguageRepository, UserLanguageRepository>();
             services.AddScoped<IBadgetsRepository, BadgetsRepository>();
             services.AddScoped<IUserBadgetsRepository, UserBadgetsRespository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
 
             services.AddScoped<IMakePaymentService, MakePaymentService>();
             services.AddScoped<IRelatedUserService, RelatedUserService>();
@@ -82,6 +83,7 @@ namespace ILenguage.API
             services.AddScoped<IUserLanguageService, UserLanguageService>();
             services.AddScoped<IUserBadgetsService, UserBadgetsService>();
             services.AddScoped<IBadgetService, BadgetsService>();
+            services.AddScoped<ICommentService, CommentService>();
 
             //Endpoinst case conventions configurations
             services.AddRouting(options => options.LowercaseUrls = true);
