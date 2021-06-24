@@ -60,7 +60,7 @@ namespace ILenguage.API.Controllers
             var badgetResource = _mapper.Map<Badgets, BadgetsResource>(badget.Resource);
             return Ok(badgetResource);
         }
-        [HttpPost("{badgetId}")]
+        [HttpDelete("{badgetId}")]
         [SwaggerOperation(
             Summary = "Unassign badget to user",
             Description = "Unassign badget to user by Id and userId",
