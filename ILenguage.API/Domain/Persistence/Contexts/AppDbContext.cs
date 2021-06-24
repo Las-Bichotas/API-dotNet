@@ -20,6 +20,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<UserTopics> UserTopics { get; set; }
         public DbSet<Badgets> Badgets { get; set; }
         public DbSet<UserBadgets> UserBadgets { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -67,6 +68,18 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .HasOne(ut => ut.User)
                 .WithMany(ut => ut.UserTopic)
                 .HasForeignKey(ut => ut.UserId);
+            //Comments
+            modelBuilder.Entity<Comment>().ToTable("Comments");
+            modelBuilder.Entity<Comment>().HasKey(c => c.Id);
+            modelBuilder.Entity<Comment>().Property(c => c.Id).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<Comment>().Property(c => c.date).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<Comment>().Property(c => c.Content).IsRequired().HasMaxLength(225);
+            modelBuilder.Entity<Comment>().Property(c => c.Rating).IsRequired();
+            modelBuilder.Entity<User>()
+                .HasMany(uc => uc.Comments)
+                .WithOne(uc => uc.tutor)
+                .HasForeignKey(uc => uc.TutorId);
+
             //Badgets
             modelBuilder.Entity<Badgets>().ToTable("Badgets");
             modelBuilder.Entity<Badgets>().HasKey(b => b.Id);
