@@ -19,29 +19,54 @@ namespace ILenguage.API.Services
             _unitOfWork = unitOfWork;
         }
 
-        public Task<CommentResponse> AssignComment(int tutorId, int commentId)
+        public async Task<CommentResponse> AssignComment(int tutorId, int commentId)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                await _commentRepository.AssingComment(tutorId, commentId);
+                await _unitOfWork.CompleteAsync();
+                Comment comment = await _commentRepository.GetById(commentId);
+                return new CommentResponse(comment);
+            }
+            catch (Exception ex)
+            {
+                return new CommentResponse($"An error ocurrend while assigning comment to user: {ex.Message}");
+            }
         }
 
-        public Task<CommentResponse> Delete(int commentId)
+        public async Task<CommentResponse> Delete(int commentId)
         {
-            throw new System.NotImplementedException();
+            var existingComment = await _commentRepository.GetById(commentId);
+            if (existingComment == null)
+                return new CommentResponse("Comment not found");
+            try
+            {
+                _commentRepository.Remove(existingComment);
+                await _unitOfWork.CompleteAsync();
+                return new CommentResponse(existingComment);
+            }
+            catch (Exception ex)
+            {
+                return new CommentResponse($"An error ocurrend while deleting comment: {ex.Message}");
+            }
         }
 
-        public Task<CommentResponse> GetById(int commentId)
+        public async Task<CommentResponse> GetById(int commentId)
         {
-            throw new System.NotImplementedException();
+            var existingComment = await _commentRepository.GetById(commentId);
+            if (existingComment == null)
+                return new CommentResponse("Comment not found");
+            return new CommentResponse(existingComment);
         }
 
-        public Task<IEnumerable<Comment>> ListAsync()
+        public async Task<IEnumerable<Comment>> ListAsync()
         {
-            throw new System.NotImplementedException();
+            return await _commentRepository.ListAsync();
         }
 
-        public Task<IEnumerable<Comment>> ListByTutorId(int tutorId)
+        public async Task<IEnumerable<Comment>> ListByTutorId(int tutorId)
         {
-            throw new System.NotImplementedException();
+            return await _commentRepository.FindAllByTutorId(tutorId);
         }
 
         public async Task<CommentResponse> SaveAsync(Comment comment)
@@ -58,14 +83,39 @@ namespace ILenguage.API.Services
             }
         }
 
-        public Task<CommentResponse> UnassignComment(int tutorId, int commentId)
+        public async Task<CommentResponse> UnassignComment(int tutorId, int commentId)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                await _commentRepository.UnassingComment(tutorId, commentId);
+                await _unitOfWork.CompleteAsync();
+                Comment comment = await _commentRepository.GetById(commentId);
+                return new CommentResponse(comment);
+            }
+            catch (Exception ex)
+            {
+                return new CommentResponse($"An error ocurrend while assigning comment to user: {ex.Message}");
+            }
         }
 
-        public Task<CommentResponse> Update(int commentId, Comment comment)
+        public async Task<CommentResponse> Update(int commentId, Comment comment)
         {
-            throw new System.NotImplementedException();
+            var existingComment = await _commentRepository.GetById(commentId);
+            if (existingComment == null)
+                return new CommentResponse("Comment not found");
+            existingComment.Content = comment.Content;
+            existingComment.Rating = comment.Rating;
+            existingComment.date = comment.date;
+            try
+            {
+                _commentRepository.Update(existingComment);
+                await _unitOfWork.CompleteAsync();
+                return new CommentResponse(existingComment);
+            }
+            catch (Exception ex)
+            {
+                return new CommentResponse($"An error while updating comment: {ex.Message}");
+            }
         }
     }
 }

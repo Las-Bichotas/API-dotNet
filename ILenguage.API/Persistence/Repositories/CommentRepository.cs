@@ -13,8 +13,6 @@ namespace ILenguage.API.Persistence.Repositories
         public CommentRepository(AppDbContext context) : base(context)
         {
         }
-
-
         public async Task AddAsync(Comment comment)
         {
             await _context.Comments.AddAsync(comment);
