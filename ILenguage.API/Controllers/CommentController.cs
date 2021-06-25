@@ -93,5 +93,43 @@ namespace ILenguage.API.Controllers
             var resources = _mapper.Map<IEnumerable<Comment>, IEnumerable<CommentResource>>(comments);
             return resources;
         }
+
+        [HttpPost("{commentId}/tutors/{tutorId}")]
+        [SwaggerOperation(
+            Summary = "Assign comment to user",
+            Description = "Assign comment to user by commentId and userId",
+            OperationId = "AssignComment"
+        )]
+        [SwaggerResponse(200, "language user Assigned", typeof(CommentResource))]
+        [ProducesResponseType(typeof(CommentResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> AssignUserLanguage(int tutorId, int commentId)
+        {
+            var result = await _commentservice.AssignComment(tutorId, commentId);
+            if (!result.Succes)
+                return BadRequest(result.Message);
+            var comment = await _commentservice.GetById(result.Resource.Id);
+            var commentResource = _mapper.Map<Comment, CommentResource>(comment.Resource);
+            return Ok(commentResource);
+        }
+
+        [HttpDelete("{commentId}/tutors/{tutorId}")]
+        [SwaggerOperation(
+            Summary = "Unassign comment to user",
+            Description = "Unassign comment to user by commentId and userId",
+            OperationId = "UnaassignComment"
+        )]
+        [SwaggerResponse(200, "language user Assigned", typeof(CommentResource))]
+        [ProducesResponseType(typeof(CommentResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> UnassignUserLanguage(int tutorId, int commentId)
+        {
+            var result = await _commentservice.UnassignComment(tutorId, commentId);
+            if (!result.Succes)
+                return BadRequest(result.Message);
+            var comment = await _commentservice.GetById(result.Resource.Id);
+            var commentResource = _mapper.Map<Comment, CommentResource>(comment.Resource);
+            return Ok(commentResource);
+        }
     }
 }

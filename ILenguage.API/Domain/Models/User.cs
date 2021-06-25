@@ -32,7 +32,7 @@ namespace ILenguage.API.Domain.Models
         public List<UserSubscription> UserSubscriptions { get; set; }
 
         // Relationship with session 06/22/2021
-        public int SessionId { get; set; }
+        public int? SessionId { get; set; }
         public Session Session { get; set; }
 
     }
