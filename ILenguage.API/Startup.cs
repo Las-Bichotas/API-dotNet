@@ -43,7 +43,7 @@ namespace ILenguage.API
             {
 
 
-                options.UseMySQL(Configuration.GetConnectionString("LocalConnectionESTRADA"));
+                options.UseMySQL(Configuration.GetConnectionString("LocalConnectionDIAZ"));
 
 
             });

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Persistence.Contexts;
 using ILenguage.API.Domain.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace ILenguage.API.Persistence.Repositories
 {
@@ -12,44 +14,57 @@ namespace ILenguage.API.Persistence.Repositories
         {
         }
 
-        public Task AddAsync(Comment comment)
+
+        public async Task AddAsync(Comment comment)
         {
-            throw new System.NotImplementedException();
+            await _context.Comments.AddAsync(comment);
         }
 
-        public Task AssingComment(int tutorId, int commentId)
+        public async Task AssingComment(int tutorId, int commentId)
         {
-            throw new System.NotImplementedException();
+            User tutor = await _context.Users.FindAsync(tutorId);
+            Comment comment = await _context.Comments.FindAsync(commentId);
+            if (tutor != null && comment != null)
+            {
+                comment.TutorId = tutorId;
+                Update(comment);
+            }
         }
 
-        public Task<IEnumerable<Comment>> FindAllByTutorId(int tutorId)
+        public async Task<IEnumerable<Comment>> FindAllByTutorId(int tutorId)
         {
-            throw new System.NotImplementedException();
+            return await _context.Comments.Where(c => c.TutorId == tutorId).ToListAsync();
         }
 
-        public Task<Comment> GetById(int commentId)
+        public async Task<Comment> GetById(int commentId)
         {
-            throw new System.NotImplementedException();
+            return await _context.Comments.FindAsync(commentId);
         }
 
-        public Task<IEnumerable<Comment>> ListAsync()
+        public async Task<IEnumerable<Comment>> ListAsync()
         {
-            throw new System.NotImplementedException();
+            return await _context.Comments.ToListAsync();
         }
 
         public void Remove(Comment comment)
         {
-            throw new System.NotImplementedException();
+            _context.Comments.Remove(comment);
         }
 
-        public Task UnassingComment(int tutorId, int commentId)
+        public async Task UnassingComment(int tutorId, int commentId)
         {
-            throw new System.NotImplementedException();
+            User tutor = await _context.Users.FindAsync(tutorId);
+            Comment comment = await _context.Comments.FindAsync(commentId);
+            if (tutor != null && comment != null)
+            {
+                comment.TutorId = 0;
+                Update(comment);
+            }
         }
 
         public void Update(Comment comment)
         {
-            throw new System.NotImplementedException();
+            _context.Comments.Update(comment);
         }
     }
 }

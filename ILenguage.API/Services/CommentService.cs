@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ILenguage.API.Domain.Models;
@@ -43,9 +44,18 @@ namespace ILenguage.API.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<CommentResponse> SaveAsync(Comment comment)
+        public async Task<CommentResponse> SaveAsync(Comment comment)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                await _commentRepository.AddAsync(comment);
+                await _unitOfWork.CompleteAsync();
+                return new CommentResponse(comment);
+            }
+            catch (Exception ex)
+            {
+                return new CommentResponse($"An error while saving comment:{ex.Message}");
+            }
         }
 
         public Task<CommentResponse> UnassignComment(int tutorId, int commentId)
