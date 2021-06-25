@@ -79,6 +79,10 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .HasMany(uc => uc.Comments)
                 .WithOne(uc => uc.tutor)
                 .HasForeignKey(uc => uc.TutorId);
+            modelBuilder.Entity<Comment>()
+                .HasOne(uc => uc.tutor)
+                .WithMany(uc => uc.Comments)
+                .HasForeignKey(uc => uc.TutorId);
 
             //Badgets
             modelBuilder.Entity<Badgets>().ToTable("Badgets");

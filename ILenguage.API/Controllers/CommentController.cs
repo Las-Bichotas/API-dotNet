@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using ILenguage.API.Domain.Models;
@@ -42,6 +43,55 @@ namespace ILenguage.API.Controllers
                 return BadRequest(result.Message);
             var commentResource = _mapper.Map<Comment, CommentResource>(result.Resource);
             return Ok(commentResource);
+        }
+        [HttpGet("{commentId}")]
+        [SwaggerOperation(
+            Summary = "Get Comment",
+            Description = "Get Comment In the Data Base by id",
+            OperationId = "GetComment"
+        )]
+        [SwaggerResponse(200, "Returned Comment", typeof(CommentResource))]
+        [ProducesResponseType(typeof(CommentResource), 200)]
+        [Produces("application/json")]
+        public async Task<ActionResult> GetActionAsync(int commentId)
+        {
+            var result = await _commentservice.GetById(commentId);
+            if (!result.Succes)
+                return BadRequest(result.Message);
+            var commentResource = _mapper.Map<Comment, CommentResource>(result.Resource);
+            return Ok(commentResource);
+        }
+        [HttpDelete("{commentId}")]
+        [SwaggerOperation(
+            Summary = "Delete Comment",
+            Description = "Delete Comment In the Data Base by id",
+            OperationId = "DeleteComment"
+        )]
+        [SwaggerResponse(200, "Deleted Comment", typeof(CommentResource))]
+        [ProducesResponseType(typeof(CommentResource), 200)]
+        [Produces("application/json")]
+        public async Task<IActionResult> DeleteAsync(int commentId)
+        {
+            var result = await _commentservice.Delete(commentId);
+            if (!result.Succes)
+                return BadRequest(result.Message);
+            var commentResource = _mapper.Map<Comment, CommentResource>(result.Resource);
+            return Ok(commentResource);
+        }
+        [HttpGet]
+        [SwaggerOperation(
+            Summary = "Get All Comment",
+            Description = "Get All Comment In the Data Base by id",
+            OperationId = "GetAllComment"
+        )]
+        [SwaggerResponse(200, "Returned All Comment", typeof(IEnumerable<CommentResource>))]
+        [ProducesResponseType(typeof(IEnumerable<CommentResource>), 200)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<CommentResource>> GetAllAsync()
+        {
+            var comments = await _commentservice.ListAsync();
+            var resources = _mapper.Map<IEnumerable<Comment>, IEnumerable<CommentResource>>(comments);
+            return resources;
         }
     }
 }
