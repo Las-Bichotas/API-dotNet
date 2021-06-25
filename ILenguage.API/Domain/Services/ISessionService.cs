@@ -18,5 +18,6 @@ namespace ILenguage.API.Domain.Services
         Task<SessionResponse> AssignSessionSchedule(Session session, int scheduleId);
 
         Task<IEnumerable<Session>> ListByScheduleIdAsync(int scheduleId);
+        Task<IEnumerable<Session>> ListByUserIdAsync(int userId);
     }
 }

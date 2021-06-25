@@ -139,7 +139,7 @@ namespace ILenguage.API.Controllers
             return Ok(sessionResource);
 
         }
-
+        /*
         [HttpPost("schedules/{scheduleId}")]
         [SwaggerOperation(
             Summary = "Assign session to Schedule",
@@ -181,6 +181,6 @@ namespace ILenguage.API.Controllers
 
             return resources;
         }
-
+        */
     }
 }

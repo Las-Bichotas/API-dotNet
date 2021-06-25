@@ -19,8 +19,9 @@ namespace ILenguage.API.Services
         private readonly IRoleRepository _roleRepository;
         private readonly IUserTopicRepository _userTopicRepository;
         private readonly IUserLanguageRepository _userLanguageRepository;
+        private readonly IUserSessionRepository _userSessionRepository;
 
-        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository, IUserScheduleRepository userScheduleRepository, IRoleRepository roleRepository, IUserTopicRepository userTopicRepository, IUserLanguageRepository userLanguageRepository)
+        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository, IUserScheduleRepository userScheduleRepository, IRoleRepository roleRepository, IUserTopicRepository userTopicRepository, IUserLanguageRepository userLanguageRepository, IUserSessionRepository userSessionRepository)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
@@ -29,6 +30,7 @@ namespace ILenguage.API.Services
             _roleRepository = roleRepository;
             _userTopicRepository = userTopicRepository;
             _userLanguageRepository = userLanguageRepository;
+            _userSessionRepository = userSessionRepository;
         }
 
         public async Task<IEnumerable<User>> ListAsync()
@@ -163,25 +165,12 @@ namespace ILenguage.API.Services
         }
 
         /* */
-
-        public async Task<UserResponse> AssignUserSession(User user, int sessionId)
-        {
-            try
-            {
-                _userRepository.AssignUserSession(user, sessionId);
-                await _unitOfWork.CompleteAsync();
-
-                return new UserResponse(user);
-            }
-            catch (Exception ex)
-            {
-                return new UserResponse($"An error ocurred while saving userSession: {ex.Message}");
-            }
-        }
-
+        
         public async Task<IEnumerable<User>> ListBySessionIdAsync(int sessionId)
         {
-            return await _userRepository.ListBySessionIdAsync(sessionId);
+            var userSessions = await _userSessionRepository.ListBySessionIdAsync(sessionId);
+            var users = userSessions.Select(pt => pt.User).ToList();
+            return users;
         }
     }
 }

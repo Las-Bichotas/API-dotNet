@@ -13,11 +13,13 @@ namespace ILenguage.API.Services
     public class SessionService : ISessionService
     {
         private readonly ISessionRepository _sessionRepository;
+        private readonly IUserSessionRepository _userSessionRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public SessionService(ISessionRepository sessionRepository, IUnitOfWork unitOfWork)
+        public SessionService(ISessionRepository sessionRepository, IUnitOfWork unitOfWork, IUserSessionRepository userSessionRepository)
         {
             _sessionRepository = sessionRepository;
+            _userSessionRepository = userSessionRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -124,5 +126,11 @@ namespace ILenguage.API.Services
             return await _sessionRepository.ListByScheduleIdAsync(scheduleId);
         }
 
+        public async Task<IEnumerable<Session>> ListByUserIdAsync(int userId)
+        {
+            var userSessions = await _userSessionRepository.ListByUserIdAsync(userId);
+            var sessions = userSessions.Select(pt => pt.Session).ToList();
+            return sessions;
+        }
     }
 }

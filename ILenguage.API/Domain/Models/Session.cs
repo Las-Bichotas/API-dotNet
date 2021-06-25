@@ -27,5 +27,7 @@ namespace ILenguage.API.Domain.Models
         public SessionDetail SessionDetail { get;set; }
 
         /* ! To Delete*/
+
+        public List<UserSession> UserSessions { get; set; }
     }
 }

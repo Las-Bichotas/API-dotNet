@@ -20,6 +20,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
         public DbSet<UserTopics> UserTopics { get; set; }
         public DbSet<Badgets> Badgets { get; set; }
         public DbSet<UserBadgets> UserBadgets { get; set; }
+        public DbSet<UserSession> UserSessions { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -47,8 +48,6 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .HasOne(us => us.Subscription)
                 .WithMany(us => us.UserSubscriptions)
                 .HasForeignKey(us => us.SubscriptionId);
-
-
 
             //TopicsOfInterest
             modelBuilder.Entity<TopicsOfInterest>().ToTable("TopicsOfInterest");
@@ -161,11 +160,27 @@ namespace ILenguage.API.Domain.Persistence.Contexts
                 .WithMany(us => us.UserSchedules)
                 .HasForeignKey(us => us.ScheduleId);
 
-            // Session -> Users
-            modelBuilder.Entity<Session>()
-                .HasMany(p => p.Users)
-                .WithOne(p => p.Session)
-                .HasForeignKey(p => p.SessionId);
+            // UserSession Entity
+
+            modelBuilder.Entity<UserSession>().ToTable("UserSessions");
+
+            // Constraints
+
+            modelBuilder.Entity<UserSession>().HasKey(p => new { p.UserId, p.SessionId });
+
+            // RelastionShips
+
+
+            modelBuilder.Entity<UserSession>()
+                .HasOne(pt => pt.User)
+                .WithMany(p => p.UserSessions)
+                .HasForeignKey(pt => pt.UserId);
+
+            modelBuilder.Entity<UserSession>()
+                .HasOne(pt => pt.Session)
+                .WithMany(t => t.UserSessions)
+                .HasForeignKey(pt => pt.SessionId);
+
 
             // Session Entity
 

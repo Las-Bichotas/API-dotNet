@@ -55,7 +55,7 @@ namespace ILenguage.API.Persistence.Repositories
         }
 
         /* */
-
+        /*
         public async Task<IEnumerable<User>> ListBySessionIdAsync(int sessionId)
         {
             return await _context.Users
@@ -68,6 +68,6 @@ namespace ILenguage.API.Persistence.Repositories
         {
             user.SessionId = sessionId;
             _context.Users.Update(user);
-        }
+        }*/
     }
 }

@@ -187,7 +187,7 @@ namespace ILenguage.API.Controllers
 
 
         /*****************************************************************************/
-
+        /*
 
         [HttpGet("sessions/{sessionId}")]
         [SwaggerOperation(
@@ -230,7 +230,7 @@ namespace ILenguage.API.Controllers
 
 
             return Ok(result.Resource);
-        }
+        }*/
 
     }
 }
