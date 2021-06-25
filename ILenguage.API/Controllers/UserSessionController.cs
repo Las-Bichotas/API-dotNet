@@ -31,7 +31,7 @@ namespace ILenguage.API.Controllers
         }
 
 
-        [HttpGet("/sessions/{sessionId}/users")]
+        [HttpGet("/api/sessions/{sessionId}/users")]
         [SwaggerOperation(
           Summary = "List Users by SessionId",
           Description = "List Users By SessionId",
@@ -48,7 +48,7 @@ namespace ILenguage.API.Controllers
 
             return resources;
         }
-        
+
         [HttpGet]
         [SwaggerOperation(
           Summary = "List Sessions by UserId",
@@ -66,6 +66,25 @@ namespace ILenguage.API.Controllers
 
             return resources;
         }
+        /*
+        [HttpGet]
+        [SwaggerOperation(
+         Summary = "List Sessions by StudentId and TutorId",
+         Description = "List Sessions By StudentId and TutorId",
+         OperationId = "SessionsByStudentIdAndTutorId"
+        )]
+        [SwaggerResponse(200, "Sessions Returned", typeof(SessionResource))]
+        [ProducesResponseType(typeof(SessionResource), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 404)]
+        [Produces("application/json")]
+        public async Task<IEnumerable<SessionResource>> GetAllByUserIdAsync(int studenId, int tutorId)
+        {
+            var userSessions = await _userSessionService.ListByStudentIdAndTutorIdAsync(studenId, tutorId);
+            var resources = _mapper.Map<IEnumerable<Session>, IEnumerable<SessionResource>>(userSessions);
+
+            return resources;
+        }
+        */
 
         [HttpPost("{sessionId}")]
         [SwaggerOperation(

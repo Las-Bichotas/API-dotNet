@@ -52,6 +52,16 @@ namespace ILenguage.API.Persistence.Repositories
               .ToListAsync();
         }
 
+        public async Task<IEnumerable<UserSession>> ListByStudentIdAndTutorIdAsync(int studentId, int tutorId)
+        {
+            return await _context.UserSessions
+              .Where(pt => pt.SessionId == studentId)
+              .Where(pt => pt.SessionId == tutorId)
+              .Include(pt => pt.Session)
+              .Include(pt => pt.User)
+              .ToListAsync();
+        }
+
         public async Task<IEnumerable<UserSession>> ListByUserIdAsync(int userId)
         {
             return await _context.UserSessions

@@ -11,6 +11,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
         Task<IEnumerable<UserSession>> ListAsync();
         Task<IEnumerable<UserSession>> ListByUserIdAsync(int userId);
         Task<IEnumerable<UserSession>> ListBySessionIdAsync(int sessionId);
+        Task<IEnumerable<UserSession>> ListByStudentIdAndTutorIdAsync(int studentId, int tutorId);
         Task<UserSession> FindByUserIdAndSessionId(int userId, int sessionId);
         Task AddAsync(UserSession userSession);
         void Remove(UserSession userSession);

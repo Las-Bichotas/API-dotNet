@@ -35,6 +35,11 @@ namespace ILenguage.API.Services
             return await _userSessionRepository.ListByUserIdAsync(userId);
         }
 
+        public async Task<IEnumerable<UserSession>> ListByStudentIdAndTutorIdAsync(int studentId, int tutorId)
+        {
+            return await _userSessionRepository.ListByStudentIdAndTutorIdAsync(studentId, tutorId);
+        }
+
         public async Task<UserSessionResponse> AssignUserSessionAsync(int userId, int sessionId)
         {
             try
@@ -68,5 +73,6 @@ namespace ILenguage.API.Services
                 return new UserSessionResponse($"An error ocurred while unassigning User from Session: {ex.Message}");
             }
         }
+
     }
 }
