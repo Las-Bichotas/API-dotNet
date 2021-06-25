@@ -10,14 +10,10 @@ namespace ILenguage.API.Domain.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string Description { get; set; }
-
-        //TODO: falta como representar la foto de perfil
-        // public byte profilePhoto {get; set;}
-
-        //TODO: Esperando a modelo Role
+        public List<Comment> Comments { get; set; }
         public int RoleId { get; set; }
         public Role Role { get; set; }
-        public List<UserBadgets> UserBadgets;
+        public List<UserBadgets> UserBadgets { get; set; }
 
         //TODO: PayMethos falta implementar
         // public List<PaymentMethod> PaymentMethods { get; set; } = new List<PaymentMethod>();

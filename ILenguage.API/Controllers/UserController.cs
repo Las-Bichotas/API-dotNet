@@ -19,14 +19,22 @@ namespace ILenguage.API.Controllers
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IUserTopicService _userTopicService;
+        private readonly ICommentService _commentService;
 
-        public UserController(IUserService userService, IMapper mapper, IUserTopicService userTopicService)
+        public UserController(IUserService userService, IMapper mapper, IUserTopicService userTopicService, ICommentService commentService)
         {
             _userService = userService;
             _mapper = mapper;
             _userTopicService = userTopicService;
+            _commentService = commentService;
         }
-
+        [HttpGet("{tutorId}/comments")]
+        public async Task<IEnumerable<CommentResource>> GetAllComments(int tutorId)
+        {
+            var comments = await _commentService.ListByTutorId(tutorId);
+            var resources = _mapper.Map<IEnumerable<Comment>, IEnumerable<CommentResource>>(comments);
+            return resources;
+        }
         [HttpPost("{roleId}")]
         [SwaggerOperation(
             Summary = "Add new user",
@@ -48,7 +56,7 @@ namespace ILenguage.API.Controllers
             var userResource = _mapper.Map<User, UserResource>(result.Resource);
             return Ok(userResource);
         }
-        [HttpGet("/languages/{languageId}/topics/{topicId}/tuthors")]
+        [HttpGet("/api/languages/{languageId}/topics/{topicId}/tuthors")]
         [SwaggerOperation(
             Summary = "Get All Users By Languages Id And Topic Id",
             Description = "Get All Users by languages id and topic Id",

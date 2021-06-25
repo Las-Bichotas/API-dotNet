@@ -17,6 +17,7 @@ namespace ILenguage.API.Mapping
             CreateMap<SaveSessionResource, Session>();
             CreateMap<SaveSessionDetailResource, SessionDetail>();
             CreateMap<SaveBadgetsResource, Badgets>();
+            CreateMap<SaveCommentResource, Comment>();
         }
     }
 }

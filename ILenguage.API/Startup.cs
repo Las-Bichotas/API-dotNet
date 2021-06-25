@@ -43,7 +43,7 @@ namespace ILenguage.API
             {
 
 
-                options.UseMySQL(Configuration.GetConnectionString("LocalConnectionESTRADA"));
+                options.UseMySQL(Configuration.GetConnectionString("LocalConnectionDIAZ"));
 
 
             });
@@ -66,6 +66,7 @@ namespace ILenguage.API
             services.AddScoped<IUserBadgetsRepository, UserBadgetsRespository>();
             services.AddScoped<IUserSessionRepository, UserSessionRepository>();
 
+            services.AddScoped<ICommentRepository, CommentRepository>();
 
             services.AddScoped<IMakePaymentService, MakePaymentService>();
             services.AddScoped<IRelatedUserService, RelatedUserService>();
@@ -86,6 +87,7 @@ namespace ILenguage.API
             services.AddScoped<IBadgetService, BadgetsService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserSessionService, UserSessionService>();
+            services.AddScoped<ICommentService, CommentService>();
 
             //Endpoinst case conventions configurations
             services.AddRouting(options => options.LowercaseUrls = true);
