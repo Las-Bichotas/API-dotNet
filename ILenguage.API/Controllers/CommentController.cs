@@ -29,8 +29,8 @@ namespace ILenguage.API.Controllers
             Description = "Add new comment with initial data",
             OperationId = "AddComment"
         )]
-        [SwaggerResponse(200, "User Added", typeof(UserResource))]
-        [ProducesResponseType(typeof(UserResource), 200)]
+        [SwaggerResponse(200, "Comment Added", typeof(CommentResource))]
+        [ProducesResponseType(typeof(CommentResource), 200)]
         [Produces("application/json")]
         public async Task<ActionResult> PostAsync([FromBody] SaveCommentResource resource)
         {
