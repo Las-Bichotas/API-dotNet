@@ -15,14 +15,14 @@ namespace ILenguage.API.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("/api/users/{userId}/sessions")]
-    public class UserSessionController : ControllerBase
+    public class UserSessionsController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly ISessionService _sessionService;
         private readonly IUserSessionService _userSessionService;
         private readonly IMapper _mapper;
 
-        public UserSessionController(IUserService userService, ISessionService sessionService, IUserSessionService userSessionService, IMapper mapper)
+        public UserSessionsController(IUserService userService, ISessionService sessionService, IUserSessionService userSessionService, IMapper mapper)
         {
             _userService = userService;
             _sessionService = sessionService;
@@ -66,8 +66,8 @@ namespace ILenguage.API.Controllers
 
             return resources;
         }
-        /*
-        [HttpGet]
+        
+        [HttpGet("/api/users/{userId}/tutors/{tutorId}/sessions")]
         [SwaggerOperation(
          Summary = "List Sessions by StudentId and TutorId",
          Description = "List Sessions By StudentId and TutorId",
@@ -77,14 +77,14 @@ namespace ILenguage.API.Controllers
         [ProducesResponseType(typeof(SessionResource), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 404)]
         [Produces("application/json")]
-        public async Task<IEnumerable<SessionResource>> GetAllByUserIdAsync(int studenId, int tutorId)
+        public async Task<IEnumerable<SessionResource>> GetAllByUserIdAsync(int userId, int tutorId)
         {
-            var userSessions = await _userSessionService.ListByStudentIdAndTutorIdAsync(studenId, tutorId);
+            var userSessions = await _sessionService.ListByUserIdAndTutorIdAsync(userId, tutorId);
             var resources = _mapper.Map<IEnumerable<Session>, IEnumerable<SessionResource>>(userSessions);
 
             return resources;
         }
-        */
+        
 
         [HttpPost("{sessionId}")]
         [SwaggerOperation(

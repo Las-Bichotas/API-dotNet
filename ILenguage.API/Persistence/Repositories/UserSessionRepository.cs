@@ -47,18 +47,18 @@ namespace ILenguage.API.Persistence.Repositories
         {
             return await _context.UserSessions
               .Where(pt => pt.SessionId == sessionId)
-              .Include(pt => pt.Session)
               .Include(pt => pt.User)
+              .Include(pt => pt.Session)
               .ToListAsync();
         }
 
-        public async Task<IEnumerable<UserSession>> ListByStudentIdAndTutorIdAsync(int studentId, int tutorId)
+        public async Task<IEnumerable<UserSession>> ListByUserIdAndTutorIdAsync(int userId, int tutorId)
         {
             return await _context.UserSessions
-              .Where(pt => pt.SessionId == studentId)
-              .Where(pt => pt.SessionId == tutorId)
-              .Include(pt => pt.Session)
+              .Where(pt => pt.UserId == userId)
+              .Where(pt => pt.UserId == tutorId)
               .Include(pt => pt.User)
+              .Include(pt => pt.Session)
               .ToListAsync();
         }
 

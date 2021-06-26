@@ -16,8 +16,5 @@ namespace ILenguage.API.Resources
         //public RoleResource Role {get; set;}
 
         public UserSchedule UserSchedule { get; set; }
-
-        /* */
-        public SessionResource Session { get; set; }
     }
 }

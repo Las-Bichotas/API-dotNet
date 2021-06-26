@@ -106,13 +106,9 @@ namespace ILenguage.API.Services
         {
             try
             {
-                //var foundSchedule = await _scheduleRepository.FindById(scheduleId);
-                //session.Schedule = foundSchedule;
-
                 _sessionRepository.AssignSessionSchedule(session, scheduleId);
                 await _unitOfWork.CompleteAsync();
                 
-
                 return new SessionResponse(session);
             }
             catch (Exception ex)
@@ -130,6 +126,26 @@ namespace ILenguage.API.Services
         {
             var userSessions = await _userSessionRepository.ListByUserIdAsync(userId);
             var sessions = userSessions.Select(pt => pt.Session).ToList();
+            return sessions;
+        }
+
+        public async Task<IEnumerable<Session>> ListByUserIdAndTutorIdAsync(int userId, int tutorId)
+        {
+            /* var userSessions = await _userSessionRepository.ListByUserIdAndTutorIdAsync(userId, tutorId);
+             var sessions = userSessions.Select(pt => pt.Session).ToList();
+             return sessions;*/
+
+            var userSessions = await _userSessionRepository.ListByUserIdAsync(userId);
+            var tutorSessions = await _userSessionRepository.ListByUserIdAsync(tutorId);
+
+            var sessions = userSessions.Join(tutorSessions,
+             ul => ul.SessionId,
+             ut => ut.SessionId,
+             (ul, ut) => new
+             {
+                 ul.Session
+             }).Select(u => u.Session);
+            //.Where(u => u.Session.State == "string").
             return sessions;
         }
     }

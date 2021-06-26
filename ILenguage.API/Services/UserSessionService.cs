@@ -35,9 +35,9 @@ namespace ILenguage.API.Services
             return await _userSessionRepository.ListByUserIdAsync(userId);
         }
 
-        public async Task<IEnumerable<UserSession>> ListByStudentIdAndTutorIdAsync(int studentId, int tutorId)
+        public async Task<IEnumerable<UserSession>> ListByUserIdAndTutorIdAsync(int userId, int tutorId)
         {
-            return await _userSessionRepository.ListByStudentIdAndTutorIdAsync(studentId, tutorId);
+            return await _userSessionRepository.ListByUserIdAndTutorIdAsync(userId, tutorId);
         }
 
         public async Task<UserSessionResponse> AssignUserSessionAsync(int userId, int sessionId)

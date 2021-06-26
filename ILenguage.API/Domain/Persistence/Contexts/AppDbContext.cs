@@ -1,4 +1,5 @@
 ﻿using ILenguage.API.Domain.Models;
+using ILenguage.API.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace ILenguage.API.Domain.Persistence.Contexts
@@ -236,7 +237,7 @@ namespace ILenguage.API.Domain.Persistence.Contexts
 
             // Naming Conventions Policy
 
-            //modelBuilder.ApplySnakeCaseNamingConvention();
+            modelBuilder.ApplySnakeCaseNamingConvention();
         }
     }
 }
