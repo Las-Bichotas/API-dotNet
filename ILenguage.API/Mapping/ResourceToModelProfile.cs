@@ -9,13 +9,13 @@ namespace ILenguage.API.Mapping
         public ResourceToModelProfile()
         {
             CreateMap<SaveSuscriptionResource, Subscription>();
-            CreateMap<SaveScheduleResource, Schedule>();
+           
             CreateMap<SaveRoleResource, Role>();
             CreateMap<SaveUserResource, User>();
             CreateMap<SaveLanguageOfInterestResource, LanguageOfInterest>();
             CreateMap<SaveTopicOfInterestResource, TopicsOfInterest>();
             CreateMap<SaveSessionResource, Session>();
-            CreateMap<SaveSessionDetailResource, SessionDetail>();
+          
             CreateMap<SaveBadgetsResource, Badgets>();
             CreateMap<SaveCommentResource, Comment>();
         }

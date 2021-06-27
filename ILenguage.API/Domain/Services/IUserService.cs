@@ -19,7 +19,7 @@ namespace ILenguage.API.Domain.Services
         Task<UserResponse> DeleteAsync(int userId);
 
         Task<IEnumerable<User>> ListBySubscriptionId(int subscriptionId);
-        Task<IEnumerable<User>> ListByScheduleId(int scheduledId);
+       
 
         /* */
         Task<IEnumerable<User>> ListBySessionIdAsync(int sessionId);

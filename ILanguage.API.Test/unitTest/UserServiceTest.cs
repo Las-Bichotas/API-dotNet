@@ -22,12 +22,11 @@ namespace ILanguage.API.Test
             var mockUserRepository = GetDefaultIUserRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockUserSubscriptionRepository = GetDefaultIUserSubscriptionRepositoryInstance();
-            var mockUserScheduleRepository = GetDefaultIUserScheduleRepositoryInstance();
             var mockIRoleRepository = GetDefaultIRoleRepositoryInstance();
             var mockIUserTopicRepository = GetDefaultIUserTopicRepositoryInstance();
             var mockIUserLanguageRepository = GetDefaultIUserLanguageRepositoryInstance();
             mockUserRepository.Setup(r => r.ListAsync()).ReturnsAsync(new List<User>());
-            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockUserScheduleRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
+            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
             //Act
             List<User> result = (List<User>)await service.ListAsync();
             var UsersCount = result.Count;
@@ -44,13 +43,12 @@ namespace ILanguage.API.Test
             var mockUserRepository = GetDefaultIUserRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockUserSubscriptionRepository = GetDefaultIUserSubscriptionRepositoryInstance();
-            var mockUserScheduleRepository = GetDefaultIUserScheduleRepositoryInstance();
             var mockIRoleRepository = GetDefaultIRoleRepositoryInstance();
             var mockIUserTopicRepository = GetDefaultIUserTopicRepositoryInstance();
             var mockIUserLanguageRepository = GetDefaultIUserLanguageRepositoryInstance();
             var userId = 1;
             mockUserRepository.Setup(r => r.FindById(userId)).Returns(Task.FromResult<User>(null));
-            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockUserScheduleRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
+            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
 
             //Act
             UserResponse result = await service.GetByIdAsync(userId);
@@ -65,7 +63,6 @@ namespace ILanguage.API.Test
             var mockUserRepository = GetDefaultIUserRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockUserSubscriptionRepository = GetDefaultIUserSubscriptionRepositoryInstance();
-            var mockUserScheduleRepository = GetDefaultIUserScheduleRepositoryInstance();
             var mockIRoleRepository = GetDefaultIRoleRepositoryInstance();
             var mockIUserTopicRepository = GetDefaultIUserTopicRepositoryInstance();
             var mockIUserLanguageRepository = GetDefaultIUserLanguageRepositoryInstance();
@@ -74,7 +71,7 @@ namespace ILanguage.API.Test
             mockIUserLanguageRepository.Setup(r => r.ListByLanguageIdAsync(languageId)).ReturnsAsync(new List<UserLanguages>());
             int topicId = 1;
             mockIUserTopicRepository.Setup(r => r.ListByTopicId(topicId)).ReturnsAsync(new List<UserTopics>());
-            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockUserScheduleRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
+            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object,  mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
             //Act
             IEnumerable<User> result = await service.ListTuthorsByLanguageIdAndTopicId(1, 1);
             var count = result.ToList().Count;
@@ -88,7 +85,6 @@ namespace ILanguage.API.Test
             var mockUserRepository = GetDefaultIUserRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockUserSubscriptionRepository = GetDefaultIUserSubscriptionRepositoryInstance();
-            var mockUserScheduleRepository = GetDefaultIUserScheduleRepositoryInstance();
             var mockIRoleRepository = GetDefaultIRoleRepositoryInstance();
             var mockIUserTopicRepository = GetDefaultIUserTopicRepositoryInstance();
             var mockIUserLanguageRepository = GetDefaultIUserLanguageRepositoryInstance();
@@ -105,7 +101,7 @@ namespace ILanguage.API.Test
             int topicId = 1;
             mockIUserTopicRepository.Setup(r => r.ListByTopicId(topicId)).ReturnsAsync(listaUserTopics);
 
-            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockUserScheduleRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
+            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object,  mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
             IEnumerable<User> result = await service.ListTuthorsByLanguageIdAndTopicId(1, 1);
             int count = result.ToList().Count;
             Assert.That(count, Is.EqualTo(3));
@@ -116,11 +112,10 @@ namespace ILanguage.API.Test
             var mockUserRepository = GetDefaultIUserRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockUserSubscriptionRepository = GetDefaultIUserSubscriptionRepositoryInstance();
-            var mockUserScheduleRepository = GetDefaultIUserScheduleRepositoryInstance();
             var mockIRoleRepository = GetDefaultIRoleRepositoryInstance();
             var mockIUserTopicRepository = GetDefaultIUserTopicRepositoryInstance();
             var mockIUserLanguageRepository = GetDefaultIUserLanguageRepositoryInstance();
-            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockUserScheduleRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
+            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
             int roleId = 1;
             mockUserRepository.Setup(r => r.ListUsersByRoleId(roleId)).ReturnsAsync(new List<User>());
             IEnumerable<User> users = await service.ListByRoleId(roleId);
@@ -134,7 +129,6 @@ namespace ILanguage.API.Test
             var mockUserRepository = GetDefaultIUserRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockUserSubscriptionRepository = GetDefaultIUserSubscriptionRepositoryInstance();
-            var mockUserScheduleRepository = GetDefaultIUserScheduleRepositoryInstance();
             var mockIRoleRepository = GetDefaultIRoleRepositoryInstance();
             var mockIUserTopicRepository = GetDefaultIUserTopicRepositoryInstance();
             var mockIUserLanguageRepository = GetDefaultIUserLanguageRepositoryInstance();
@@ -142,7 +136,7 @@ namespace ILanguage.API.Test
             usersList.Add(new User() { RoleId = 1, Id = 1 });
             usersList.Add(new User() { RoleId = 1, Id = 2 });
             usersList.Add(new User() { RoleId = 1, Id = 3 });
-            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockUserScheduleRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
+            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object,  mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
             int roleId = 1;
             mockUserRepository.Setup(r => r.ListUsersByRoleId(roleId)).ReturnsAsync(usersList);
             IEnumerable<User> users = await service.ListByRoleId(roleId);
@@ -155,11 +149,11 @@ namespace ILanguage.API.Test
             var mockUserRepository = GetDefaultIUserRepositoryInstance();
             var mockUnitOfWork = GetDefaultIUnitOfWorkInstance();
             var mockUserSubscriptionRepository = GetDefaultIUserSubscriptionRepositoryInstance();
-            var mockUserScheduleRepository = GetDefaultIUserScheduleRepositoryInstance();
+          
             var mockIRoleRepository = GetDefaultIRoleRepositoryInstance();
             var mockIUserTopicRepository = GetDefaultIUserTopicRepositoryInstance();
             var mockIUserLanguageRepository = GetDefaultIUserLanguageRepositoryInstance();
-            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockUserScheduleRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
+            var service = new UserService(mockUserRepository.Object, mockUnitOfWork.Object, mockUserSubscriptionRepository.Object, mockIRoleRepository.Object, mockIUserTopicRepository.Object, mockIUserLanguageRepository.Object);
             User userExpected = new User() { Email = "algo@algo.com", Password = "1234" };
             string email = "algo@algo.com";
             string password = "1234";
@@ -182,10 +176,7 @@ namespace ILanguage.API.Test
         {
             return new Mock<IUserSubscriptionRepository>();
         }
-        private Mock<IUserScheduleRepository> GetDefaultIUserScheduleRepositoryInstance()
-        {
-            return new Mock<IUserScheduleRepository>();
-        }
+      
 
         private Mock<IRoleRepository> GetDefaultIRoleRepositoryInstance()
         {

@@ -19,14 +19,7 @@ namespace ILenguage.API.Domain.Models
 
         public List<User> Users { get; set; }
 
-        /* To Delete */
-        public int ScheduleId { get; set; }
-        public Schedule Schedule { get; set; }
-
-
-        public SessionDetail SessionDetail { get;set; }
-
-        /* ! To Delete*/
+       
 
         public List<UserSession> UserSessions { get; set; }
     }

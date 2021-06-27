@@ -15,18 +15,16 @@ namespace ILenguage.API.Services
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserSubscriptionRepository _userSubscriptionRepository;
-        private readonly IUserScheduleRepository _userScheduleRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IUserTopicRepository _userTopicRepository;
         private readonly IUserLanguageRepository _userLanguageRepository;
         private readonly IUserSessionRepository _userSessionRepository;
 
-        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository, IUserScheduleRepository userScheduleRepository, IRoleRepository roleRepository, IUserTopicRepository userTopicRepository, IUserLanguageRepository userLanguageRepository, IUserSessionRepository userSessionRepository)
+        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository,  IRoleRepository roleRepository, IUserTopicRepository userTopicRepository, IUserLanguageRepository userLanguageRepository, IUserSessionRepository userSessionRepository)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
             _userSubscriptionRepository = userSubscriptionRepository;
-            _userScheduleRepository = userScheduleRepository;
             _roleRepository = roleRepository;
             _userTopicRepository = userTopicRepository;
             _userLanguageRepository = userLanguageRepository;
@@ -60,12 +58,7 @@ namespace ILenguage.API.Services
             var users = userSubscription.Select(us => us.User).ToList();
             return users;
         }
-        public async Task<IEnumerable<User>> ListByScheduleId(int scheduleId)
-        {
-            var userSchedule = await _userScheduleRepository.ListByScheduleId(scheduleId);
-            var users = userSchedule.Select(us => us.User).ToList();
-            return users;
-        }
+        
 
         public async Task<UserResponse> GetByIdAsync(int userId)
         {
