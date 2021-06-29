@@ -7,6 +7,7 @@ namespace ILenguage.API.Domain.Services
 {
     public interface IUserService
     {
+        AuthenticationResponse Authenticate(AuthenticationRequest request);
         Task<IEnumerable<User>> ListAsync();
         Task<IEnumerable<User>> ListByRoleId(int roleId);
         Task<IEnumerable<User>> ListTuthorsByLanguageIdAndTopicId(int languageId, int topicId);

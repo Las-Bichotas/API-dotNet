@@ -54,6 +54,11 @@ namespace ILenguage.API.Persistence.Repositories
             _context.Users.Update(user);
         }
 
+        public IEnumerable<User> users()
+        {
+           return _context.Users.ToList();
+        }
+
         /* */
         /*
         public async Task<IEnumerable<User>> ListBySessionIdAsync(int sessionId)

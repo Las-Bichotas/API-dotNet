@@ -3,14 +3,16 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ILenguage.API.Domain.Models;
 using ILenguage.API.Domain.Services;
+using ILenguage.API.Domain.Services.Communications;
 using ILenguage.API.Extensions;
 using ILenguage.API.Resources;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace ILenguage.API.Controllers
 {
-
+    [Authorize]
     [ApiController]
     [Produces("application/json")]
     [Route("/api/[controller]")]
@@ -20,6 +22,16 @@ namespace ILenguage.API.Controllers
         private readonly IMapper _mapper;
         private readonly IUserTopicService _userTopicService;
         private readonly ICommentService _commentService;
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody] AuthenticationRequest request)
+        {
+            var response = _userService.Authenticate(request);
+            if (response == null)
+                return BadRequest(new { message = "Invalid Username or Password" });
+            return Ok(response);
+        }
 
         public UserController(IUserService userService, IMapper mapper, IUserTopicService userTopicService, ICommentService commentService)
         {

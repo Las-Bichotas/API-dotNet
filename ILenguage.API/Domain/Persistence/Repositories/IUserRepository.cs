@@ -6,6 +6,7 @@ namespace ILenguage.API.Domain.Persistence.Repositories
 {
     public interface IUserRepository
     {
+        IEnumerable<User> users();
         Task<IEnumerable<User>> ListAsync();
         Task<IEnumerable<User>> ListUsersByRoleId(int roleId);
         Task AddAsync(User user);

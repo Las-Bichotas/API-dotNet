@@ -7,6 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
+using ILenguage.API.Settings;
+using System.Text;
+using System.Security.Claims;
 
 namespace ILenguage.API.Services
 {
@@ -19,8 +25,9 @@ namespace ILenguage.API.Services
         private readonly IUserTopicRepository _userTopicRepository;
         private readonly IUserLanguageRepository _userLanguageRepository;
         private readonly IUserSessionRepository _userSessionRepository;
+        private readonly AppSettings _appSettings;
 
-        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository,  IRoleRepository roleRepository, IUserTopicRepository userTopicRepository, IUserLanguageRepository userLanguageRepository, IUserSessionRepository userSessionRepository)
+        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IUserSubscriptionRepository userSubscriptionRepository,  IRoleRepository roleRepository, IUserTopicRepository userTopicRepository, IUserLanguageRepository userLanguageRepository, IUserSessionRepository userSessionRepository, IOptions<AppSettings> appsettings)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
@@ -29,6 +36,36 @@ namespace ILenguage.API.Services
             _userTopicRepository = userTopicRepository;
             _userLanguageRepository = userLanguageRepository;
             _userSessionRepository = userSessionRepository;
+            _appSettings = appsettings.Value;
+        }
+        public AuthenticationResponse Authenticate(AuthenticationRequest request)
+        {
+            // el username va a ser comparado con el correo
+            var user =_userRepository.users().SingleOrDefault(x=>
+            x.Email == request.Username && 
+            x.Password==request.Password);
+            
+            if (user == null) return null;
+            var token = GenerateJwtToken(user);
+            return new AuthenticationResponse(user,token);
+        }
+        private string GenerateJwtToken(User user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var Key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name,user.Id.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(Key),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
 
         public async Task<IEnumerable<User>> ListAsync()
@@ -165,5 +202,7 @@ namespace ILenguage.API.Services
             var users = userSessions.Select(pt => pt.User).ToList();
             return users;
         }
+
+
     }
 }
