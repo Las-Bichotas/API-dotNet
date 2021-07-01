@@ -13,12 +13,12 @@ namespace ILenguage.API.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("/api/[controller]")]
-    public class CommentController : ControllerBase
+    public class CommentsController : ControllerBase
     {
         private readonly ICommentService _commentservice;
         private readonly IMapper _mapper;
 
-        public CommentController(ICommentService commentservice, IMapper mapper)
+        public CommentsController(ICommentService commentservice, IMapper mapper)
         {
             _commentservice = commentservice;
             _mapper = mapper;

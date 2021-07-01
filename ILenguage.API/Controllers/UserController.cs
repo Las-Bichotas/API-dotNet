@@ -14,14 +14,14 @@ namespace ILenguage.API.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("/api/[controller]")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IUserTopicService _userTopicService;
         private readonly ICommentService _commentService;
 
-        public UserController(IUserService userService, IMapper mapper, IUserTopicService userTopicService, ICommentService commentService)
+        public UsersController(IUserService userService, IMapper mapper, IUserTopicService userTopicService, ICommentService commentService)
         {
             _userService = userService;
             _mapper = mapper;
