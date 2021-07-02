@@ -33,12 +33,23 @@ namespace ILenguage.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            
             /*services.AddHttpClient("SubscriptionController", client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5001");
             });*/
 
             services.AddControllers();
+
+
+            services.AddCors(options => options.AddDefaultPolicy(
+                builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .DisallowCredentials()));
+            
+            
             services.AddDbContext<AppDbContext>(options =>
             {
 
@@ -65,7 +76,7 @@ namespace ILenguage.API
 
             services.AddScoped<ICommentRepository, CommentRepository>();
 
-            services.AddScoped<IMakePaymentService, MakePaymentService>();
+
             services.AddScoped<IRelatedUserService, RelatedUserService>();
             services.AddScoped<IRelatedUserService, RelatedUserService>();
             services.AddScoped<ISessionService, SessionService>();
@@ -107,6 +118,7 @@ namespace ILenguage.API
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
